@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('services', ServiceController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
+    Route::get('configuracion', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
 });
 
 require __DIR__.'/auth.php';

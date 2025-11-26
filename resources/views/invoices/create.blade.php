@@ -294,7 +294,7 @@
 
             // formato de moneda
             formatCurrency(value) {
-                const setting = @json($setting); // Obtenemos el setting si está disponible
+                const setting = @json($setting); // obtener el seting
                 const symbol = setting ? setting.simbolo_moneda : '$';
                 return symbol + ' ' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
