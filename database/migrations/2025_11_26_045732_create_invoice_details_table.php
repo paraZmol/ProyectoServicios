@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('invoice_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
-            // en caso de eliminar el servicio
-            $table->foreignId('service_id')->nullable()->constrained()->onDelete('set null');
             $table->string('nombre_servicio');
             $table->integer('cantidad');
             $table->decimal('precio_unitario_final', 10, 2);
             $table->decimal('total_linea', 10, 2);
+            $table->foreignId('invoice_id')->constrained('invoices');
+            $table->foreignId('service_id')->constrained('services');
             $table->timestamps();
         });
     }

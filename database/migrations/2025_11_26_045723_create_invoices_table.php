@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2);
             $table->decimal('impuesto', 10, 2);
             $table->decimal('total', 10, 2);
-            $table->foreignId('client_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
