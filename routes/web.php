@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     // request
     Route::resource('services', ServiceController::class);
     Route::resource('clients', ClientController::class);
+    Route::resource('invoices', InvoiceController::class);
 });
 
 require __DIR__.'/auth.php';
