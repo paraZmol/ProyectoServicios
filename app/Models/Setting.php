@@ -12,11 +12,15 @@ class Setting extends Model
     protected $fillable = [
         'nombre_empresa',
         'telefono',
-        'email',
+        'correo_electronico',
         'simbolo_moneda',
         'iva_porcentaje',
         'direccion',
+        'region',
+        'provincia',
         'ciudad',
+        'codigo_postal',
+        'logo_path',
     ];
 
     public $timestamps = true;

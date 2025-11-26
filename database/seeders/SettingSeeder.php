@@ -14,11 +14,14 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert([
             'nombre_empresa' => 'PROYECTO SERVICIOS S.A.',
             'telefono' => '+51 987 654 321',
-            'email' => 'contacto@servicios.com',
+            'correo_electronico' => 'contacto@servicios.com',
             'simbolo_moneda' => 'S/',
             'iva_porcentaje' => 13.00,
             'direccion' => 'Av. Central 123, Lima',
+            'region' => 'Lima',
+            'provincia' => 'Lima',
             'ciudad' => 'Lima',
+            'codigo_postal' => '15001',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -62,8 +62,8 @@
                                 </select>
                             </div>
                              <div>
-                                <x-input-label for="tipo_pago" :value="__('Método de Pago')" />
-                                <select id="tipo_pago" name="tipo_pago" x-model="invoiceData.tipo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                <x-input-label for="metodo_pago" :value="__('Método de Pago')" />
+                                <select id="metodo_pago" name="metodo_pago" x-model="invoiceData.metodo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                     <option value="Efectivo">Efectivo</option>
                                     <option value="Transferencia">Transferencia</option>
                                     <option value="Digital">Billetera Digital</option>
@@ -88,29 +88,34 @@
                                         <th class="px-3 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Acciones</th>
                                     </tr>
                                 </thead>
+                                {{-- error de index --}}
                                 <tbody class="bg-white divide-y divide-gray-200" x-ref="itemsTable">
                                     <template x-for="(item, index) in invoiceData.items" :key="index">
-                                        <tr>
-                                            <td class="px-3 py-2 text-sm text-gray-900 whitespace-nowrap">
-                                                <input type="hidden" :name="'items[' + index + '][service_id]'" x-model="item.service_id">
-                                                <input type="hidden" :name="'items[' + index + '][nombre_servicio]'" x-model="item.nombre_servicio">
-                                                <p class="font-semibold" x-text="item.codigo + ' | ' + item.nombre_servicio"></p>
-                                            </td>
-                                            <td class="px-3 py-2 text-sm text-right whitespace-nowrap">
-                                                <x-text-input type="number" :name="'items[' + index + '][cantidad]'" x-model.number="item.cantidad" @input="calculateTotals" class="w-20 text-right" min="1" required />
-                                            </td>
-                                            <td class="px-3 py-2 text-sm text-right whitespace-nowrap">
-                                                <x-text-input type="number" step="0.01" :name="'items[' + index + '][precio_unitario_final]'" x-model.number="item.precio_unitario_final" @input="calculateTotals" class="text-right w-28" min="0.01" required />
-                                            </td>
-                                            <td class="px-3 py-2 text-sm font-bold text-right whitespace-nowrap" x-text="formatCurrency(item.total_linea)"></td>
-                                            <td class="px-3 py-2 text-sm font-medium text-right whitespace-nowrap">
-                                                <button type="button" @click="removeItem(index)" class="text-red-600 hover:text-red-900">
-                                                    Eliminar
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </template>
+    <tr>
+        <td class="px-3 py-2 text-sm text-gray-900 whitespace-nowrap">
+            {{-- CORRECCIÓN: Usamos comillas simples para la cadena y concatenación simple --}}
+            <input type="hidden" x-bind:name="`items[${index}][service_id]`" x-model="item.service_id">
+            <input type="hidden" x-bind:name="`items[${index}][nombre_servicio]`" x-model="item.nombre_servicio">
+            <p class="font-semibold" x-text="item.codigo + ' | ' + item.nombre_servicio"></p>
+        </td>
+        <td class="px-3 py-2 text-sm text-right whitespace-nowrap">
+            {{-- CORRECCIÓN FINAL LÍNEA 103 (input cantidad) --}}
+            <x-text-input type="number" x-bind:name="`items[${index}][cantidad]`" x-model.number="item.cantidad" @input="calculateTotals" class="w-20 text-right" min="1" required />
+        </td>
+        <td class="px-3 py-2 text-sm text-right whitespace-nowrap">
+            {{-- CORRECCIÓN FINAL LÍNEA 106 (input precio) --}}
+            <x-text-input type="number" step="0.01" x-bind:name="`items[${index}][precio_unitario_final]`" x-model.number="item.precio_unitario_final" @input="calculateTotals" class="text-right w-28" min="0.01" required />
+        </td>
+        <td class="px-3 py-2 text-sm font-bold text-right whitespace-nowrap" x-text="formatCurrency(item.total_linea)"></td>
+        <td class="px-3 py-2 text-sm font-medium text-right whitespace-nowrap">
+            <button type="button" @click="removeItem(index)" class="text-red-600 hover:text-red-900">
+                Eliminar
+            </button>
+        </td>
+    </tr>
+</template>
                                 </tbody>
+                                {{-- fin del error de index --}}
                             </table>
                             <p class="mt-3 text-gray-600" x-show="invoiceData.items.length === 0">No se han añadido servicios a la factura.</p>
                         </div>
@@ -145,10 +150,19 @@
 
                         {{-- botones finales --}}
                         <div class="flex justify-end mt-8 space-x-4">
-                            <x-primary-button type="submit" :disabled="invoiceData.items.length === 0" @click="invoiceData.estado = 'Pagada'">
+                            <x-primary-button
+                                type="submit"
+                                x-bind:disabled="invoiceData.items.length === 0"
+                                @click="invoiceData.estado = 'Pagada'"
+                            >
                                 {{ __('Guardar y Pagar') }}
                             </x-primary-button>
-                            <x-primary-button type="submit" :disabled="invoiceData.items.length === 0" class="bg-orange-500 hover:bg-orange-600" @click="invoiceData.estado = 'Pendiente'">
+                            <x-primary-button
+                                type="submit"
+                                x-bind:disabled="invoiceData.items.length === 0"
+                                class="bg-orange-500 hover:bg-orange-600"
+                                @click="invoiceData.estado = 'Pendiente'"
+                            >
                                 {{ __('Guardar como Pendiente') }}
                             </x-primary-button>
                         </div>
@@ -205,7 +219,7 @@
                 client_id: '',
                 fecha: '{{ date('Y-m-d') }}',
                 estado: 'Pagada',
-                tipo_pago: 'Efectivo',
+                metodo_pago: 'Efectivo',
 
                 // items y canculos
                 items: @json(old('items', [])),
@@ -301,11 +315,8 @@
 
             // envio de formulario
             submitForm(event) {
-                // sumbit
                 this.calculateTotals();
-
-                // de alpine a formualrio
-                event.target.submit();
+                event.currentTarget.submit();
             }
         }
     }

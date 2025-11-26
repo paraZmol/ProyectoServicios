@@ -23,7 +23,7 @@
                     </form>
 
                     <a href="{{ route('invoices.create') }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-700">
-                        <i class="mr-1 fa fa-plus-circle"></i> {{ __('Nueva Factura') }}
+                        <i class="mr-1 fa fa-plus-circle"></i> {{ __('Nueva Boleta') }}
                     </a>
                 </div>
 

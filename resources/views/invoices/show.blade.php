@@ -110,7 +110,7 @@
 
                         {{-- nota de pie --}}
                         <div class="pt-4 mt-10 text-sm text-gray-500 border-t">
-                            <p>Método de Pago: **{{ $invoice->tipo_pago }}**</p>
+                            <p>Método de Pago: **{{ $invoice->metodo_pago }}**</p>
                             <p>¡Gracias por su negocio!</p>
                         </div>
                     </div>

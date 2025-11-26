@@ -62,11 +62,11 @@
                                 </select>
                             </div>
                              <div>
-                                <x-input-label for="tipo_pago" :value="__('Método de Pago')" />
-                                <select id="tipo_pago" name="tipo_pago" x-model="invoiceData.tipo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
-                                    <option value="Efectivo" @selected(old('tipo_pago', $invoice->tipo_pago) == 'Efectivo')>Efectivo</option>
-                                    <option value="Transferencia" @selected(old('tipo_pago', $invoice->tipo_pago) == 'Transferencia')>Transferencia</option>
-                                    <option value="Digital" @selected(old('tipo_pago', $invoice->tipo_pago) == 'Digital')>Billetera Digital</option>
+                                <x-input-label for="metodo_pago" :value="__('Método de Pago')" />
+                                <select id="metodo_pago" name="metodo_pago" x-model="invoiceData.metodo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                    <option value="Efectivo" @selected(old('metodo_pago', $invoice->metodo_pago) == 'Efectivo')>Efectivo</option>
+                                    <option value="Transferencia" @selected(old('metodo_pago', $invoice->metodo_pago) == 'Transferencia')>Transferencia</option>
+                                    <option value="Digital" @selected(old('metodo_pago', $invoice->metodo_pago) == 'Digital')>Billetera Digital</option>
                                 </select>
                             </div>
                              <div>
@@ -216,7 +216,7 @@
                 client_id: initialInvoice.client_id,
                 fecha: initialInvoice.fecha,
                 estado: initialInvoice.estado,
-                tipo_pago: initialInvoice.tipo_pago,
+                metodo_pago: initialInvoice.metodo_pago,
 
                 items: initialItems,
                 subtotal: parseFloat(initialInvoice.subtotal),

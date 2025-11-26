@@ -15,7 +15,7 @@ class Invoice extends Model
     protected $fillable = [
         'fecha',
         'estado',
-        'tipo_pago',
+        'metodo_pago',
         'subtotal',
         'impuesto',
         'total',

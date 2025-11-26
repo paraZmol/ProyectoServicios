@@ -22,7 +22,7 @@ class InvoiceUpdateRequest extends FormRequest
         return [
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
-            'tipo_pago' => 'required|string|max:50',
+            'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pagada,Pendiente,Cancelada',
 
             // calculos generales

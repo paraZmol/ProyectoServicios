@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_empresa');
             $table->string('telefono')->nullable();
-            $table->string('email')->nullable();
+            $table->string('correo_electronico')->nullable();
             $table->string('simbolo_moneda')->default('$');
             $table->decimal('iva_porcentaje', 5, 2)->default(13.00);
             $table->string('direccion')->nullable();
+            $table->string('region')->nullable();
+            $table->string('provincia')->nullable();
             $table->string('ciudad')->nullable();
+            $table->string('codigo_postal')->nullable();
+            $table->string('logo_path')->nullable();
             $table->timestamps();
         });
     }

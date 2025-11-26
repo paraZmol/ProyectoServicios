@@ -68,7 +68,7 @@ class InvoiceController extends Controller
                 'client_id' => $data['client_id'],
                 'user_id' => Auth::id(),
                 'fecha' => $data['fecha'],
-                'tipo_pago' => $data['tipo_pago'],
+                'metodo_pago' => $data['metodo_pago'],
                 'estado' => $data['estado'],
                 'subtotal' => $data['subtotal'],
                 'impuesto' => $data['impuesto'],
@@ -137,7 +137,7 @@ class InvoiceController extends Controller
             $invoice->update([
                 'client_id' => $data['client_id'],
                 'fecha' => $data['fecha'],
-                'tipo_pago' => $data['tipo_pago'],
+                'metodo_pago' => $data['metodo_pago'],
                 'estado' => $data['estado'],
                 'subtotal' => $data['subtotal'],
                 'impuesto' => $data['impuesto'],

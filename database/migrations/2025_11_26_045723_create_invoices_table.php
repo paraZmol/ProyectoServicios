@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('fecha');
             $table->string('estado')->default('Pagada');
-            $table->string('tipo_pago')->nullable();
+            $table->string('metodo_pago')->nullable();
             $table->decimal('subtotal', 10, 2);
             $table->decimal('impuesto', 10, 2);
             $table->decimal('total', 10, 2);
