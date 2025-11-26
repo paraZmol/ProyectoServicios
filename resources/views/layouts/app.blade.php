@@ -35,7 +35,7 @@
                         </x-nav-link>
 
                         <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')">
-                            {{ __('Facturas') }}
+                            {{ __('Boletas') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">

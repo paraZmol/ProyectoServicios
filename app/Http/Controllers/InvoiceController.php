@@ -91,11 +91,11 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Factura creada exitosamente con el número #' . $invoice->id);
+            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Boleta creada exitosamente con el número #' . $invoice->id);
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Ocurrió un error al guardar la factura: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Ocurrió un error al guardar la boleta: ' . $e->getMessage());
         }
     }
 
@@ -163,11 +163,11 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Factura #' . $invoice->id . ' actualizada exitosamente.');
+            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Boleta #' . $invoice->id . ' actualizada exitosamente.');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Ocurrió un error al actualizar la factura: ' . $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Ocurrió un error al actualizar la boleta: ' . $e->getMessage());
         }
     }
 
@@ -176,6 +176,6 @@ class InvoiceController extends Controller
     {
         $invoice->delete();
 
-        return redirect()->route('invoices.index')->with('success', 'Factura #' . $invoice->id . ' eliminada exitosamente.');
+        return redirect()->route('invoices.index')->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
     }
 }
