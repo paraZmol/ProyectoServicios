@@ -11,70 +11,60 @@ class ServiceController extends Controller
 
     public function index(Request $request)
     {
-        // 1. Obtener el término de búsqueda
+        // obtener el temin de busqueda
         $search = $request->get('search');
 
-        // 2. Construir la consulta
+        // consulta de busqueda
         $services = Service::query()
             ->when($search, function ($query, $search) {
-                // Buscar por código o nombre (Producto)
+                // por codigo o nombre
                 $query->where('codigo', 'like', '%' . $search . '%')
                       ->orWhere('nombre', 'like', '%' . $search . '%');
             })
             ->orderBy('id', 'desc')
-            ->paginate(10); // Paginación de 10 elementos por página
+            ->paginate(10); // paginacion de 10
 
         return view('services.index', compact('services', 'search'));
     }
 
-    /**
-     * Muestra el formulario para crear un nuevo servicio.
-     */
+    // nuevo servicio
     public function create()
     {
         return view('services.create');
     }
 
-    /**
-     * Almacena un servicio recién creado.
-     */
+    // save nuevo servicio
     public function store(ServiceStoreRequest $request)
     {
-        // Los datos ya están validados por ServiceStoreRequest
+        // validacion de datos
         Service::create($request->validated());
 
         return redirect()->route('services.index')->with('success', 'Servicio creado correctamente.');
     }
 
-    /**
-     * Muestra el formulario para editar un servicio específico.
-     */
+    // modificar servicio
     public function edit(Service $service)
     {
-        // Laravel automáticamente inyecta la instancia de Service (Route Model Binding)
+        // instancia de servicio
         return view('services.edit', compact('service'));
     }
 
-    /**
-     * Actualiza el servicio en el almacenamiento.
-     */
+    // guardar la modificacion
     public function update(ServiceStoreRequest $request, Service $service)
     {
-        // Los datos ya están validados
+        // validacion de datos
         $service->update($request->validated());
 
         return redirect()->route('services.index')->with('success', 'Servicio actualizado correctamente.');
     }
 
-    /**
-     * Elimina el servicio del almacenamiento.
-     */
+    // eliminar
     public function destroy(Service $service)
     {
         $service->delete();
 
-        // Si se implementa un "estado" o Soft Delete, aquí se podría actualizar el estado.
-        // Como no implementamos Soft Deletes, se elimina permanentemente.
+        /*
+        * avergitruar los soft deletes en laravel */
 
         return redirect()->route('services.index')->with('success', 'Servicio eliminado correctamente.');
     }

@@ -8,13 +8,13 @@ class ServiceStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // Esto permite que el usuario autenticado (logged in) ejecute esta solicitud.
+        // logear con usuario autenticado
         return true;
     }
 
     public function rules(): array
     {
-        // Las reglas de validación basadas en la estructura del modelo Service
+        // reglas de validacion
         return [
             'codigo' => 'required|string|max:50|unique:services,codigo,' . $this->route('service'),
             'nombre' => 'required|string|max:255',
@@ -23,7 +23,7 @@ class ServiceStoreRequest extends FormRequest
         ];
     }
 
-    // Opcional: mensajes de error personalizados
+    // mensajes de error
     public function messages()
     {
         return [
