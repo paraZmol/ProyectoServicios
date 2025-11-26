@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ClientController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
 
     // request
     Route::resource('services', ServiceController::class);
+    Route::resource('clients', ClientController::class);
 });
 
 require __DIR__.'/auth.php';
