@@ -18,6 +18,7 @@ class Client extends Model
         'estado',
     ];
 
+    // 1 cliente - m facturas / boletas
     public function invoices(): HasMany
     {
         return $this->hasMany(Invoice::class);
