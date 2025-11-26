@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ServiceStoreRequest extends FormRequest
 {
@@ -14,9 +15,15 @@ class ServiceStoreRequest extends FormRequest
 
     public function rules(): array
     {
+        $serviceId = $this->route('service') ?? null;
         // reglas de validacion
         return [
-            'codigo' => 'required|string|max:50|unique:services,codigo,' . $this->route('service'),
+            'codigo' => [
+                'required',
+                'string',
+                'max:50' ,
+                Rule::unique('services', 'codigo')->ignore($serviceId),
+            ],
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0.01',
