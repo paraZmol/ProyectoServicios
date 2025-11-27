@@ -151,7 +151,7 @@ class InvoiceController extends Controller
         $setting = Setting::first();
 
         $clients = Client::where('estado', 'activo')->get(['id', 'nombre', 'telefono', 'email', 'direccion']);
-        $services = Service::all(['id', 'codigo', 'nombre', 'precio']);
+        $services = Service::all(['id', 'codigo', 'nombre_servicio', 'precio']);
 
         $iva_rate = $setting ? $setting->iva_porcentaje / 100 : 0.13;
 
@@ -212,6 +212,8 @@ class InvoiceController extends Controller
     {
         $invoice->delete();
 
-        return redirect()->route('invoices.index')->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
+        return redirect()
+            ->route('invoices.index')
+            ->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
     }
 }

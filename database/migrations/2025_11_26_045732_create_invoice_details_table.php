@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('cantidad');
             $table->decimal('precio_unitario_final', 10, 2);
             $table->decimal('total_linea', 10, 2);
-            $table->foreignId('invoice_id')->constrained('invoices');
+            $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services');
             $table->timestamps();
         });
