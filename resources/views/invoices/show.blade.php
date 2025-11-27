@@ -15,9 +15,12 @@
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-700">
                             <i class="mr-1 fa fa-edit"></i> {{ __('Editar Boleta') }}
                         </a>
-                        <button onclick="window.print()" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
+                        {{-- <button onclick="window.print()" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
                             <i class="mr-1 fa fa-print"></i> {{ __('Imprimir') }}
-                        </button>
+                        </button> --}}
+                        <a href="{{ route('invoices.pdf', $invoice->id) }}" target="_blank" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
+                            <i class="mr-1 fa fa-print"></i> {{ __('Imprimir/PDF') }}
+                        </a>
                     </div>
 
                     {{-- diseño de la boleta --}}
