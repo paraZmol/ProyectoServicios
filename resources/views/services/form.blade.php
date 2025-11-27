@@ -8,9 +8,9 @@
     </div>
 
     <div>
-        <x-input-label for="nombre" :value="__('Nombre del Servicio')" />
-        <x-text-input id="nombre" name="nombre" type="text" class="block w-full mt-1" :value="old('nombre', $service->nombre)" required />
-        <x-input-error class="mt-2" :messages="$errors->get('nombre')" />
+        <x-input-label for="nombre_servicio" :value="__('Nombre del Servicio')" />
+        <x-text-input id="nombre_servicio" name="nombre_servicio" type="text" class="block w-full mt-1" :value="old('nombre_servicio', $service->nombre_servicio)" required />
+        <x-input-error class="mt-2" :messages="$errors->get('nombre_servicio')" />
     </div>
 
     <div>

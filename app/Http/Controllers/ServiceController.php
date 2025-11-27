@@ -19,7 +19,7 @@ class ServiceController extends Controller
             ->when($search, function ($query, $search) {
                 // por codigo o nombre
                 $query->where('codigo', 'like', '%' . $search . '%')
-                      ->orWhere('nombre', 'like', '%' . $search . '%');
+                      ->orWhere('nombre_servicio', 'like', '%' . $search . '%');
             })
             ->orderBy('id', 'desc')
             ->paginate(10); // paginacion de 10

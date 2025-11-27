@@ -14,19 +14,29 @@ class InvoiceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // validacion de campos
+            // Validación de campos principales de la boleta
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pendiente,Pagada,Cancelada',
+
+            //CORRECCIÓN CLAVE: Estos campos calculados son obligatorios
+            'subtotal' => 'required|numeric|min:0',
+            'impuesto' => 'required|numeric|min:0',
             'total' => 'required|numeric|min:0',
 
-            // validacion de items
-            'items' => 'required|array|min:1', // item minimo
+            // Validación de ítems (Detalles de la boleta)
+            'items' => 'required|array|min:1',
             'items.*.service_id' => 'required|exists:services,id',
+
+            // CORRECCIÓN: nombre_servicio es obligatorio
+            'items.*.nombre_servicio' => 'required|string|max:255',
+
             'items.*.cantidad' => 'required|integer|min:1',
-            'items.*.precio_unitario' => 'required|numeric|min:0.01',
-            'items.*.subtotal' => 'required|numeric|min:0.01',
+            'items.*.precio_unitario_final' => 'required|numeric|min:0.01',
+
+            // CORRECCIÓN: total_linea es el campo que la BD espera y el formulario envia
+            'items.*.total_linea' => 'required|numeric|min:0.01',
         ];
     }
 

@@ -11,6 +11,8 @@ use App\Http\Requests\InvoiceUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class InvoiceController extends Controller
 {
@@ -47,7 +49,7 @@ class InvoiceController extends Controller
         $setting = Setting::first();
 
         $clients = Client::where('estado', 'activo')->get(['id', 'nombre', 'telefono', 'email', 'direccion']);
-        $services = Service::all(['id', 'codigo', 'nombre', 'precio']);
+        $services = Service::all(['id', 'codigo', 'nombre_servicio', 'precio']);
 
         $iva_rate = $setting ? $setting->iva_porcentaje / 100 : 0.13;
         $invoice = new Invoice(); // instancia vasia para el formulario
@@ -58,12 +60,22 @@ class InvoiceController extends Controller
     // guardar boleta
     public function store(InvoiceStoreRequest $request)
     {
+        Log::info("=== INICIO STORE DE INVOICE ===");
+
         DB::beginTransaction();
 
         try {
+
+            Log::info("Datos recibidos del formulario", $request->all());
+
             $data = $request->validated();
 
+            Log::info("Datos validados", $data);
+
             // cabecera de boleta
+
+            Log::info("Creando cabecera de factura...");
+
             $invoice = Invoice::create([
                 'client_id' => $data['client_id'],
                 'user_id' => Auth::id(),
@@ -75,8 +87,16 @@ class InvoiceController extends Controller
                 'total' => $data['total'],
             ]);
 
-            // items de la boleta
+            Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
+
+            // detalles
+
+            Log::info("Procesando detalle de items...");
+
             $itemsData = collect($data['items'])->map(function ($item) use ($invoice) {
+
+                Log::info("Item procesado", $item);
+
                 return [
                     'invoice_id' => $invoice->id,
                     'service_id' => $item['service_id'],
@@ -87,15 +107,31 @@ class InvoiceController extends Controller
                 ];
             });
 
+            Log::info("Guardando detalles en la BD...");
+
             $invoice->details()->createMany($itemsData->toArray());
+
+            Log::info("Detalles guardados correctamente.");
 
             DB::commit();
 
-            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Boleta creada exitosamente con el número #' . $invoice->id);
+            Log::info("=== STORE COMPLETADO SIN ERRORES ===");
+
+            return redirect()->route('invoices.show', $invoice->id)
+                ->with('success', 'Boleta creada exitosamente con el número #' . $invoice->id);
 
         } catch (\Exception $e) {
+
+            Log::error("ERROR EN STORE", [
+                'mensaje' => $e->getMessage(),
+                'linea' => $e->getLine(),
+                'archivo' => $e->getFile(),
+            ]);
+
             DB::rollBack();
-            return redirect()->back()->withInput()->with('error', 'Ocurrió un error al guardar la boleta: ' . $e->getMessage());
+
+            return redirect()->back()->withInput()
+                ->with('error', 'Ocurrió un error al guardar la boleta: ' . $e->getMessage());
         }
     }
 

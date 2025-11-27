@@ -12,7 +12,7 @@ class ServiceSeeder extends Seeder
         DB::table('services')->insert([
             [
                 'codigo' => 'SVC001',
-                'nombre' => 'Instalación de Red LAN',
+                'nombre_servicio' => 'Instalación de Red LAN',
                 'descripcion' => 'Servicio de cableado e instalación de red local.',
                 'precio' => 125.00,
                 'created_at' => now(),
@@ -20,7 +20,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 'codigo' => 'SVC002',
-                'nombre' => 'Mantenimiento de Servidor',
+                'nombre_servicio' => 'Mantenimiento de Servidor',
                 'descripcion' => 'Revisión y optimización de sistema operativo de servidor.',
                 'precio' => 250.50,
                 'created_at' => now(),
@@ -28,7 +28,7 @@ class ServiceSeeder extends Seeder
             ],
             [
                 'codigo' => 'SVC003',
-                'nombre' => 'Asesoría Remota (1 hora)',
+                'nombre_servicio' => 'Asesoría Remota (1 hora)',
                 'descripcion' => 'Soporte técnico y asesoría por hora vía remota.',
                 'precio' => 50.00,
                 'created_at' => now(),

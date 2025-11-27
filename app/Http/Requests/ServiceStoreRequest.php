@@ -24,7 +24,7 @@ class ServiceStoreRequest extends FormRequest
                 'max:50' ,
                 Rule::unique('services', 'codigo')->ignore($serviceId),
             ],
-            'nombre' => 'required|string|max:255',
+            'nombre_servicio' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0.01',
         ];
@@ -36,7 +36,7 @@ class ServiceStoreRequest extends FormRequest
         return [
             'codigo.required' => 'El campo código es obligatorio.',
             'codigo.unique' => 'Este código ya ha sido registrado.',
-            'nombre.required' => 'El campo nombre (producto/servicio) es obligatorio.',
+            'nombre_servicio.required' => 'El campo nombre (servicio) es obligatorio.',
             'precio.required' => 'El campo precio es obligatorio.',
             'precio.numeric' => 'El precio debe ser un valor numérico.',
         ];

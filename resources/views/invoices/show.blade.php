@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Factura #') }}{{ $invoice->id }}
+            {{ __('Boleta #') }}{{ $invoice->id }}
         </h2>
     </x-slot>
 
@@ -13,7 +13,7 @@
                     {{-- boton de accion --}}
                     <div class="flex justify-end mb-6 space-x-3">
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-700">
-                            <i class="mr-1 fa fa-edit"></i> {{ __('Editar Factura') }}
+                            <i class="mr-1 fa fa-edit"></i> {{ __('Editar Boleta') }}
                         </a>
                         <button onclick="window.print()" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
                             <i class="mr-1 fa fa-print"></i> {{ __('Imprimir') }}
@@ -42,15 +42,15 @@
                         {{-- info de boleta de cliente --}}
                         <div class="grid grid-cols-2 gap-4 mb-8">
                             <div>
-                                <h2 class="mb-2 text-lg font-bold">{{ __('Facturar A:') }}</h2>
+                                <h2 class="mb-2 text-lg font-bold">{{ __('Boleta A:') }}</h2>
                                 <p class="font-semibold">{{ $invoice->client->nombre ?? 'Cliente Eliminado' }}</p>
                                 <p class="text-sm">{{ $invoice->client->direccion ?? 'Dirección no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->email ?? 'Email no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->telefono ?? 'Teléfono no disponible' }}</p>
                             </div>
                             <div class="text-right">
-                                <h2 class="mb-2 text-lg font-bold">{{ __('Detalles de Factura') }}</h2>
-                                <p><strong>Nº Factura:</strong> <span class="text-xl font-extrabold text-indigo-600">#{{ $invoice->id }}</span></p>
+                                <h2 class="mb-2 text-lg font-bold">{{ __('Detalles de Boleta') }}</h2>
+                                <p><strong>Nº Boleta:</strong> <span class="text-xl font-extrabold text-indigo-600">#{{ $invoice->id }}</span></p>
                                 <p><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
                                 <p><strong>Vendedor:</strong> {{ $invoice->user->name ?? 'N/A' }}</p>
                                 <p><strong>Estado:</strong>
