@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+//use Dotenv\Exception\ValidationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class InvoiceUpdateRequest extends FormRequest
 {
@@ -11,6 +15,7 @@ class InvoiceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        Log::info('Log: autorizacion del invoice update request exitosa');
         return true;
     }
 
@@ -19,6 +24,7 @@ class InvoiceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::info('log: datos del formuulario de actulizacion enviados para validacion', $this->all());
         return [
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
@@ -46,5 +52,11 @@ class InvoiceUpdateRequest extends FormRequest
             'items.min' => 'La factura debe contener al menos un servicio.',
             'items.*.cantidad.min' => 'La cantidad de un servicio debe ser al menos 1.',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        Log::warning('log: fallo en la validacion del invoice update request. Errores: ', $validator->errors()->all());
+        throw new ValidationException($validator);
     }
 }
