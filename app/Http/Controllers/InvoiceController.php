@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class InvoiceController extends Controller
@@ -215,5 +216,24 @@ class InvoiceController extends Controller
         return redirect()
             ->route('invoices.index')
             ->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
+    }
+
+    // pdf
+    public function generatePdf(Invoice $invoice) {
+        // cargar la relaciones
+        $invoice->load('client', 'user', 'details.service');
+        $setting = Setting::first();
+
+        // html de vista para la boleta
+        $pdf = Pdf::loadView('invoices.pdf', compact('invoice', 'setting'));
+
+        // nombre del archivo
+        $filename = 'Boleta_' . $invoice->id . '_' . $invoice->client->nombre . '.pdf' ;
+
+        // mostrar en navegador
+        return $pdf->stream($filename);
+
+        // en caso de quere descargar de forma directa, es decir que se descarga antes de visualizar
+        //return $pdf->download($filename);
     }
 }

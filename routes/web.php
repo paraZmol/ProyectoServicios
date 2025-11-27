@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SettingController;
+use Illuminate\Support\Facades\App;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('invoices', InvoiceController::class);
     Route::get('configuracion', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
+
+    // pdf
+    Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');
 });
 
 require __DIR__.'/auth.php';
