@@ -22,7 +22,8 @@ class ClientStoreRequest extends FormRequest
             'email' => [
                 'nullable',
                 'email',
-                Rule::unique('clients', 'email')->ignore($clientId),
+                Rule::unique('clients', 'email')
+                    ->ignore($clientId),
             ],
             'direccion' => 'nullable|string|max:255',
             'estado' => 'nullable|in:activo,inactivo',
@@ -30,7 +31,8 @@ class ClientStoreRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:20',
-                Rule::unique('clients', 'dni')->ignore($clientId),
+                Rule::unique('clients', 'dni')
+                    ->ignore($clientId),
             ],
         ];
     }
