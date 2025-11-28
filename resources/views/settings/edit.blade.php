@@ -26,13 +26,13 @@
                         <h3 class="pb-2 mb-4 text-lg font-semibold border-b">{{ __('Informacion General') }}</h3>
 
                         {{-- seccion del logo --}}
-                        <div>
+                        <div class="pb-2">
                             <x-input-label :value="__('Logo de la empresa')" />
                             @if ($setting->logo_path)
                                 <div class="mt-2 mb-4">
                                     <img src="{{ Storage::url($setting->logo_path) }}"
                                         alt="Logo de la Empresa"
-                                        class="max-width: 150px; height: auto; display: block; margin-bottom: 10px;">
+                                        class="block w-40 h-auto mb-4">
                                 </div>
                             @endif
 
