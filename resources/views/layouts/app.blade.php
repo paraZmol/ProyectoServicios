@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -22,23 +23,23 @@
             @isset($header)
                 <header class="bg-white shadow">
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="py-4">
                             {{ __('Inicio') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')">
+                        <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="py-4">
                             {{ __('Servicios') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')">
+                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="py-4">
                             {{ __('Clientes') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')">
+                        <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4">
                             {{ __('Boletas') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')">
+                        <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4">
                             {{ __('Configuración') }}
                         </x-nav-link>
 
