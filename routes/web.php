@@ -8,9 +8,16 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        //logeado
+        return redirect()->route('dashboard');
+    } else {
+        // al login
+        return redirect()->route('login');
+    }
 });
 
 Route::get('/dashboard', function () {
