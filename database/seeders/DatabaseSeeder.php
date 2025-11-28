@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             ClientSeeder::class,
             ServiceSeeder::class,
+
+            InvoiceSeeder::class,
         ]);
     }
 }

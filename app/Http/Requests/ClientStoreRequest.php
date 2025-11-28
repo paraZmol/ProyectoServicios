@@ -30,7 +30,7 @@ class ClientStoreRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:20',
-                'unique:clients,dni,' . $clientId,
+                Rule::unique('clients', 'dni')->ignore($clientId),
             ],
         ];
     }
