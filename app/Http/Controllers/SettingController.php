@@ -37,6 +37,7 @@ class SettingController extends Controller
             'codigo_postal' => 'nullable|string|max:20',
             // ralga para el logo con un maximo de 2mb
             'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'ruc'=> 'nullable|string|max:20',
         ]);
 
         // subida de logo

@@ -22,6 +22,7 @@ class SettingSeeder extends Seeder
             'provincia' => 'Lima',
             'ciudad' => 'Lima',
             'codigo_postal' => '15001',
+            'ruc' => '1073234305',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

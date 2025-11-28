@@ -43,8 +43,24 @@
                         {{-- nombre de la empresa --}}
                         <div>
                             <x-input-label for="nombre_empresa" :value="__('Nombre de la empresa')" />
-                            <x-text-input id="nombre_empresa" name="nombre_empresa" type="text" class="block w-full mt-1" :value="old('nombre_empresa', $setting->nombre_empresa)" required autofocus />
+                            <x-text-input
+                                id="nombre_empresa"
+                                name="nombre_empresa"
+                                type="text" class="block w-full mt-1"
+                                :value="old('nombre_empresa', $setting->nombre_empresa)" required autofocus />
                             <x-input-error class="mt-2" :messages="$errors->get('nombre_empresa')" />
+                        </div>
+
+                        {{-- ruc de la empresa --}}
+                        <div>
+                            <x-input-label for="ruc" :value="__('RUC de la empresa')" />
+                            <x-text-input
+                                id="ruc"
+                                name="ruc"
+                                type="text"
+                                class="block w-full mt-1"
+                                :value="old('ruc', $setting->ruc ?? '')" required />
+                            <x-input-error class="mt-2" :messages="$errors->get('ruc')" />
                         </div>
 
                         {{-- iva (%) --}}
@@ -73,7 +89,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('telefono')" />
                         </div>
 
-                        {{-- correo electronico (nombre corregido) --}}
+                        {{-- correo electronico --}}
                         <div>
                             <x-input-label for="correo_electronico" :value="__('Correo electronico')" />
                             <x-text-input id="correo_electronico" name="correo_electronico" type="email" class="block w-full mt-1" :value="old('correo_electronico', $setting->correo_electronico)" />
