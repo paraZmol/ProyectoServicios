@@ -140,8 +140,8 @@
                 <p>Email: {{ $invoice->client->email ?? 'Email no disponible' }}</p>
                 <p>Teléfono: {{ $invoice->client->telefono ?? 'Telefono no disponible' }}</p>
             </td>
-            <td width="50%" class="text-right">
-                <p>N° Boleta: <strong>#{{ $invoice->id }}</strong></p>
+            <td width="50%" class="text-left">
+                <p><strong>N° Boleta: #{{ $invoice->id }}</strong></p>
                 <p>Fecha: {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
                 <p>Vendedor: {{ $invoice->user->name }}</p>
                 <p>Estado: {{ $invoice->estado }}</p>

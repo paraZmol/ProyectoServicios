@@ -52,7 +52,7 @@
                                 <p class="text-sm">{{ $invoice->client->email ?? 'Email no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->telefono ?? 'Teléfono no disponible' }}</p>
                             </div>
-                            <div class="text-right">
+                            <div class="text-left">
                                 <h2 class="mb-2 text-lg font-bold">{{ __('Detalles de Boleta') }}</h2>
                                 <p><strong>Nº Boleta:</strong> <span class="text-xl font-extrabold text-indigo-600">#{{ $invoice->id }}</span></p>
                                 <p><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
