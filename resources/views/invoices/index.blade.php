@@ -63,7 +63,7 @@
                                         <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
                                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
 
-                                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Está seguro de que desea eliminar esta factura?');">
+                                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Está seguro de que desea eliminar esta boleta?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
