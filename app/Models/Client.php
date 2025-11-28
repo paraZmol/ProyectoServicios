@@ -16,6 +16,7 @@ class Client extends Model
         'email',
         'direccion',
         'estado',
+        'dni',
     ];
 
     // 1 cliente - m facturas / boletas

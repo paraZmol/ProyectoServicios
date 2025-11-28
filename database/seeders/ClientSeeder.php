@@ -13,6 +13,7 @@ class ClientSeeder extends Seeder
             [
                 'nombre' => 'Juan Pérez (Activo)',
                 'telefono' => '998877665',
+                'dni' => '20202020',
                 'email' => 'juan.perez@test.com',
                 'direccion' => 'Calle Falsa 123',
                 'estado' => 'activo',
@@ -22,6 +23,7 @@ class ClientSeeder extends Seeder
             [
                 'nombre' => 'Maria López (Inactivo)',
                 'telefono' => '912345678',
+                'dni' => null,
                 'email' => 'maria.lopez@test.com',
                 'direccion' => 'Av. Siempre Viva 45',
                 'estado' => 'inactivo',
@@ -31,6 +33,7 @@ class ClientSeeder extends Seeder
             [
                 'nombre' => 'Cliente sin Email',
                 'telefono' => '900000000',
+                'dni' => null,
                 'email' => null,
                 'direccion' => 'Sin dirección',
                 'estado' => 'activo',
