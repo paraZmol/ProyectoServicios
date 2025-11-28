@@ -135,15 +135,17 @@
         <tr>
             <td width="50%">
                 <p style="font-weight: bold;">Cliente: {{ $invoice->client->nombre }}</p>
+                <p>DNI: {{ $invoice->client->dni ?? 'Sin DNI' }}</p>
                 <p>Dirección: {{ $invoice->client->direccion ?? 'Sin dirección' }}</p>
                 <p>Email: {{ $invoice->client->email ?? 'Email no disponible' }}</p>
-                <p>Teléfono: {{ $invoice->client->telefono ?? '900000000' }}</p>
+                <p>Teléfono: {{ $invoice->client->telefono ?? 'Telefono no disponible' }}</p>
             </td>
             <td width="50%" class="text-right">
                 <p>N° Boleta: <strong>#{{ $invoice->id }}</strong></p>
                 <p>Fecha: {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
                 <p>Vendedor: {{ $invoice->user->name }}</p>
-                <p>Estado: **{{ $invoice->estado }}**</p>
+                <p>Estado: {{ $invoice->estado }}</p>
+                <p>Método de Pago: {{ $invoice->metodo_pago }}</p>
             </td>
         </tr>
     </table>

@@ -8,6 +8,12 @@
     </div>
 
     <div>
+        <x-input-label for="dni" :value="__('DNI (Opcional)')" />
+        <x-text-input id="dni" name="dni" type="text" class="block w-full mt-1" :value="old('dni', $client->dni)" />
+        <x-input-error class="mt-2" :messages="$errors->get('dni')" />
+    </div>
+
+    <div>
         <x-input-label for="telefono" :value="__('Teléfono (Opcional)')" />
         <x-text-input id="telefono" name="telefono" type="text" class="block w-full mt-1" :value="old('telefono', $client->telefono)" />
         <x-input-error class="mt-2" :messages="$errors->get('telefono')" />

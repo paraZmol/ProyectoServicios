@@ -47,6 +47,7 @@
                             <div>
                                 <h2 class="mb-2 text-lg font-bold">{{ __('Boleta A:') }}</h2>
                                 <p class="font-semibold">{{ $invoice->client->nombre ?? 'Cliente Eliminado' }}</p>
+                                <p class="text-sm">{{ $invoice->client->dni ?? 'DNI no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->direccion ?? 'Dirección no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->email ?? 'Email no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->telefono ?? 'Teléfono no disponible' }}</p>
@@ -66,6 +67,7 @@
                                         {{ $invoice->estado }}
                                     </span>
                                 </p>
+                                <p><strong>Método de Pago:</strong> {{ $invoice->metodo_pago }}</p>
                             </div>
                         </div>
 
@@ -113,8 +115,7 @@
 
                         {{-- nota de pie --}}
                         <div class="pt-4 mt-10 text-sm text-gray-500 border-t">
-                            <p>Método de Pago: **{{ $invoice->metodo_pago }}**</p>
-                            <p>¡Gracias por su negocio!</p>
+                            <p>¡Gracias por su preferencia!</p>
                         </div>
                     </div>
 

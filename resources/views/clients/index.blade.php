@@ -35,6 +35,7 @@
                         <thead class="bg-sky-100/50">
                             <tr>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Nombre</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">DNI</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Teléfono</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Email</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Dirección</th>
@@ -46,6 +47,7 @@
                             @forelse ($clients as $client)
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $client->nombre }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $client->dni ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $client->telefono ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $client->email ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $client->direccion ?? 'N/A' }}</td>

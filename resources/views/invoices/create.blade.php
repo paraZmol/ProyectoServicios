@@ -13,11 +13,11 @@
                 <div class="p-6 text-gray-900" x-data="invoiceForm()">
 
                     {{-- resources/views/invoices/create.blade.php (DEBUG BLOCK) --}}
-                    <div x-cloak x-show="invoiceData.items.length > 0" class="p-4 mb-4 text-sm text-gray-700 border border-blue-400 rounded-lg bg-blue-50/50">
+                    {{--  <div x-cloak x-show="invoiceData.items.length > 0" class="p-4 mb-4 text-sm text-gray-700 border border-blue-400 rounded-lg bg-blue-50/50">
                         <h4 class="pb-1 mb-2 font-bold border-b">DEBUG: Datos de la Boleta (Pre-Envío)</h4>
                         <pre x-text="JSON.stringify(invoiceData, null, 2)"></pre>
                         {{-- Muestra los items que Alpine ha calculado. --}}
-                    </div>
+                    {{--</div>
                     {{-- Fin del Bloque DEBUG --}}
 
                     {{-- mensaje de error --}}
