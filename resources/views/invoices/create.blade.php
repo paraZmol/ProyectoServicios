@@ -329,7 +329,7 @@
             // envio de formulario
             submitForm(event) {
                 this.calculateTotals();
-                alert('DEBUG: Enviando datos validados al servidor.');
+                //alert('DEBUG: Enviando datos validados al servidor.');
                 event.currentTarget.submit();
             }
         }
