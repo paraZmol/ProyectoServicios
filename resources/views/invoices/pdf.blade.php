@@ -5,26 +5,66 @@
     <title>Boleta #{{ $invoice->id }}</title>
 
     <style>
-        /* Estilos CSS BÁSICOS para DomPDF */
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
             margin: 0;
             padding: 0;
         }
-        .header {
+
+        /* --- header --- */
+        .header-container {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
-        .header div {
-            width: 50%;
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .header-table td {
+            padding: 0;
+            vertical-align: middle;
+        }
+
+        /* logo */
+        .logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        /* Contenedor de la información de la empresa */
+        .company-info {
+            text-align: center;
+            padding: 0 10px;
+            line-height: 1.5;
+        }
+
+        /* Estilo para el recuadro de N° de Boleta/RUC */
+        .ruc-box {
+            border: 2px solid #333;
+            padding: 8px 5px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .ruc-box h4 {
+            margin: 0;
+            font-size: 14px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+        .ruc-box p {
+            margin: 2px 0;
+        }
+
+        /* --- Estilos Generales y Tablas --- */
+        .divider {
+            border-bottom: 2px solid #333;
+            margin-bottom: 20px;
+            padding-top: 10px;
         }
         .text-right { text-align: right; }
         .text-left { text-align: left; }
+
         .details-table {
             width: 100%;
             border-collapse: collapse;
@@ -46,25 +86,50 @@
             border-top: 1px solid #333;
             padding-top: 5px;
         }
-        /* Para el logo: DomPDF requiere la ruta completa. */
-        #logo {
-            max-width: 150px;
-            height: auto;
-        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="text-left">
-            <p style="font-size: 16px; font-weight: bold;">{{ $setting->razon_social ?? 'PROYECTO SERVICIOS S.A.' }}</p>
-            <p>{{ $setting->direccion ?? 'Av. Central 123, Lima' }}</p>
-            <p>{{ $setting->telefono ?? '+51 987 654 321' }} | {{ $setting->email ?? 'contacto@servicios.com' }}</p>
-        </div>
-        <div class="text-right">
-            <img src="{{ public_path('img/logo.png') }}" alt="Logo Empresa" id="logo">
-        </div>
+    <div class="header-container">
+        <table class="header-table">
+            <tr>
+                <td width="25%">
+                    @if (isset($setting->logo_path) && $setting->logo_path)
+                        {{-- Generar la ruta absoluta requerida por Dompdf --}}
+                        @php
+                            $logoPath = 'file://' . \Illuminate\Support\Facades\Storage::disk('public')->path($setting->logo_path);
+                        @endphp
+                        <img
+                            src="{{ $logoPath }}"
+                            alt="{{ $setting->razon_social ?? 'Logo de la Empresa' }}"
+                            class="logo"
+                        >
+                    @else
+                        <h2 style="margin: 0; font-size: 18px;">{{ $setting->razon_social ?? 'PROYECTO SERVICIOS S.A.' }}</h2>
+                    @endif
+                </td>
+
+                <td width="50%" class="company-info">
+                    <p style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">{{ $setting->razon_social ?? 'PROYECTO SERVICIOS S.A.' }}</p>
+                    {{-- Asumiendo que tienes un campo RUC --}}
+                    <p style="margin: 0;">RUC: **{{ $setting->ruc ?? '[RUC FALTANTE]' }}**</p>
+                    <p style="margin: 0;">Dir: {{ $setting->direccion ?? 'Av. Central 123, Lima' }}</p>
+                    <p style="margin: 0;">Telf: {{ $setting->telefono ?? '+51 987 654 321' }}</p>
+                    <p style="margin: 0;">Email: {{ $setting->email ?? 'contacto@servicios.com' }}</p>
+                </td>
+
+                <td width="25%">
+                    <div class="ruc-box">
+                        <p style="font-weight: bold;">R.U.C. {{ $setting->ruc ?? '[RUC FALTANTE]' }}</p>
+                        <h4 style="color: #c00;">BOLETA DE VENTA</h4>
+                        <p>N°: {{ $invoice->serie ?? 'B001' }}-{{ str_pad($invoice->correlativo ?? $invoice->id, 6, '0', STR_PAD_LEFT) }}</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
+
+    <div class="divider"></div>
 
     <table width="100%" style="margin-bottom: 20px;">
         <tr>
