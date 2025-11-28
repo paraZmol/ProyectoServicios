@@ -17,7 +17,8 @@ class ClientController extends Controller
             ->when($search, function ($query, $search) {
                 // busqueda por nombre o email
                 $query->where('nombre', 'like', '%' . $search . '%')
-                      ->orWhere('email', 'like', '%' . $search . '%');
+                      ->orWhere('email', 'like', '%' . $search . '%')
+                      ->orWhere('dni', 'like', '%' . $search . '%');
             })
             // orden por nombre
             ->orderBy('nombre', 'asc')

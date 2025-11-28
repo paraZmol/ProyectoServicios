@@ -26,6 +26,12 @@ class ClientStoreRequest extends FormRequest
             ],
             'direccion' => 'nullable|string|max:255',
             'estado' => 'nullable|in:activo,inactivo',
+            'dni' => [
+                'nullable',
+                'string',
+                'max:20',
+                'unique:clients,dni,' . $clientId,
+            ],
         ];
     }
 }
