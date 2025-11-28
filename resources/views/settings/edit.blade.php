@@ -30,7 +30,9 @@
                             <x-input-label :value="__('Logo de la empresa')" />
                             @if ($setting->logo_path)
                                 <div class="mt-2 mb-4">
-                                    <img src="{{ Storage::url($setting->logo_path) }}" alt="Logo de la Empresa" class="object-contain w-auto h-16 p-1 border">
+                                    <img src="{{ Storage::url($setting->logo_path) }}"
+                                        alt="Logo de la Empresa"
+                                        class="max-width: 150px; height: auto; display: block; margin-bottom: 10px;">
                                 </div>
                             @endif
 
