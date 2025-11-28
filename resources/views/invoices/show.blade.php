@@ -112,13 +112,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        {{-- nota de pie --}}
-                        <div class="pt-4 mt-10 text-sm text-gray-500 border-t">
-                            <p>¡Gracias por su preferencia!</p>
-                        </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -111,8 +111,7 @@
 
                 <td width="50%" class="company-info">
                     <p style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">{{ $setting->razon_social ?? 'PROYECTO SERVICIOS S.A.' }}</p>
-                    {{-- Asumiendo que tienes un campo RUC --}}
-                    <p style="margin: 0;">RUC: **{{ $setting->ruc ?? '[RUC FALTANTE]' }}**</p>
+                    <p style="margin: 0;">RUC: {{ $setting->ruc ?? '[RUC FALTANTE]' }}</p>
                     <p style="margin: 0;">Dir: {{ $setting->direccion ?? 'Av. Central 123, Lima' }}</p>
                     <p style="margin: 0;">Telf: {{ $setting->telefono ?? '+51 987 654 321' }}</p>
                     <p style="margin: 0;">Email: {{ $setting->email ?? 'contacto@servicios.com' }}</p>
