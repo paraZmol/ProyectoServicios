@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('direccion')->nullable();
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
