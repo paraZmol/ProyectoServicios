@@ -19,28 +19,24 @@ class InvoiceStoreRequest extends FormRequest
     {
         Log::info('LOG: Datos del Formulario enviados para validación:', $this->all());
         return [
-            // Validación de campos principales de la boleta
+            //validacion de campos
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pendiente,Pagada,Cancelada',
 
-            //CORRECCIÓN CLAVE: Estos campos calculados son obligatorios
+            //calculos
             'subtotal' => 'required|numeric|min:0',
             'impuesto' => 'required|numeric|min:0',
             'total' => 'required|numeric|min:0',
 
-            // Validación de ítems (Detalles de la boleta)
+            // validacion de los items
             'items' => 'required|array|min:1',
             'items.*.service_id' => 'required|exists:services,id',
 
-            // CORRECCIÓN: nombre_servicio es obligatorio
             'items.*.nombre_servicio' => 'required|string|max:255',
-
             'items.*.cantidad' => 'required|integer|min:1',
             'items.*.precio_unitario_final' => 'required|numeric|min:0.01',
-
-            // CORRECCIÓN: total_linea es el campo que la BD espera y el formulario envia
             'items.*.total_linea' => 'required|numeric|min:0.01',
         ];
     }
@@ -59,12 +55,9 @@ class InvoiceStoreRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        // 1. Aquí colocamos la bandera LOG para registrar los errores
-        // Esto solo ocurre si la validación FALLA.
+        // si la validaciopn fallaa
         Log::warning('LOG: Fallo en la validación de InvoiceStoreRequest. Errores:', $validator->errors()->all());
 
-        // 2. Relanzamos la excepción. Esto le dice a Laravel:
-        // "La validación falló. Por favor, redirige al usuario con estos errores."
         throw new ValidationException($validator);
     }
 }
