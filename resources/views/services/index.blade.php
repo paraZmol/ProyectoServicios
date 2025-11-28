@@ -46,7 +46,7 @@
                             @forelse ($services as $service)
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $service->codigo }}</td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $service->nombre }}</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $service->nombre_servicio }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">${{ number_format($service->precio, 2) }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $service->created_at->format('d/m/Y') }}</td>
                                     <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-right whitespace-nowrap">
