@@ -42,10 +42,12 @@ class SettingController extends Controller
         // subida de logo
         if ($request->hasFile('logo_file')) {
             $file = $request->file('logo_file');
-            $path = $file->storeAs('public/logos', 'logo.' . $file->extension());
+
+            $path = $file->storeAs('logos', 'logo.' . $file->extension(), 'public');
 
             // guardar el path
-            $validatedData['logo_path'] = str_replace('public/', '', $path);
+            //$validatedData['logo_path'] = str_replace('public/', '', $path);
+            $validatedData['logo_path']=$path;
         }
 
         // guardar el ajuste
