@@ -49,19 +49,19 @@
                         <table class="dashboard-table-container">
                             <thead>
                                 <tr>
-                                    <th class="px-3">{{ __('Boleta N°') }}</th>
+                                    <th class="px-3 text-right">{{ __('Boleta N°') }}</th>
                                     <th class="px-3">{{ __('Cliente') }}</th>
                                     <th class="px-3">{{ __('Fecha') }}</th>
-                                    <th class="px-3 text-right">{{ __('Total') }}</th>
+                                    <th class="px-3">{{ __('Total') }}</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
                                 @foreach ($ultimasVentas as $venta)
                                     <tr>
-                                        <td class="px-3">{{ $venta->id }}</td>
+                                        <td class="px-3 text-center">{{ $venta->id }}</td>
                                         <td class="px-3">{{ $venta->client->nombre ?? 'N/A' }}</td>
                                         <td class="px-3">{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y') }}</td>
-                                        <td class="px-3">
+                                        <td class="px-3 text-right">
                                             {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($venta->total, 2) }}
                                         </td>
                                     </tr>
@@ -89,7 +89,7 @@
                                 @foreach ($serviciosMasVendidos as $servicio)
                                     <tr>
                                         <td class="px-3">{{ $servicio->nombre_servicio }}</td>
-                                        <td class="px-3">{{ number_format($servicio->total_vendido) }}</td>
+                                        <td class="px-3 text-center">{{ number_format($servicio->total_vendido) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
