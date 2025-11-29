@@ -7,48 +7,46 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased bg-gray-50">
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="py-4">
-                            {{ __('Inicio') }}
-                        </x-nav-link>
+                <header class="bg-white border-b border-gray-100 shadow-sm">
+                    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                                {{ __('Inicio') }}
+                            </x-nav-link>
 
-                        <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="py-4">
-                            {{ __('Servicios') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                                {{ __('Servicios') }}
+                            </x-nav-link>
 
-                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="py-4">
-                            {{ __('Clientes') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                                {{ __('Clientes') }}
+                            </x-nav-link>
 
-                        <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4">
-                            {{ __('Boletas') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                                {{ __('Boletas') }}
+                            </x-nav-link>
 
-                        <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4">
-                            {{ __('Configuración') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                                {{ __('Configuración') }}
+                            </x-nav-link>
 
+                        </div>
                     </div>
                 </header>
             @endisset
 
-            <!-- Page Content -->
-            <main>
+            <main class="py-12">
                 {{ $slot }}
             </main>
         </div>
