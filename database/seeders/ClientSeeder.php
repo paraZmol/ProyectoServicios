@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon; // Importamos Carbon para manejar las fechas
+use Illuminate\Support\Carbon;
 
 class ClientSeeder extends Seeder
 {
@@ -69,7 +69,7 @@ class ClientSeeder extends Seeder
             [
                 'nombre' => 'Pedro Soto',
                 'telefono' => '967890123',
-                'dni' => null, // Cliente sin DNI
+                'dni' => null,
                 'email' => 'pedro.soto@otro.org',
                 'direccion' => 'Carretera Central Km 5.5',
                 'estado' => 'activo',

@@ -31,9 +31,6 @@
     .dashboard-table-container tr:nth-child(even) {
         background-color: #f9fafb;
     }
-    .text-right {
-        text-align: right;
-    }
 </style>
 
 <div class="py-12">
@@ -64,7 +61,7 @@
                                     <td class="px-3">{{ $venta->id }}</td>
                                     <td class="px-3">{{ $venta->client->nombre ?? 'N/A' }}</td>
                                     <td class="px-3">{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y') }}</td>
-                                    <td class="px-3 text-right">
+                                    <td class="px-3">
                                         {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($venta->total, 2) }}
                                     </td>
                                 </tr>
@@ -85,21 +82,20 @@
                         <thead>
                             <tr>
                                 <th class="px-3">{{ __('Servicio') }}</th>
-                                <th class="px-3 text-right">{{ __('N° de Ventas') }}</th>
+                                <th class="px-3 text-center">{{ __('N° de Ventas') }}</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
                             @foreach ($serviciosMasVendidos as $servicio)
                                 <tr>
                                     <td class="px-3">{{ $servicio->nombre_servicio }}</td>
-                                    <td class="px-3 text-right">{{ number_format($servicio->total_vendido) }}</td>
+                                    <td class="px-3">{{ number_format($servicio->total_vendido) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @endif
             </div>
-
         </div>
     </div>
 </div>
