@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -20,9 +21,9 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
 
     // dash
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // usuarios
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';
