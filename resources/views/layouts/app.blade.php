@@ -25,7 +25,7 @@
                 background-color: white;
                 color: #0369A1;
                 border-bottom: 3px solid transparent;
-                border-radius: 4px; 
+                border-radius: 4px;
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
@@ -54,6 +54,10 @@
 
                             <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Boletas') }}
+                            </x-nav-link>
+
+                            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" class="py-4 text-white celeste-nav-link">
+                                {{ __('Usuarios') }}
                             </x-nav-link>
 
                             <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-white celeste-nav-link">
