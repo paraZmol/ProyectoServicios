@@ -13,23 +13,19 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
-            /* Estilos generales para los enlaces en la barra celeste */
             .celeste-nav-link {
                 transition: all 0.15s ease-in-out;
             }
-            /* Enlace activo: Color y línea en blanco puro */
             .celeste-nav-link.active {
                 color: white !important;
                 border-bottom: 3px solid white;
                 font-weight: 700;
             }
-            /* Hover solicitado: Fondo blanco con texto celeste fuerte para contraste */
             .celeste-nav-link:hover:not(.active) {
                 background-color: white;
-                color: #0369A1; /* sky-700 como color de texto */
+                color: #0369A1;
                 border-bottom: 3px solid transparent;
-                border-radius: 4px;
-                /* Ajuste de padding para mantener la altura constante */
+                border-radius: 4px; 
                 padding-top: 10px;
                 padding-bottom: 10px;
             }
