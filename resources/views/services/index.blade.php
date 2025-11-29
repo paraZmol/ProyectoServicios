@@ -51,13 +51,13 @@
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $service->created_at->format('d/m/Y') }}</td>
                                     <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
                                         <a href="{{ route('services.edit', $service) }}" class="p-2 text-indigo-600 border border-gray-300 rounded shadow-sm hover:text-indigo-900 hover:shadow-md">
-                                            <i class="fa fa-pencil-alt"></i> Editar
+                                            <i class="fa-light fa-pen-to-square"></i> Editar
                                         </a>
                                         <form action="{{ route('services.destroy', $service) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:text-red-900 hover:shadow-md">
-                                                <i class="fa fa-trash"></i> Eliminar
+                                                <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </form>
                                     </td>

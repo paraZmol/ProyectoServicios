@@ -60,13 +60,13 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 space-x-2 text-sm font-medium text-right whitespace-nowrap">
-                                        <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:text-blue-900">Ver</a>
-                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                                        <a href="{{ route('invoices.show', $invoice->id) }}" class="p-2 text-blue-600 border border-gray-300 rounded shadow-sm hover:bg-blue-100 hover:text-blue-900">Ver Boleta</a>
+                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">Editar</a>
 
                                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Está seguro de que desea eliminar esta boleta?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Eliminar</button>
+                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">Eliminar</button>
                                         </form>
                                     </td>
                                 </tr>
