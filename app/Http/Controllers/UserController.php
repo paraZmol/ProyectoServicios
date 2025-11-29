@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,7 +13,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::where('id', '!=', Auth::id())
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+
+        return view('users.index', compact('users'));
     }
 
     /**
