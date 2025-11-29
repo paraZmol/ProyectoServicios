@@ -23,6 +23,7 @@ class SettingSeeder extends Seeder
             'ciudad' => 'Lima',
             'codigo_postal' => '15001',
             'ruc' => '1073234305',
+            'logo_path' => 'logos/logo.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
