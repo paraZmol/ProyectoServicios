@@ -13,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::where('id', '!=', Auth::id())
+        // para tener a todos los usuarios, menos el que esta logeado
+        $users = User::where('id', '!=', Auth::id())
             ->orderBy('name', 'asc')
             ->paginate(10);
 
@@ -63,8 +64,9 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index')->with('succes', 'Usuario eliminado correctamente');
     }
 }
