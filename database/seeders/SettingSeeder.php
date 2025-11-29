@@ -24,6 +24,7 @@ class SettingSeeder extends Seeder
             'codigo_postal' => '15001',
             'ruc' => '1073234305',
             'logo_path' => 'logos/logo.png',
+            'favicon_path' => 'logos/icon.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

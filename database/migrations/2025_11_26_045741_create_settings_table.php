@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('ciudad')->nullable();
             $table->string('codigo_postal')->nullable();
             $table->string('logo_path')->nullable();
+            $table->string('favicon_path')->nullable();
             $table->string('ruc', 20)->nullable();
             $table->timestamps();
         });
