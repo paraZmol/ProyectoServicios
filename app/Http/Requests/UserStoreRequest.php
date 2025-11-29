@@ -12,7 +12,7 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -31,7 +31,9 @@ class UserStoreRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore($userId),
+                Rule::unique('users', 'email')
+                ->where(fn ($query) => $query->whereNull('deleted_at'))
+                ->ignore($userId),
             ],
             'password' => [
                 $this->isMethod('POST') ? 'required' : 'nullable',
