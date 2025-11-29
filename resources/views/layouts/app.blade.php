@@ -21,14 +21,7 @@
                 border-bottom: 3px solid white !important;
                 font-weight: 700;
             }
-            .celeste-nav-link:hover:not(.active-link) {
-                background-color: white;
-                color: #0369A1;
-                border-bottom: 3px solid transparent;
-                border-radius: 4px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
+
         </style>
 
     </head>
