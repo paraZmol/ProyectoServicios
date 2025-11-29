@@ -25,9 +25,12 @@
                             <i class="fa fa-search"></i> {{ __('Buscar') }}
                         </x-primary-button>
                     </form>
-                    <a href="{{ route('services.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
+                    @if (Auth::user()->role !=='usuario')
+                        <a href="{{ route('services.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
                         <i class="mr-1 fa fa-plus-circle"></i>{{ __('Nuevo Servicio') }}
                     </a>
+                    @endif
+
                 </div>
 
                 {{-- tabla de resutlado --}}
