@@ -25,7 +25,7 @@
                             <i class="fa fa-search"></i> {{ __('Buscar') }}
                         </x-primary-button>
                     </form>
-                    <a href="{{ route('services.create') }}" class="px-4 py-2 ml-4 font-bold text-white rounded shadow-md bg-sky-500 hover:bg-sky-600 whitespace-nowrap">
+                    <a href="{{ route('services.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
                         {{ __('Nuevo Servicio') }}
                     </a>
                 </div>

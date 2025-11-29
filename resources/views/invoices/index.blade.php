@@ -22,7 +22,7 @@
                         <x-primary-button type="submit">Buscar</x-primary-button>
                     </form>
 
-                    <a href="{{ route('invoices.create') }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-700">
+                    <a href="{{ route('invoices.create') }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-900">
                         <i class="mr-1 fa fa-plus-circle"></i> {{ __('Nueva Boleta') }}
                     </a>
                 </div>

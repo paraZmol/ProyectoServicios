@@ -24,7 +24,7 @@
                             {{ __('Buscar') }}
                         </x-primary-button>
                     </form>
-                    <a href="{{ route('clients.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-700 whitespace-nowrap">
+                    <a href="{{ route('clients.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
                         {{ __('Nuevo Cliente') }}
                     </a>
                 </div>
