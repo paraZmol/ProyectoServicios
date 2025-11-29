@@ -38,7 +38,7 @@
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Código</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Servicio</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Precio</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Agregado</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Descripción</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Acciones</th>
                             </tr>
                         </thead>
@@ -48,7 +48,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $service->codigo }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $service->nombre_servicio }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">${{ number_format($service->precio, 2) }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $service->created_at->format('d/m/Y') }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">{{ $service->descripcion }}</td>
                                     <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
                                         <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
                                             <i class="fas fa-edit"></i> Editar
