@@ -12,32 +12,55 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <style>
+            /* Estilos generales para los enlaces en la barra celeste */
+            .celeste-nav-link {
+                transition: all 0.15s ease-in-out;
+            }
+            /* Enlace activo: Color y línea en blanco puro */
+            .celeste-nav-link.active {
+                color: white !important;
+                border-bottom: 3px solid white;
+                font-weight: 700;
+            }
+            /* Hover solicitado: Fondo blanco con texto celeste fuerte para contraste */
+            .celeste-nav-link:hover:not(.active) {
+                background-color: white;
+                color: #0369A1; /* sky-700 como color de texto */
+                border-bottom: 3px solid transparent;
+                border-radius: 4px;
+                /* Ajuste de padding para mantener la altura constante */
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+        </style>
+
     </head>
     <body class="font-sans antialiased bg-gray-50">
         <div class="min-h-screen">
             @include('layouts.navigation')
 
             @isset($header)
-                <header class="bg-white border-b border-gray-100 shadow-sm">
+                <header class="border-b shadow-md bg-sky-700 border-sky-800">
                     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Inicio') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                            <x-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Servicios') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                            <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Clientes') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                            <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Boletas') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-gray-600 hover:text-gray-800 hover:border-indigo-500">
+                            <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Configuración') }}
                             </x-nav-link>
 
