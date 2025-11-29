@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Route; // <-- Línea Añadida: Importar la fachada Route
+use Illuminate\Support\Facades\Route;
 use App\Models\Setting;
-use App\Http\Middleware\CheckRole;    // <-- Línea Añadida: Importar tu Middleware
+use App\Http\Middleware\CheckRole;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,7 +30,11 @@ class AppServiceProvider extends ServiceProvider
         $setting = Setting::first();
         $companyNameString = $setting ? $setting->nombre_empresa : 'PROYECTO SERVICIOS S.A.';
 
+        // para compartir el nombre de la empresa con otros archivos
         View::share('companyName', $companyNameString);
+
+        // para poner el nombre de la empresa en la configuracion de laravel
+        config(['app.name' => $companyNameString]);
 
         // logo de emrpesa por defecto
         $defaultLogoUrl = asset('img/logo_default.png');
@@ -44,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
             $logoUrl = asset('storage/' . $logoPath);
         } else {
             // local por defectro
-            // logoUrl = $defaultLogoUrl; // Corregí esta línea en mi cabeza, si ya está definida arriba.
+            // logoUrl = $defaultLogoUrl;
             $logoUrl = $defaultLogoUrl;
         }
 
