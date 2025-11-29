@@ -32,25 +32,25 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">ID</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Fecha</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Cliente</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Vendedor</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Total</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Acciones</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">ID</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Fecha</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Cliente</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Vendedor</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Total</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Estado</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse ($invoices as $invoice)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">#{{ $invoice->id }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-right text-gray-900 whitespace-nowrap">#{{ $invoice->id }}</td>
+                                    <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">{{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $invoice->client->nombre ?? 'N/A' }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $invoice->user->name ?? 'N/A' }}</td>
                                     {{-- ajustes para la moneda --}}
                                     <td class="px-6 py-4 text-sm font-semibold text-right whitespace-nowrap">{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total, 2) }}</td>
-                                    <td class="px-6 py-4 text-sm whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
                                         @if ($invoice->estado == 'Pagada')
                                             <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">Pagada</span>
                                         @elseif ($invoice->estado == 'Pendiente')
@@ -60,13 +60,19 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 space-x-2 text-sm font-medium text-right whitespace-nowrap">
-                                        <a href="{{ route('invoices.show', $invoice->id) }}" class="p-2 text-blue-600 border border-gray-300 rounded shadow-sm hover:bg-blue-100 hover:text-blue-900">Ver Boleta</a>
-                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">Editar</a>
+                                        <a href="{{ route('invoices.show', $invoice->id) }}" class="p-2 text-blue-600 border border-gray-300 rounded shadow-sm hover:bg-blue-100 hover:text-blue-900">
+                                            <i class="fas fa-eye"></i>Ver Boleta
+                                        </a>
+                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                            <i class="fas fa-edit"></i>Editar
+                                        </a>
 
                                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Está seguro de que desea eliminar esta boleta?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">Eliminar</button>
+                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>Eliminar
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>

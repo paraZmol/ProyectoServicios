@@ -25,7 +25,7 @@
                         </x-primary-button>
                     </form>
                     <a href="{{ route('clients.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
-                        {{ __('Nuevo Cliente') }}
+                        <i class="mr-1 fa fa-plus-circle"></i>{{ __('Nuevo Cliente') }}
                     </a>
                 </div>
 
@@ -40,7 +40,7 @@
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Email</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Dirección</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">Acciones</th>
+                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -55,14 +55,14 @@
                                         {{ ucfirst($client->estado ?? 'N/A') }}
                                     </td>
                                     <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-right whitespace-nowrap">
-                                        <a href="{{ route('clients.edit', $client) }}" class="p-2 text-indigo-600 border border-gray-300 rounded shadow-sm hover:text-indigo-900 hover:shadow-md">
-                                            Editar
+                                        <a href="{{ route('clients.edit', $client) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                            <i class="fas fa-edit"></i>Editar
                                         </a>
                                         <form action="{{ route('clients.destroy', $client) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este cliente? Esto podría afectar a facturas existentes.');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:text-red-900 hover:shadow-md">
-                                                Eliminar
+                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>Eliminar
                                             </button>
                                         </form>
                                     </td>

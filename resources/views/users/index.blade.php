@@ -35,7 +35,7 @@
                 {{-- btn nuevo --}}
                 <div class="flex justify-end mb-6">
                     <a href="{{ route('users.create') }}" class="inline-flex items-center px-4 py-2 font-semibold text-white bg-indigo-600 rounded-md shadow-md hover:bg-indigo-700">
-                        {{ __('Nuevo Usuario') }}
+                        <i class="mr-1 fa fa-plus-circle"></i>{{ __('Nuevo Usuario') }}
                     </a>
                 </div>
 
@@ -46,7 +46,7 @@
                             <th class="px-6" scope="col">{{ __('Nombre') }}</th>
                             <th class="px-6" scope="col">{{ __('Email') }}</th>
                             <th class="px-6" scope="col">{{ __('Fecha de Creación') }}</th>
-                            <th class="px-6 text-right" scope="col">{{ __('Acciones') }}</th>
+                            <th class="px-6 text-center" scope="col">{{ __('Acciones') }}</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 table-body">
@@ -56,16 +56,16 @@
                                 <td class="whitespace-nowrap">{{ $user->email }}</td>
                                 <td class="whitespace-nowrap">{{ $user->created_at->format('d/m/Y') }}</td>
                                 <td class="whitespace-nowrap">
-                                    <a href="{{ route('users.edit', $user) }}" class="mr-3 text-indigo-600 hover:text-indigo-900">
-                                        {{ __('Editar') }}
+                                    <a href="{{ route('users.edit', $user) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                        <i class="fas fa-edit"></i>{{ __('Editar') }}
                                     </a>
 
                                     {{-- eleiminar --}}
                                     <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 focus:outline-none">
-                                            {{ __('Eliminar') }}
+                                        <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                            <i class="fas fa-trash"></i>{{ __('Eliminar') }}
                                         </button>
                                     </form>
                                 </td>

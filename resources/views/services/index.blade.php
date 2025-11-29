@@ -26,7 +26,7 @@
                         </x-primary-button>
                     </form>
                     <a href="{{ route('services.create') }}" class="px-4 py-2 ml-4 font-bold text-white bg-indigo-600 rounded shadow-md hover:bg-indigo-900 whitespace-nowrap">
-                        {{ __('Nuevo Servicio') }}
+                        <i class="mr-1 fa fa-plus-circle"></i>{{ __('Nuevo Servicio') }}
                     </a>
                 </div>
 
@@ -50,13 +50,13 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">${{ number_format($service->precio, 2) }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ $service->created_at->format('d/m/Y') }}</td>
                                     <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
-                                        <a href="{{ route('services.edit', $service) }}" class="p-2 text-indigo-600 border border-gray-300 rounded shadow-sm hover:text-indigo-900 hover:shadow-md">
-                                            <i class="fa-light fa-pen-to-square"></i> Editar
+                                        <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                            <i class="fas fa-edit"></i> Editar
                                         </a>
                                         <form action="{{ route('services.destroy', $service) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:text-red-900 hover:shadow-md">
+                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
                                                 <i class="fas fa-trash"></i> Eliminar
                                             </button>
                                         </form>
