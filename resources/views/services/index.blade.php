@@ -35,32 +35,40 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-sky-100/50">
                             <tr>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Código</th>
+                                @if (Auth::user()->role !=='usuario')
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Código</th>
+                                @endif
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Servicio</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Precio</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Descripción</th>
-                                <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Acciones</th>
+                                @if (Auth::user()->role !=='usuario')
+                                    <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Acciones</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse ($services as $service)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $service->codigo }}</td>
+                                    @if (Auth::user()->role !=='usuario')
+                                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">{{ $service->codigo }}</td>
+                                    @endif
                                     <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">{{ $service->nombre_servicio }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">${{ number_format($service->precio, 2) }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">{{ $service->descripcion }}</td>
-                                    <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
-                                        <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
-                                        <form action="{{ route('services.destroy', $service) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
-                                                <i class="fas fa-trash"></i> Eliminar
-                                            </button>
-                                        </form>
-                                    </td>
+                                    @if (Auth::user()->role !=='usuario')
+                                        <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
+                                            <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </a>
+                                            <form action="{{ route('services.destroy', $service) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>
