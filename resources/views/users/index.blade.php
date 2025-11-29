@@ -55,7 +55,7 @@
                                 <td class="whitespace-nowrap">{{ $user->name }}</td>
                                 <td class="whitespace-nowrap">{{ $user->email }}</td>
                                 <td class="whitespace-nowrap">{{ $user->created_at->format('d/m/Y') }}</td>
-                                <td class="text-right whitespace-nowrap">
+                                <td class="whitespace-nowrap">
                                     <a href="{{ route('users.edit', $user) }}" class="mr-3 text-indigo-600 hover:text-indigo-900">
                                         {{ __('Editar') }}
                                     </a>
