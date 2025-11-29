@@ -56,14 +56,18 @@
                                 {{ __('Boletas') }}
                             </x-nav-link>
 
-                            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" class="py-4 text-white celeste-nav-link">
-                                {{ __('Usuarios') }}
-                            </x-nav-link>
+                            @if (Auth::check() && Auth::user()->role ==='admin')
+
+                                <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" class="py-4 text-white celeste-nav-link">
+                                    {{ __('Usuarios') }}
+                                </x-nav-link>
+
+                            @endif
 
                             <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-white celeste-nav-link">
                                 {{ __('Configuración') }}
                             </x-nav-link>
-
+                            
                         </div>
                     </div>
                 </header>

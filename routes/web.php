@@ -21,19 +21,18 @@ Route::get('/', function () {
     }
 });
 
-/*Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');*/
-
 Route::middleware('auth')->group(function () {
+    // perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // request
+    // serivioc - cliente - boleta
     Route::resource('services', ServiceController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
+
+    // configuracion
     Route::get('configuracion', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
 
@@ -42,8 +41,10 @@ Route::middleware('auth')->group(function () {
 
     // dash
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
-    // usuarios
+// solo admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
 });
 
