@@ -23,46 +23,51 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Administrador Demo',
                 'email' => 'admin@demo.com',
+                'role' => 'admin',
                 'password' => $password,
                 'email_verified_at' => $now,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
 
-            // --- supervisor ---
+            // --- trabajador ---
             [
                 'name' => 'Supervisor Jefe',
                 'email' => 'supervisor@demo.com',
+                'role' => 'trabajador',
                 'password' => $password,
                 'email_verified_at' => $now,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
 
-            // --- emepleado activo ---
+            // --- trabajador ---
             [
                 'name' => 'Empleado Activo',
                 'email' => 'empleado1@demo.com',
+                'role' => 'trabajador',
                 'password' => $password,
                 'email_verified_at' => $now,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
 
-            // --- emepleado sin verificar ---
+            // --- usuario ---
             [
                 'name' => 'Usuario No Verificado',
                 'email' => 'empleado2@demo.com',
+                'role' => 'usuario',
                 'password' => $password,
                 'email_verified_at' => null,
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
 
-            // --- tecnico ---
+            // --- usuario ---
             [
                 'name' => 'Técnico Soporte',
                 'email' => 'tecnico@demo.com',
+                'role' => 'usuario',
                 'password' => $password,
                 'email_verified_at' => $now,
                 'created_at' => $now,
