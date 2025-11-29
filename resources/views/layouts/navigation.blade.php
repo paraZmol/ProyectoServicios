@@ -4,10 +4,10 @@
     }
     .celeste-nav-link.active {
         color: white !important;
-        border-bottom: 3px solid white;
+        border-bottom: 3px solid white !important;
         font-weight: 700;
     }
-    .celeste-nav-link:hover:not(.active) {
+    .celeste-nav-link:hover:not(.active-link) {
         background-color: white;
         color: #0369A1;
         border-bottom: 3px solid transparent;
