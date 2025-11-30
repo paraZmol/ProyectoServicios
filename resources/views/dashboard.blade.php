@@ -5,63 +5,49 @@
         </h2>
     </x-slot>
 
-    <style>
-        .dashboard-table-container {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .dashboard-table-container thead {
-            background-color: #f3f4f6;
-        }
-        .dashboard-table-container th {
-            padding: 0.75rem 0.5rem;
-            text-align: left;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .dashboard-table-container td {
-            padding: 0.75rem 0.5rem;
-            font-size: 0.875rem;
-            color: #1f2937;
-            border-top: 1px solid #e5e7eb;
-        }
-        .dashboard-table-container tr:nth-child(even) {
-            background-color: #f9fafb;
-        }
-    </style>
-
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
-            {{-- contenedor principalñ --}}
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {{-- Contenedor principal del Dashboard --}}
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
 
-                {{-- ultimas ventasS --}}
-                <div class="p-6 overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                    <h2 class="pb-2 mb-4 text-xl font-semibold border-b">{{ __('Últimas Boletas/Ventas') }}</h2>
+                {{-- Últimas Ventas (Tarjeta Personalizada) --}}
+                <div class="p-6 bg-white shadow-2xl rounded-xl">
+                    <h2 class="pb-3 mb-4 text-2xl font-bold text-blue-800 border-b border-blue-100">{{ __('Últimas Boletas/Ventas') }}</h2>
 
                     @if ($ultimasVentas->isEmpty())
                         <p class="text-gray-500">{{ __('No hay ventas recientes para mostrar.') }}</p>
                     @else
-                        <table class="dashboard-table-container">
-                            <thead>
+                        <table class="min-w-full divide-y divide-blue-200">
+                            <thead class="bg-blue-50">
                                 <tr>
-                                    <th class="px-3 text-right">{{ __('Boleta N°') }}</th>
-                                    <th class="px-3">{{ __('Cliente') }}</th>
-                                    <th class="px-3">{{ __('Fecha') }}</th>
-                                    <th class="px-3">{{ __('Total') }}</th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-center text-blue-600 uppercase">
+                                        {{ __('Boleta N°') }}
+                                    </th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-left text-blue-600 uppercase">
+                                        {{ __('Cliente') }}
+                                    </th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-center text-blue-600 uppercase">
+                                        {{ __('Fecha') }}
+                                    </th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-right text-blue-600 uppercase">
+                                        {{ __('Total') }}
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
+                            <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($ultimasVentas as $venta)
-                                    <tr>
-                                        <td class="px-3 text-center">{{ $venta->id }}</td>
-                                        <td class="px-3">{{ $venta->client->nombre ?? 'N/A' }}</td>
-                                        <td class="px-3">{{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y') }}</td>
-                                        <td class="px-3 text-right">
+                                    <tr class="hover:bg-blue-50/50">
+                                        <td class="px-3 py-3 text-sm font-medium text-center text-gray-900">
+                                            {{ $venta->id }}
+                                        </td>
+                                        <td class="px-3 py-3 text-sm text-left text-gray-700 whitespace-nowrap">
+                                            {{ $venta->client->nombre ?? 'N/A' }}
+                                        </td>
+                                        <td class="px-3 py-3 text-sm text-center text-gray-500 whitespace-nowrap">
+                                            {{ \Carbon\Carbon::parse($venta->created_at)->format('d/m/Y') }}
+                                        </td>
+                                        <td class="px-3 py-3 text-sm font-bold text-right text-green-600 whitespace-nowrap">
                                             {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($venta->total, 2) }}
                                         </td>
                                     </tr>
@@ -71,25 +57,33 @@
                     @endif
                 </div>
 
-                {{-- servicios mas silicitados --}}
-                <div class="p-6 overflow-hidden bg-white shadow-xl sm:rounded-lg">
-                    <h2 class="pb-2 mb-4 text-xl font-semibold border-b">{{ __('Servicios Más Solicitados') }} </h2>
+                {{-- Servicios Más Solicitados (Tarjeta Personalizada) --}}
+                <div class="p-6 bg-white shadow-2xl rounded-xl">
+                    <h2 class="pb-3 mb-4 text-2xl font-bold text-indigo-800 border-b border-indigo-100">{{ __('Servicios Más Solicitados') }} </h2>
 
                     @if ($serviciosMasVendidos->isEmpty())
                         <p class="text-gray-500">{{ __('No hay servicios más vendidos para mostrar.') }}</p>
                     @else
-                        <table class="dashboard-table-container">
-                            <thead>
+                        <table class="min-w-full divide-y divide-indigo-200">
+                            <thead class="bg-indigo-50">
                                 <tr>
-                                    <th class="px-3">{{ __('Servicio') }}</th>
-                                    <th class="px-3 text-center">{{ __('N° de Ventas') }}</th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase">
+                                        {{ __('Servicio') }}
+                                    </th>
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-center text-indigo-600 uppercase">
+                                        {{ __('N° de Ventas') }}
+                                    </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white">
+                            <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($serviciosMasVendidos as $servicio)
-                                    <tr>
-                                        <td class="px-3">{{ $servicio->nombre_servicio }}</td>
-                                        <td class="px-3 text-center">{{ number_format($servicio->total_vendido) }}</td>
+                                    <tr class="hover:bg-indigo-50/50">
+                                        <td class="px-3 py-3 text-sm text-left text-gray-700 whitespace-nowrap">
+                                            {{ $servicio->nombre_servicio }}
+                                        </td>
+                                        <td class="px-3 py-3 text-lg font-extrabold text-center text-indigo-600 whitespace-nowrap">
+                                            {{ number_format($servicio->total_vendido) }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
