@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use PhpParser\Builder\Function_;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -21,7 +22,7 @@ Route::get('/', function () {
     }
 });
 
-Route::middleware('auth')->group(function () {
+/*Route::middleware('auth')->group(function () {
     // perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -41,6 +42,35 @@ Route::middleware('auth')->group(function () {
 
     // dash
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});*/
+
+// acceso para todos
+Route::middleware('auth')->group(function(){
+    // perfil
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+// admin trabajador y usuario
+Route::middleware(['auth', 'role:admin|trabajador|usuario'])->group(function () {
+    Route::resource('services', ServiceController::class);
+});
+
+// admin y trabajador
+Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
+    Route::resource('clients', ClientController::class);
+    Route::resource('invoices', InvoiceController::class);
+
+    // setting
+    Route::get('configuracion', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
+
+    // pdf
+    Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');
 });
 
 // solo admin
