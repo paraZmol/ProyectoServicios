@@ -55,17 +55,23 @@
                                 <td class="whitespace-nowrap">{{ $user->name }}</td>
                                 <td class="whitespace-nowrap">{{ $user->email }}</td>
                                 <td class="whitespace-nowrap">{{ $user->created_at->format('d/m/Y') }}</td>
-                                <td class="whitespace-nowrap">
-                                    <a href="{{ route('users.edit', $user) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
-                                        <i class="fas fa-edit"></i>{{ __('Editar') }}
+                                <td class="flex px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
+                                    {{-- editar --}}
+                                    <a href="{{ route('users.edit', $user) }}"
+                                        class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                            <i class="fas fa-edit"></i>{{ __('Editar') }}
                                     </a>
 
                                     {{-- eleiminar --}}
-                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');">
+                                    <form action="{{ route('users.destroy', $user) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este usuario?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
-                                            <i class="fas fa-trash"></i>{{ __('Eliminar') }}
+                                        <button
+                                            type="submit"
+                                            class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                                <i class="fas fa-trash"></i>{{ __('Eliminar') }}
                                         </button>
                                     </form>
                                 </td>

@@ -63,10 +63,14 @@
                                             <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
-                                            <form action="{{ route('services.destroy', $service) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
+                                            <form action="{{ route('services.destroy', $service) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('¿Estás seguro de eliminar este servicio?');">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
+                                                <button
+                                                    type="submit"
+                                                    class="p-2 text-red-600 border border-gray-300 rounded shadow-sm hover:bg-red-100 hover:text-red-900">
                                                     <i class="fas fa-trash"></i> Eliminar
                                                 </button>
                                             </form>
