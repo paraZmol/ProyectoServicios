@@ -32,12 +32,25 @@
                                 <div class="mt-2 mb-4">
                                     <img src="{{ Storage::url($setting->logo_path) }}"
                                         alt="Logo de la Empresa"
-                                        class="block w-40 h-auto mb-4">
+                                        class="block w-40 h-auto p-1 mb-4 border border-gray-500 rounded shadow">
                                 </div>
                             @endif
-
                             <input type="file" id="logo_file" name="logo_file" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"/>
                             <x-input-error class="mt-2" :messages="$errors->get('logo_file')" />
+                        </div>
+
+                        {{-- seccion de icono --}}
+                        <div class="pb-2">
+                            <x-input-label :value="__('Icono de la empresa para la pestaña')" />
+                            @if ($setting->favicon_path)
+                                <div class="mt-2 mb-4">
+                                    <img src="{{ Storage::url($setting->favicon_path) }}"
+                                        alt="Icono de la pestaña"
+                                        class="block w-20 h-auto p-1 mb-4 border border-gray-500 rounded shadow">
+                                </div>
+                            @endif
+                            <input type="file" id="favicon_file" name="favicon_file" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('favicon_file')" />
                         </div>
 
                         {{-- nombre de la empresa --}}

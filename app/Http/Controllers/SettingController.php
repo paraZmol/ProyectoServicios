@@ -35,8 +35,10 @@ class SettingController extends Controller
             'ciudad' => 'nullable|string|max:255',
             'region_provincia' => 'nullable|string|max:255',
             'codigo_postal' => 'nullable|string|max:20',
-            // ralga para el logo con un maximo de 2mb
-            'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // ralga para el logo con un maximo de 4mb
+            'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            // regla para que la subida del icono sea una maximo de 100kb
+            'favicon_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,ico|max:100',
             'ruc'=> 'nullable|string|max:20',
         ]);
 
@@ -44,11 +46,23 @@ class SettingController extends Controller
         if ($request->hasFile('logo_file')) {
             $file = $request->file('logo_file');
 
+            // ubicacion del logo
             $path = $file->storeAs('logos', 'logo.' . $file->extension(), 'public');
 
             // guardar el path
             //$validatedData['logo_path'] = str_replace('public/', '', $path);
             $validatedData['logo_path']=$path;
+        }
+
+        //subida de icono
+        if ($request->hasFile('favicon_file')) {
+            $file = $request->file('favicon_file');
+
+            // ubicacion del icono
+            $path = $file->storeAs('logos', 'icon.' . $file->extension(), 'public');
+
+            // guardar en el path
+            $validatedData['favicon_path'] = $path;
         }
 
         // guardar el ajuste

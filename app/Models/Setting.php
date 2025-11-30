@@ -21,6 +21,7 @@ class Setting extends Model
         'ciudad',
         'codigo_postal',
         'logo_path',
+        'favicon_path',
         'ruc',
     ];
 
