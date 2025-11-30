@@ -1,24 +1,33 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Editar Cliente: ') . $client->nombre }}
+        <h2 class="text-3xl font-extrabold leading-tight text-gray-800">
+            {{ __('Editar Cliente: ') }}<span class="text-blue-600">{{ $client->nombre }}</span>
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('clients.update', $client) }}" class="mt-6 space-y-6">
+            <div class="p-8 bg-white shadow-2xl sm:rounded-xl">
+                <div class="text-gray-900">
+                    <form method="POST" action="{{ route('clients.update', $client) }}" class="mt-6 space-y-8">
                         @csrf
                         @method('PUT')
 
+                        {{-- Incluye el formulario de campos con el diseño de 2 columnas --}}
                         @include('clients.form', ['client' => $client])
 
-                        <div class="flex items-center gap-4 mt-6">
-                            <x-primary-button>{{ __('Actualizar Cliente') }}</x-primary-button>
-                            <a href="{{ route('clients.index') }}" class="text-gray-600 hover:text-gray-900">
-                                {{ __('Cancelar') }}
+                        {{-- Botones de Acción --}}
+                        <div class="flex items-center gap-4 pt-6 mt-8 border-t border-gray-100">
+
+                            {{-- Botón Principal: Actualizar --}}
+                            <x-primary-button class="px-6 py-3 text-base font-bold transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700">
+                                <i class="mr-2 fas fa-save"></i> {{ __('Actualizar Cliente') }}
+                            </x-primary-button>
+
+                            {{-- Botón Secundario: Cancelar (Estilo Azul/Índigo) --}}
+                            <a href="{{ route('clients.index') }}"
+                               class="px-4 py-3 text-sm font-medium text-indigo-600 transition duration-150 ease-in-out border border-indigo-400 rounded-lg hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-800">
+                                <i class="mr-2 fas fa-times-circle"></i> {{ __('Cancelar') }}
                             </a>
                         </div>
                     </form>
