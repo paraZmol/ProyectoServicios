@@ -30,7 +30,7 @@
                 {{-- tabla de boletas --}}
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-sky-100/50">
                             <tr>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">ID</th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase">Fecha</th>

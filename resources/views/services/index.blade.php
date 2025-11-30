@@ -60,7 +60,8 @@
                                     <td class="px-6 py-4 text-sm text-gray-500">{{ $service->descripcion }}</td>
                                     @if (Auth::user()->role !=='usuario')
                                         <td class="flex justify-end px-6 py-4 space-x-2 text-sm font-medium text-center whitespace-nowrap">
-                                            <a href="{{ route('services.edit', $service) }}" class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
+                                            <a href="{{ route('services.edit', $service) }}"
+                                                class="p-2 text-yellow-600 border border-gray-300 rounded shadow-sm hover:bg-yellow-100 hover:text-yellow-900">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
                                             <form action="{{ route('services.destroy', $service) }}"
