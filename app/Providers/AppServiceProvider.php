@@ -36,22 +36,30 @@ class AppServiceProvider extends ServiceProvider
         // para poner el nombre de la empresa en la configuracion de laravel
         config(['app.name' => $companyNameString]);
 
-        // logo de emrpesa por defecto
+        // logo por defecto y agregar nuevo logos
         $defaultLogoUrl = asset('img/logo_default.png');
-
-        // obtener y compartir el logo
         $setting = Setting::first();
         $logoPath = $setting ? $setting->logo_path : null;
 
         if ($logoPath && file_exists(storage_path('app/public/' . $logoPath))) {
-            // logo subido
             $logoUrl = asset('storage/' . $logoPath);
         } else {
-            // local por defectro
-            // logoUrl = $defaultLogoUrl;
             $logoUrl = $defaultLogoUrl;
         }
 
         View::share('logoUrl', $logoUrl);
+
+        // icono por defecto y agregar nuevos iconos
+        $defaultFaviconUrl = asset('img/icon_default.png');
+        $setting = Setting::first();
+        $faviconPath = $setting ? $setting->favicon_path : null;
+
+        if ($faviconPath && file_exists(storage_path('app/public/' . $faviconPath))) {
+            $faviconUrl = asset('storage/' . $faviconPath);
+        } else {
+            $faviconUrl = $defaultFaviconUrl;
+        }
+
+        View::share('faviconUrl', $faviconUrl);
     }
 }
