@@ -20,7 +20,7 @@
                 <a href="/">
                     <!-- logo por defecto -->
                     <img
-                        src="{{ asset('img/logo_default.png') }}"
+                        src="{{ $logoUrl }}" alt="{{ $companyName }}"
                         alt="Logo de la Empresa"
                         class="w-40 h-auto"
                         style="max-width: 120px; margin: 0 auto;"

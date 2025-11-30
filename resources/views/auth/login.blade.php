@@ -49,7 +49,7 @@
     <x-slot name="logo">
         <a href="/">
             <img
-                src="{{ asset('img/logo_default.png') }}"
+                src="{{ $logoUrl }}" alt="{{ $companyName }}"
                 alt="Logo de la Empresa"
                 class="w-20 h-auto"
                 style="max-width: 80px; margin: 0 auto; margin-bottom: 20px;"
