@@ -25,7 +25,7 @@
                         <x-text-input
                             type="text"
                             name="search"
-                            placeholder="Nombre, Email o DNI del cliente"
+                            placeholder="Nombre, Email o DNI /RUC del cliente"
                             value="{{ $search }}"
                             class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 md:w-96" />
 

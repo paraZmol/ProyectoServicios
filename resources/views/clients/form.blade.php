@@ -14,7 +14,7 @@
 
     {{-- Campo Principal: Nombre del Cliente (Ancho Completo) --}}
     <div>
-        <x-input-label for="nombre" :value="__('Nombre Completo')" class="mb-1 font-semibold text-gray-700" />
+        <x-input-label for="nombre" :value="__('Nombre Completo / Razon Social')" class="mb-1 font-semibold text-gray-700" />
         <x-text-input
             id="nombre"
             name="nombre"
@@ -32,7 +32,7 @@
 
         {{-- DNI --}}
         <div>
-            <x-input-label for="dni" :value="__('DNI (Opcional)')" class="mb-1 font-semibold text-gray-700" />
+            <x-input-label for="dni" :value="__('DNI / RUC')" class="mb-1 font-semibold text-gray-700" />
             <x-text-input
                 id="dni"
                 name="dni"
