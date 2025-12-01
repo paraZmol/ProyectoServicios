@@ -61,21 +61,21 @@ class InvoiceController extends Controller
     // guardar boleta
     public function store(InvoiceStoreRequest $request)
     {
-        Log::info("=== INICIO STORE DE INVOICE ===");
+        //Log::info("=== INICIO STORE DE INVOICE ===");
 
-        DB::beginTransaction();
+        //DB::beginTransaction();
 
         try {
 
-            Log::info("Datos recibidos del formulario", $request->all());
+            //Log::info("Datos recibidos del formulario", $request->all());
 
             $data = $request->validated();
 
-            Log::info("Datos validados", $data);
+            //Log::info("Datos validados", $data);
 
             // cabecera de boleta
 
-            Log::info("Creando cabecera de factura...");
+            //Log::info("Creando cabecera de factura...");
 
             $invoice = Invoice::create([
                 'client_id' => $data['client_id'],
@@ -88,15 +88,15 @@ class InvoiceController extends Controller
                 'total' => $data['total'],
             ]);
 
-            Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
+            //Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
 
             // detalles
 
-            Log::info("Procesando detalle de items...");
+            //Log::info("Procesando detalle de items...");
 
             $itemsData = collect($data['items'])->map(function ($item) use ($invoice) {
 
-                Log::info("Item procesado", $item);
+                //Log::info("Item procesado", $item);
 
                 return [
                     'invoice_id' => $invoice->id,
@@ -108,26 +108,26 @@ class InvoiceController extends Controller
                 ];
             });
 
-            Log::info("Guardando detalles en la BD...");
+            //Log::info("Guardando detalles en la BD...");
 
             $invoice->details()->createMany($itemsData->toArray());
 
-            Log::info("Detalles guardados correctamente.");
+            //Log::info("Detalles guardados correctamente.");
 
             DB::commit();
 
-            Log::info("=== STORE COMPLETADO SIN ERRORES ===");
+            //Log::info("=== STORE COMPLETADO SIN ERRORES ===");
 
             return redirect()->route('invoices.show', $invoice->id)
                 ->with('success', 'Boleta creada exitosamente con el número #' . $invoice->id);
 
         } catch (\Exception $e) {
 
-            Log::error("ERROR EN STORE", [
+            /*Log::error("ERROR EN STORE", [
                 'mensaje' => $e->getMessage(),
                 'linea' => $e->getLine(),
                 'archivo' => $e->getFile(),
-            ]);
+            ]);*/
 
             DB::rollBack();
 
@@ -216,6 +216,30 @@ class InvoiceController extends Controller
         return redirect()
             ->route('invoices.index')
             ->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
+    }
+
+    // ver lo eliminados
+    public function deleted()
+    {
+        $deletedInvoices = Invoice::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        return view('invoices.deleted_index', [
+            'invoices' => $deletedInvoices,
+        ]);
+    }
+
+    // restaurar boleta
+    public function restore($id)
+    {
+        // encontrar por id
+        $invoice = Invoice::onlyTrashed()->findOrFail($id);
+
+        // restaurar
+        $invoice->restore();
+
+        return redirect()->route('invoices.deleted')->with('success', '✅ Boleta N°' . $invoice->id . ' restaurada con éxito.');
     }
 
     // pdf

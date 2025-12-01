@@ -47,6 +47,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
          ->name('services.deleted');
     Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])
          ->name('services.restore');
+
+    // boletas eliminadas
+    Route::get('/invoices/deleted', [InvoiceController::class, 'deleted'])
+         ->name('invoices.deleted');
+    Route::put('/invoices/{id}/restore', [InvoiceController::class, 'restore'])
+         ->name('invoices.restore');
 });
 
 // admin trabajador y usuario

@@ -86,6 +86,11 @@
                                     <i class="mr-1 fas fa-trash-restore"></i>
                                     {{ __('Papelera Clientes') }}
                                 </x-nav-link>
+
+                                <x-nav-link :href="route('invoices.deleted')" :active="request()->routeIs('invoices.deleted')" class="py-4 text-white celeste-nav-link">
+                                    <i class="mr-1 fas fa-trash-restore"></i>
+                                    {{ __('Papelera Boletas') }}
+                                </x-nav-link>
                             @endif
                         </div>
                     </div>
