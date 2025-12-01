@@ -75,15 +75,13 @@
                                 </x-nav-link>
                             @endif
 
-                            {{-- Ejemplo de Enlace para la Papelera de Clientes --}}
-                            {{-- 👇 INSERCIÓN DEL ENLACE DE LA PAPELERA DE CLIENTES AQUÍ --}}
+                            {{-- papelera de reciclaje cliente --}}
                             @if (Auth::check() && Auth::user()->role === 'admin')
                                 <x-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')" class="py-4 text-white celeste-nav-link">
                                     <i class="mr-1 fas fa-trash-restore"></i>
                                     {{ __('Papelera') }}
                                 </x-nav-link>
                             @endif
-                            {{-- 👆 FIN DE LA INSERCIÓN --}}
                         </div>
                     </div>
                 </header>
