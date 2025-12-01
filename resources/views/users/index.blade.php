@@ -57,7 +57,7 @@
                                     <td class="px-6 py-4 text-sm text-center whitespace-nowrap">
                                         {{-- COMENTARIO: Usar lógica aquí para mostrar el rol con un badge si existe la propiedad, ej: $user->role --}}
                                         <span class="inline-flex px-3 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
-                                            N/A
+                                            {{ $user->role }}
                                         </span>
                                     </td>
 
