@@ -71,4 +71,28 @@ class ServiceController extends Controller
 
         return redirect()->route('services.index')->with('success', 'Servicio eliminado correctamente.');
     }
+
+    public function deleted()
+    {
+        // mostrar los eliminados
+        $deletedServices = Service::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        return view('services.deleted_index', [
+            'services' => $deletedServices,
+        ]);
+    }
+
+    // restaurar servicios
+    public function restore($id)
+    {
+        // encontrar opr id
+        $service = Service::onlyTrashed()->findOrFail($id);
+
+        // restaurar
+        $service->restore();
+
+        return redirect()->route('services.deleted')->with('success', '✅ Servicio "' . $service->nombre_servicio . '" restaurado con éxito.');
+    }
 }

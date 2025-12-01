@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SettingController;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
-use PhpParser\Builder\Function_;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -33,26 +31,33 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// admin trabajador y usuario
-Route::middleware(['auth', 'role:admin|trabajador|usuario'])->group(function () {
-    Route::resource('services', ServiceController::class);
-});
-
 // solo admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // gestion de usuarios
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class); // Esta puede ir aquí
 
     // clientes eliminados
     Route::get('/clients/deleted', [ClientController::class, 'deleted'])
          ->name('clients.deleted');
-    // restaurar clientes
     Route::put('/clients/{id}/restore', [ClientController::class, 'restore'])
          ->name('clients.restore');
+
+    // servicios eliminados
+    Route::get('/services/deleted', [ServiceController::class, 'deleted'])
+         ->name('services.deleted');
+    Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])
+         ->name('services.restore');
+});
+
+// admin trabajador y usuario
+Route::middleware(['auth', 'role:admin|trabajador|usuario'])->group(function () {
+    // RUTA GENÉRICA DE SERVICIOS
+    Route::resource('services', ServiceController::class);
 });
 
 // admin y trabajador
 Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
+    // rutas genericas
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
 
