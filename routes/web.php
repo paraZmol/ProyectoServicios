@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -29,12 +30,19 @@ Route::middleware('auth')->group(function(){
 
     // dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 });
 
 // solo admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    // usuarios eliminados
+    Route::get('/users/deleted', [UserController::class, 'deleted'])
+         ->name('users.deleted');
+    Route::put('/users/{id}/restore', [UserController::class, 'restore'])
+         ->name('users.restore');
     // gestion de usuarios
-    Route::resource('users', UserController::class); // Esta puede ir aquí
+    Route::resource('users', UserController::class);
+
 
     // clientes eliminados
     Route::get('/clients/deleted', [ClientController::class, 'deleted'])

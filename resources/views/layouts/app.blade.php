@@ -91,6 +91,11 @@
                                     <i class="mr-1 fas fa-trash-restore"></i>
                                     {{ __('Papelera Boletas') }}
                                 </x-nav-link>
+
+                                <x-nav-link :href="route('users.deleted')" :active="request()->routeIs('users.deleted')" class="py-4 text-white celeste-nav-link">
+                                    <i class="mr-1 fas fa-trash-restore"></i>
+                                    {{ __('Papelera Usuarios') }}
+                                </x-nav-link>
                             @endif
                         </div>
                     </div>

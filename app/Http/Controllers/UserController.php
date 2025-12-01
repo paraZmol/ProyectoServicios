@@ -97,4 +97,29 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
     }
+
+    public function deleted()
+    {
+        // solo eliminados
+        $deletedUsers = User::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        return view('users.deleted_index', [
+            'users' => $deletedUsers,
+        ]);
+    }
+
+    // restaurar eliminados
+    public function restore($id)
+    {
+        // encontrar por id
+        $user = User::onlyTrashed()->findOrFail($id);
+
+        // restaurar
+        $user->restore();
+
+        return redirect()->route('users.deleted')->with('success', '✅ Usuario "' . $user->name . '" restaurado con éxito. Su cuenta está de nuevo activa.');
+    }
+
 }
