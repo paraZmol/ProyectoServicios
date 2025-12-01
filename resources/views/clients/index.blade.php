@@ -56,12 +56,38 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
+                            {{-- para identificar el tipo de documento --}}
+
+                            @php
+                                $getDocumentType = function ($documento) {
+                                    if (empty($documento)) {
+                                        return ['tipo' => 'N/A', 'etiqueta' => 'Documento'];
+                                    }
+                                    $length = strlen(preg_replace('/[^0-9A-Za-z]/', '', $documento));
+
+                                    if ($length === 8) {
+                                        return ['tipo' => 'DNI', 'etiqueta' => 'DNI'];
+                                    } elseif ($length === 11) {
+                                        return ['tipo' => 'RUC', 'etiqueta' => 'RUC'];
+                                    } else {
+                                        return ['tipo' => 'OTRO', 'etiqueta' => 'DI / Otro'];
+                                    }
+                                };
+                            @endphp
+
                             @forelse ($clients as $client)
                                 <tr class="transition duration-100 ease-in-out hover:bg-gray-50">
                                     {{-- Nombre y DNI (COMBINADOS) --}}
                                     <td class="px-6 py-4">
                                         <div class="text-sm font-medium text-gray-900">{{ $client->nombre }}</div>
-                                        <div class="text-xs text-gray-500">DNI: {{ $client->dni ?? 'N/A' }}</div>
+                                        {{-- llamada a la funcion de tipo de documento--}}
+                                        @php
+                                            $docInfo = $getDocumentType($client->dni); // Asumo que el campo se llama 'dni' o similar.
+                                        @endphp
+
+                                        <div class="text-xs text-gray-500">
+                                            <span class="font-semibold text-blue-600">{{ $docInfo['etiqueta'] }}:</span> {{ $client->dni ?? 'N/A' }}
+                                        </div>
                                     </td>
 
                                     {{-- Contacto (COMBINADOS) --}}
