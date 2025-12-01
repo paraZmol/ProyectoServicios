@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2);
             $table->foreignId('client_id')->constrained('clients');
             $table->foreignId('user_id')->constrained('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

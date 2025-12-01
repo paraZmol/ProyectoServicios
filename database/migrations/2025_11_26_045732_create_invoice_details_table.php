@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('total_linea', 10, 2);
             $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
