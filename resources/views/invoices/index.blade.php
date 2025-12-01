@@ -68,7 +68,7 @@
 
                                     {{-- Total (Alineado a la derecha, color verde de énfasis) --}}
                                     <td class="px-6 py-4 text-sm font-extrabold text-right text-green-700 whitespace-nowrap">
-                                        {{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total, 2) }}
+                                        {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total, 2) }}
                                     </td>
 
                                     {{-- Estado (Badge) --}}

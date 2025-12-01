@@ -69,7 +69,9 @@
                                         <td class="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">{{ $service->codigo }}</td>
                                     @endif
                                     <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $service->nombre_servicio }}</td>
-                                    <td class="px-6 py-4 text-sm font-bold text-green-600 whitespace-nowrap">${{ number_format($service->precio, 2) }}</td>
+                                    <td class="px-6 py-4 text-sm font-bold text-green-600 whitespace-nowrap">
+                                        {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($service->precio, 2) }}
+                                    </td>
                                     <td class="max-w-xs px-6 py-4 text-sm text-gray-500">{{ $service->descripcion }}</td>
                                     @if (Auth::user()->role !=='usuario')
                                         <td class="flex justify-center px-6 py-4 space-x-3 text-sm font-medium whitespace-nowrap">
@@ -119,9 +121,7 @@
     </div>
 
 
-    {{-- ========================================================= --}}
-    {{--Modal de Confirmación Estilizado (Tailwind/JS)
-    {{-- ========================================================= --}}
+    {{-- modal de confirmacion de borrado --}}
 
     <div id="deleteModal" class="fixed inset-0 z-50 items-center justify-center hidden bg-black bg-opacity-50">
 
@@ -156,10 +156,7 @@
     </div>
 
 
-    {{-- ========================================================= --}}
-    {{--🧠 Script para Controlar el Modal
-    {{-- ========================================================= --}}
-
+    {{-- controlar modal --}}
     <script>
         // Referencias al modal y elementos internos
         const modal = document.getElementById('deleteModal');

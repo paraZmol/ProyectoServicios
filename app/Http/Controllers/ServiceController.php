@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Http\Requests\ServiceStoreRequest;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class ServiceController extends Controller
 {
@@ -24,7 +25,9 @@ class ServiceController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10); // paginacion de 10
 
-        return view('services.index', compact('services', 'search'));
+        $setting = Setting::first();
+
+        return view('services.index', compact('services', 'search', 'setting'));
     }
 
     // nuevo servicio
