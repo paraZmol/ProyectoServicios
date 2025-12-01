@@ -66,4 +66,29 @@ class ClientController extends Controller
 
         return redirect()->route('clients.index')->with('success', 'Cliente eliminado correctamente.');
     }
+
+    // ver clientes eliminados
+    public function deleted(Request $request)
+    {
+        // para mostrar clientes eliminados
+        $deletedClients = Client::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(10);
+
+        return view('clients.deleted_index', [
+            'clients' => $deletedClients,
+        ]);
+    }
+
+    // restaurar un cliente
+    public function restore($id)
+    {
+        // encontrar al cliente eliminado por id
+        $client = Client::onlyTrashed()->findOrFail($id);
+
+        // restaurar
+        $client->restore();
+
+        return redirect()->route('clients.deleted')->with('success', '✅ Cliente "' . $client->nombre . '" restaurado con éxito. Ahora está activo en el listado principal.');
+    }
 }
