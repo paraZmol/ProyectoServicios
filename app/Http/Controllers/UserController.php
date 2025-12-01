@@ -73,6 +73,7 @@ class UserController extends Controller
         $data = [
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'role' => $validated['role'],
         ];
 
         if ($request->filled('password')) {

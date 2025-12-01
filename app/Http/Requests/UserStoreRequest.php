@@ -35,13 +35,16 @@ class UserStoreRequest extends FormRequest
                 ->where(fn ($query) => $query->whereNull('deleted_at'))
                 ->ignore($userId),
             ],
+            'role' => [
+                'required',
+                Rule::in(['admin', 'trabajador', 'usuario']),
+            ],
             'password' => [
                 $this->isMethod('POST') ? 'required' : 'nullable',
                 'string',
                 'min:8',
                 'confirmed',
             ],
-            // mas adelante en caso de roles y permisos
         ];
     }
 }
