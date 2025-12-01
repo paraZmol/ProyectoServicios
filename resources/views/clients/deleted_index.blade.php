@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
 
-            {{-- Mensaje de éxito/error --}}
+            {{-- mensaje --}}
             @if (session('success'))
                 <div class="p-4 mb-6 font-medium text-white bg-green-500 rounded-lg shadow-md" role="alert">
                     <p class="flex items-center"><i class="mr-2 fas fa-check-circle"></i> {{ session('success') }}</p>
@@ -23,7 +23,7 @@
 
                 <hr class="mb-6 border-gray-100">
 
-                {{-- TABLA DE RESULTADOS --}}
+                {{-- tabla de resultados --}}
                 <div class="overflow-x-auto rounded-lg shadow-md">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-blue-100/70">
@@ -37,11 +37,11 @@
                         <tbody class="bg-white divide-y divide-gray-100">
                             @forelse ($clients as $client)
                                 <tr class="transition duration-100 ease-in-out hover:bg-red-50">
-                                    {{-- Nombre y Documento (Usando la lógica de DNI/RUC) --}}
+                                    {{-- nombre y document --}}
                                     <td class="px-6 py-4">
                                         <div class="text-sm font-medium text-gray-900">{{ $client->nombre }}</div>
                                         @php
-                                            // Lógica para determinar el tipo de documento por longitud
+                                            // logica para el tipo de documento
                                             $getDocumentType = function ($documento) {
                                                 if (empty($documento)) return ['etiqueta' => 'Documento'];
                                                 $length = strlen(preg_replace('/[^0-9A-Za-z]/', '', $documento));
@@ -56,21 +56,21 @@
                                         </div>
                                     </td>
 
-                                    {{-- Contacto --}}
+                                    {{-- contato --}}
                                     <td class="px-6 py-4">
                                         <div class="text-sm text-gray-800 whitespace-nowrap"><i class="mr-1 text-gray-400 fas fa-envelope"></i> {{ $client->email ?? 'N/A' }}</div>
                                         <div class="text-sm text-gray-500 whitespace-nowrap"><i class="mr-1 text-gray-400 fas fa-phone"></i> {{ $client->telefono ?? 'N/A' }}</div>
                                     </td>
 
-                                    {{-- Eliminado el --}}
+                                    {{-- fecha --}}
                                     <td class="px-6 py-4 text-sm text-center text-red-600">
                                         {{ $client->deleted_at ? \Carbon\Carbon::parse($client->deleted_at)->format('d/m/Y h:i A') : 'N/A' }}
                                     </td>
 
-                                    {{-- Acciones (SOLO RESTAURAR) --}}
+                                    {{-- accion --}}
                                     <td class="flex justify-center px-6 py-4 space-x-3 text-sm font-medium whitespace-nowrap">
 
-                                        {{-- Botón RESTAURAR --}}
+                                        {{-- restaurar --}}
                                         <form action="{{ route('clients.restore', $client->id) }}" method="POST">
                                             @csrf
                                             @method('PUT')

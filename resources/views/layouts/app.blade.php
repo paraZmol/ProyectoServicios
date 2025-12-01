@@ -77,14 +77,14 @@
 
                             {{-- papelera de reciclaje cliente --}}
                             @if (Auth::check() && Auth::user()->role === 'admin')
-                                <x-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')" class="py-4 text-white celeste-nav-link">
-                                    <i class="mr-1 fas fa-trash-restore"></i>
-                                    {{ __('Papelera') }}
-                                </x-nav-link>
-
                                 <x-nav-link :href="route('services.deleted')" :active="request()->routeIs('services.deleted')" class="py-4 text-white celeste-nav-link">
                                     <i class="mr-1 fas fa-trash-restore"></i>
                                     {{ __('Papelera Servicios') }}
+                                </x-nav-link>
+
+                                <x-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')" class="py-4 text-white celeste-nav-link">
+                                    <i class="mr-1 fas fa-trash-restore"></i>
+                                    {{ __('Papelera Clientes') }}
                                 </x-nav-link>
                             @endif
                         </div>
