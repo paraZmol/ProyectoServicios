@@ -23,8 +23,8 @@
                 name="codigo"
                 type="text"
                 class="w-full p-3 text-base placeholder-gray-400 border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                :value="old('codigo', $service->codigo)"
-                placeholder="Ej. SVC004"
+                :value="old('codigo', $service->exists ? $service->codigo : $nextCode)"
+                placeholder="{{ 'Ej. ' . ($service->exists ? $service->codigo : $nextCode) }}"
                 required
                 autofocus
             />

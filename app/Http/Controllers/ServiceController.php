@@ -30,12 +30,39 @@ class ServiceController extends Controller
         return view('services.index', compact('services', 'search', 'setting'));
     }
 
+    // calcular el codigo del servicio
+    protected function generateNextServiceCode()
+    {
+        // encontrar el ultimo servicio
+        $latestService = Service::orderBy('id', 'desc')->first();
+
+        $nextNumber = 1;
+
+        if ($latestService) {
+            // extraer del codigo existente
+            $lastCode = $latestService->codigo;
+
+            // capturar el numero final de cadena
+            if (preg_match('/(\d+)$/', $lastCode, $matches)) {
+                $lastNumber = (int)$matches[1];
+                $nextNumber = $lastNumber + 1;
+            } else {
+                // usar el id +1
+                $nextNumber = $latestService->id + 1;
+            }
+        }
+
+        // formatear el numero
+        return 'SVC' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+    }
+
     // nuevo servicio
     public function create()
     {
         $setting = Setting::first();
-        return view('services.create', compact('setting'));
-        //return view('services.create');
+        $nextCode = $this->generateNextServiceCode();
+        //return view('services.create', compact('setting'));
+        return view('services.create', compact('setting', 'nextCode'));
     }
 
     // save nuevo servicio
