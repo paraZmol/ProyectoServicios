@@ -22,15 +22,27 @@
 
                     {{-- Formulario de Búsqueda (Se mantiene w-96) --}}
                     <form method="GET" action="{{ route('services.index') }}" class="flex items-center w-full mb-4 space-x-3 md:mb-0 md:w-auto">
-                        <x-text-input
-                            type="text"
-                            name="search"
-                            placeholder="Código o nombre del servicio"
-                            value="{{ $search }}"
-                            class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 md:w-96" />
 
-                        <button type="submit" class="flex items-center px-4 py-2 font-bold text-white transition duration-150 ease-in-out bg-gray-800 rounded-lg shadow-md hover:bg-gray-900">
-                             <i class="mr-1 fas fa-search"></i> {{ __('Buscar') }}
+                        <div class="relative w-full md:w-96">
+                            <x-text-input
+                                type="text"
+                                name="search"
+                                placeholder="Código o nombre del servicio"
+                                value="{{ $search }}"
+                                class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+
+                            {{-- Botón de Cancelación (visible solo si hay un valor de búsqueda) --}}
+                            @if ($search)
+                                <a href="{{ route('services.index') }}"
+                                   class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 cursor-pointer hover:text-red-500"
+                                   title="Cancelar Búsqueda">
+                                    <i class="fas fa-times"></i>
+                                </a>
+                            @endif
+                        </div>
+
+                        <button type="submit" class="flex items-center px-4 py-2 font-bold text-white transition duration-150 ease-in-out bg-gray-800 rounded-lg shadow-md hover:bg-gray-900 whitespace-nowrap">
+                            <i class="mr-1 fas fa-search"></i> {{ __('Buscar') }}
                         </button>
                     </form>
 
