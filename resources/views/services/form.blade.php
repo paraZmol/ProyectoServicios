@@ -50,7 +50,7 @@
             <x-input-label for="precio" :value="__('Precio Base')" class="mb-1 font-semibold text-gray-700" />
             <div class="relative">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-lg font-bold text-gray-500">
-                    $
+                    {{ $setting->simbolo_moneda ?? 'S/' }}
                 </span>
                 <x-text-input
                     id="precio"

@@ -33,7 +33,9 @@ class ServiceController extends Controller
     // nuevo servicio
     public function create()
     {
-        return view('services.create');
+        $setting = Setting::first();
+        return view('services.create', compact('setting'));
+        //return view('services.create');
     }
 
     // save nuevo servicio
@@ -48,8 +50,11 @@ class ServiceController extends Controller
     // modificar servicio
     public function edit(Service $service)
     {
+        $setting = Setting::first();
         // instancia de servicio
-        return view('services.edit', compact('service'));
+        return view('services.edit', compact('service', 'setting'));
+        // instancia de servicio
+        //return view('services.edit', compact('service'));
     }
 
     // guardar la modificacion
