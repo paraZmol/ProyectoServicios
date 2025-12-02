@@ -97,20 +97,20 @@ class ClientController extends Controller
     {
         $query = $request->get('q');
 
-        // Si no hay consulta, devolver vacío
+        //en caso de no haber busqueda
         if (empty($query)) {
             return response()->json([]);
         }
 
-        // Usamos el mismo patrón LIKE que funciona en tu tabla de clientes
+        // busqueda con like
         $clients = Client::query()
-            ->where('estado', 'activo') // Opcional: solo activos
+            ->where('estado', 'activo') // solo activos
             ->where(function ($q) use ($query) {
                 $q->where('nombre', 'like', "%{$query}%")
                 ->orWhere('dni', 'like', "%{$query}%")
                 ->orWhere('email', 'like', "%{$query}%");
             })
-            ->limit(15) // Limitamos los resultados para velocidad
+            ->limit(15) // limite de resultados
             ->get(['id', 'nombre', 'dni', 'email', 'direccion', 'telefono']);
 
         return response()->json($clients);
