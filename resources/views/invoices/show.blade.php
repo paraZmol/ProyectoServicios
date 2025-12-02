@@ -7,6 +7,21 @@
 
     <div class="py-6">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+            {{-- notificaciones para la boleta --}}
+            @if (session('success'))
+                <div class="p-4 mb-4 font-medium text-white bg-green-500 rounded-lg shadow-md" role="alert">
+                    <p class="flex items-center"><i class="mr-2 fas fa-check-circle"></i> {{ session('success') }}</p>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="p-4 mb-4 font-medium text-white bg-red-500 rounded-lg shadow-md" role="alert">
+                    <p class="flex items-center"><i class="mr-2 fas fa-exclamation-triangle"></i> {{ session('error') }}</p>
+                </div>
+            @endif
+            {{-- fin notificaicon --}}
+
             <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
