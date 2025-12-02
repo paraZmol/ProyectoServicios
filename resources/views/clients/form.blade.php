@@ -82,7 +82,6 @@
                 name="estado"
                 class="w-full p-3 text-base transition duration-150 ease-in-out border-gray-300 rounded-lg shadow-sm appearance-none focus:border-indigo-500 focus:ring-indigo-500"
             >
-                <option value="" @if(old('estado', $client->estado) === null) selected @endif>-- Sin especificar (Nulo) --</option>
                 <option value="activo" @if(old('estado', $client->estado) === 'activo') selected @endif>Activo</option>
                 <option value="inactivo" @if(old('estado', $client->estado) === 'inactivo') selected @endif>Inactivo</option>
             </select>
