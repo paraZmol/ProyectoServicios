@@ -71,6 +71,9 @@ Route::middleware(['auth', 'role:admin|trabajador|usuario'])->group(function () 
 
 // admin y trabajador
 Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
+    // ruta a  ajax
+    Route::get('/clients/ajax-search', [ClientController::class, 'searchAjax'])->name('clients.ajax.search');
+    
     // rutas genericas
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);

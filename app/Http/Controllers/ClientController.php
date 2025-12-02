@@ -91,4 +91,28 @@ class ClientController extends Controller
 
         return redirect()->route('clients.deleted')->with('success', '✅ Cliente "' . $client->nombre . '" restaurado con éxito. Ahora está activo en el listado principal.');
     }
+
+    // busqueda para la boleta
+    public function searchAjax(Request $request)
+    {
+        $query = $request->get('q');
+
+        // Si no hay consulta, devolver vacío
+        if (empty($query)) {
+            return response()->json([]);
+        }
+
+        // Usamos el mismo patrón LIKE que funciona en tu tabla de clientes
+        $clients = Client::query()
+            ->where('estado', 'activo') // Opcional: solo activos
+            ->where(function ($q) use ($query) {
+                $q->where('nombre', 'like', "%{$query}%")
+                ->orWhere('dni', 'like', "%{$query}%")
+                ->orWhere('email', 'like', "%{$query}%");
+            })
+            ->limit(15) // Limitamos los resultados para velocidad
+            ->get(['id', 'nombre', 'dni', 'email', 'direccion', 'telefono']);
+
+        return response()->json($clients);
+    }
 }

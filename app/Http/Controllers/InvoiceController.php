@@ -49,13 +49,15 @@ class InvoiceController extends Controller
     {
         $setting = Setting::first();
 
-        $clients = Client::where('estado', 'activo')->get(['id', 'nombre', 'telefono', 'email', 'direccion']);
+        //$clients = Client::where('estado', 'activo')->get(['id', 'nombre', 'telefono', 'email', 'direccion']);
+
+
         $services = Service::all(['id', 'codigo', 'nombre_servicio', 'precio']);
 
         $iva_rate = $setting ? $setting->iva_porcentaje / 100 : 0.13;
         $invoice = new Invoice(); // instancia vasia para el formulario
 
-        return view('invoices.create', compact('clients', 'services', 'iva_rate', 'setting', 'invoice'));
+        return view('invoices.create', compact( 'services', 'iva_rate', 'setting', 'invoice'));
     }
 
     // guardar boleta

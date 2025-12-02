@@ -32,7 +32,7 @@
 
                         <div class="grid grid-cols-1 gap-6 pb-6 mb-6 border-b md:grid-cols-3">
                             {{-- seleccion del cliente --}}
-                            <div class="col-span-1">
+                            {{--<div class="col-span-1">
                                 <x-input-label for="client_id" :value="__('Cliente')" />
                                 <select id="client_id" name="client_id" x-model.number="invoiceData.client_id"
                                     @change="updateClientInfo($el.options[$el.selectedIndex].text)"
@@ -45,10 +45,110 @@
                                     @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('client_id')" />
-                            </div>
+                            </div>--}}
+
+                                {{-- buscar y seleccionar con ajax --}}
+                                <div class="relative col-span-2"
+                                    x-data="{
+                                        search: '',
+                                        open: false,
+                                        items: [],
+                                        isLoading: false,
+
+                                        // para buscar
+                                        async fetchClients() {
+                                            if (this.search.length < 2) {
+                                                this.items = [];
+                                                return;
+                                            }
+                                            this.isLoading = true;
+                                            this.open = true;
+
+                                            try {
+                                                // llamada a la ruta de ajax
+                                                let response = await fetch(`{{ route('clients.ajax.search') }}?q=${encodeURIComponent(this.search)}`);
+                                                this.items = await response.json();
+                                            } catch (e) {
+                                                this.items = [];
+                                            } finally {
+                                                this.isLoading = false;
+                                            }
+                                        },
+
+                                        // ala seleccionar un cliente
+                                        selectClientFromDropdown(client) {
+                                            // asignar id ocultao
+                                            this.invoiceData.client_id = client.id;
+                                            // mostrar en la busqueda
+                                            this.search = client.nombre;
+                                            // ocultar el deplegable
+                                            this.open = false;
+                                            // actualizar la infomracion latearl
+                                            this.updateClientInfoFromObject(client);
+                                        },
+
+                                        // limpiar la busqueda
+                                        resetSearch() {
+                                            this.search = '';
+                                            this.invoiceData.client_id = '';
+                                            this.updateClientInfoFromObject(null);
+                                            this.items = [];
+                                        }
+                                    }"
+                                    @click.outside="open = false"
+                                >
+                                    <x-input-label for="client_search" :value="__('Cliente (Buscar DNI/Nombre)')" />
+
+                                    <div class="relative mt-1">
+                                        <x-text-input type="text" id="client_search" x-model="search"
+                                            @input.debounce.500ms="fetchClients()"
+                                            @focus="open = true"
+                                            placeholder="Escriba nombre o DNI..." class="w-full pl-10" autocomplete="off"
+                                        />
+
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <i class="text-gray-400 fa" :class="isLoading ? 'fa-spinner fa-spin' : 'fa-search'"></i>
+                                        </div>
+
+                                        {{-- boton para limpiar --}}
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                                            x-show="search.length > 0 && !isLoading"
+                                            @click="resetSearch()">
+                                            <i class="text-gray-400 hover:text-red-500 fa fa-times"></i>
+                                        </div>
+                                    </div>
+
+                                    {{-- info del imput par aguardar --}}
+                                    <input type="hidden" name="client_id" x-model="invoiceData.client_id" required>
+
+                                    {{-- lista deplegabnle de los resultados --}}
+                                    <div x-show="open && items.length > 0 && search.length > 1"
+                                        class="absolute z-50 w-full mt-1 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg max-h-60"
+                                        style="display: none;">
+                                        <ul>
+                                            <template x-for="item in items" :key="item.id">
+                                                <li @click="selectClientFromDropdown(item)"
+                                                    class="px-4 py-2 text-sm border-b cursor-pointer hover:bg-indigo-50 hover:text-indigo-800 border-gray-50 last:border-0">
+                                                    <div class="font-bold text-gray-800" x-text="item.nombre"></div>
+                                                    <div class="text-xs text-gray-500">
+                                                        <span x-text="item.dni ? 'DNI: ' + item.dni : 'Sin Doc.'"></span> |
+                                                        <span x-text="item.email"></span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+
+                                    <div x-show="open && items.length === 0 && search.length > 2 && !isLoading"
+                                        class="absolute z-50 w-full p-2 mt-1 text-sm text-center text-red-500 bg-white border rounded-md shadow-lg">
+                                        No se encontraron clientes.
+                                    </div>
+
+                                    <x-input-error class="mt-2" :messages="$errors->get('client_id')" />
+                                </div>
 
                             {{-- info del cliente --}}
-                            <div class="col-span-2 space-y-2 text-sm pt-7">
+                            <div class="col-span-1 space-y-2 text-sm pt-7">
                                 <p><strong>Teléfono:</strong> <span x-text="clientInfo.phone"></span></p>
                                 <p><strong>Email:</strong> <span x-text="clientInfo.email"></span></p>
                                 <p><strong>Dirección:</strong> <span x-text="clientInfo.address"></span></p>
@@ -305,7 +405,7 @@
             },
 
             // infomracion de la vista de cliente actualizar
-            updateClientInfo(selectedText) {
+            /*updateClientInfo(selectedText) {
                 const selectElement = document.getElementById('client_id');
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
 
@@ -317,7 +417,19 @@
                 } else {
                     this.clientInfo = { name: '', phone: '', email: '', address: '' };
                 }
-            },
+            },*/
+
+updateClientInfoFromObject(clientObj) {
+    if (clientObj) {
+        this.clientInfo.name = clientObj.nombre || '';
+        this.clientInfo.phone = clientObj.telefono || 'N/A';
+        this.clientInfo.email = clientObj.email || 'N/A';
+        this.clientInfo.address = clientObj.direccion || 'N/A';
+    } else {
+        // Limpiar información si no hay cliente seleccionado
+        this.clientInfo = { name: '', phone: '', email: '', address: '' };
+    }
+},
 
             // formato de moneda
             formatCurrency(value) {
