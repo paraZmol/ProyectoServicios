@@ -161,6 +161,7 @@
                                 <x-input-label for="fecha" :value="__('Fecha')" />
                                 <x-text-input id="fecha" name="fecha" type="date" class="block w-full mt-1" :value="old('fecha', date('Y-m-d'))" required x-model="invoiceData.fecha" />
                             </div>
+
                             <div>
                                 <x-input-label for="estado" :value="__('Estado')" />
                                 <select id="estado" name="estado" x-model="invoiceData.estado" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
@@ -169,7 +170,16 @@
                                     <option value="Anulada">Anulada</option>
                                 </select>
                             </div>
-                             <div>
+
+                            <div x-show="invoiceData.estado === 'Pendiente'" x-transition style="display: none;">
+                                <x-input-label for="monto_pagado" :value="__('Monto a Cuenta (Adelanto)')" />
+                                <x-text-input id="monto_pagado" name="monto_pagado" type="number" step="0.01"
+                                    class="block w-full mt-1 border-blue-300 focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="0.00"
+                                    x-model="invoiceData.monto_pagado" />
+                            </div>
+
+                            <div>
                                 <x-input-label for="metodo_pago" :value="__('Método de Pago')" />
                                 <select id="metodo_pago" name="metodo_pago" x-model="invoiceData.metodo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                     <option value="Efectivo">Efectivo</option>
@@ -177,11 +187,13 @@
                                     <option value="Digital">Billetera Digital</option>
                                 </select>
                             </div>
-                             <div>
+
+                            <div>
                                 <x-input-label :value="__('Vendedor')" />
                                 <x-text-input type="text" class="block w-full mt-1 bg-gray-100" value="{{ Auth::user()->name }}" disabled />
                             </div>
                         </div>
+                        {{-- fin de detalles de factura --}}
 
                         {{-- tabla de items --}}
                         <h3 class="pt-4 mb-3 text-lg font-semibold border-t">{{ __('Servicios Incluidos') }}</h3>
@@ -333,6 +345,9 @@
                 fecha: '{{ date('Y-m-d') }}',
                 estado: 'Pagada',
                 metodo_pago: 'Efectivo',
+
+                // para el estado de Pendiente
+                monto_pagado: 0,
 
                 // items y canculos
                 items: @json(old('items', [])),
