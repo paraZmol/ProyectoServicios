@@ -185,6 +185,15 @@ class InvoiceController extends Controller
         try {
             $data = $request->validated();
 
+            // para el caso de pendiente
+            if ($data['estado'] === 'Pagada') {
+                $data['monto_pagado'] = $data['total'];
+            } elseif ($data['estado'] === 'Anulada') {
+                $data['monto_pagado'] = 0;
+            } else {
+                $data['monto_pagado'] = $data['monto_pagado'] ?? 0;
+            }
+
             // actualizar header
             $invoice->update([
                 'client_id' => $data['client_id'],
@@ -194,6 +203,7 @@ class InvoiceController extends Controller
                 'subtotal' => $data['subtotal'],
                 'impuesto' => $data['impuesto'],
                 'total' => $data['total'],
+                'monto_pagado' => $data['monto_pagado'],
             ]);
 
             //eliminar items existentes

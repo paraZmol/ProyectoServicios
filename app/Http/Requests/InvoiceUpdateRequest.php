@@ -30,6 +30,8 @@ class InvoiceUpdateRequest extends FormRequest
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pagada,Pendiente,Anulada',
+            // para el caso de pendiente
+            'monto_pagado' => 'nullable|numeric|min:0',
 
             // calculos generales
             'subtotal' => 'required|numeric|min:0',
