@@ -275,7 +275,7 @@
                         </div>
 
                         {{-- botones finales --}}
-                        <div class="flex justify-end mt-8 space-x-4">
+                        {{--<div class="flex justify-end mt-8 space-x-4">
                             <x-primary-button
                                 type="submit"
                                 x-bind:disabled="invoiceData.items.length === 0"
@@ -290,6 +290,15 @@
                                 @click="invoiceData.estado = 'Pendiente'"
                             >
                                 {{ __('Guardar como Pendiente') }}
+                            </x-primary-button>
+                        </div>--}}
+                        <div class="flex justify-end mt-8">
+                            <x-primary-button
+                                type="submit"
+                                x-bind:disabled="invoiceData.items.length === 0"
+                                class="bg-indigo-600 hover:bg-indigo-700"
+                            >
+                                {{ __('Guardar Boleta') }}
                             </x-primary-button>
                         </div>
                     </form>
