@@ -171,6 +171,7 @@
                                 </select>
                             </div>
 
+                            {{-- PENDEINTE --}}
                             <div x-show="invoiceData.estado === 'Pendiente'" x-transition style="display: none;">
                                 <x-input-label for="monto_pagado" :value="__('Monto a Cuenta (Adelanto)')" />
                                 <x-text-input id="monto_pagado" name="monto_pagado" type="number" step="0.01"

@@ -61,6 +61,14 @@
                                     <option value="Anulada" @selected(old('estado', $invoice->estado) == 'Anulada')>Anulada</option>
                                 </select>
                             </div>
+                            {{-- pendiente --}}
+                            <div x-show="invoiceData.estado === 'Pendiente'" x-transition style="display: none;">
+                                <x-input-label for="monto_pagado" :value="__('Monto a Cuenta (Adelanto)')" />
+                                <x-text-input id="monto_pagado" name="monto_pagado" type="number" step="0.01"
+                                    class="block w-full mt-1 border-blue-300 focus:border-blue-500 focus:ring-blue-500"
+                                    x-model="invoiceData.monto_pagado" />
+                            </div>
+
                              <div>
                                 <x-input-label for="metodo_pago" :value="__('Método de Pago')" />
                                 <select id="metodo_pago" name="metodo_pago" x-model="invoiceData.metodo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
@@ -231,6 +239,9 @@
                 fecha: initialInvoice.fecha,
                 estado: initialInvoice.estado,
                 metodo_pago: initialInvoice.metodo_pago,
+
+                // para el caso de pendiente
+                monto_pagado: parseFloat(initialInvoice.monto_pagado) || 0,
 
                 items: initialItems,
                 subtotal: parseFloat(initialInvoice.subtotal),
