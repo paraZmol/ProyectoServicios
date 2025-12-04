@@ -24,6 +24,8 @@ class InvoiceStoreRequest extends FormRequest
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pendiente,Pagada,Anulada',
+            // para el caso de pendiente
+            'monto_pagado' => 'nullable|numeric|min:0',
 
             //calculos
             'subtotal' => 'required|numeric|min:0',

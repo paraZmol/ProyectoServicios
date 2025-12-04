@@ -79,6 +79,18 @@ class InvoiceController extends Controller
 
             //Log::info("Creando cabecera de factura...");
 
+            // para asignar el monto pagado en caso de pendiente
+            if ($data['estado'] === 'Pagada') {
+                // en caso de estar pagado, entonces el monto pagado es el mismo que el total
+                $data['monto_pagado'] = $data['total'];
+            } elseif ($data['estado'] === 'Anulada') {
+                // si esta anulada, entonces no hay pago
+                $data['monto_pagado'] = 0;
+            } else {
+                // en caso de estar en pendiente, se recoge el valor de input, y si es que no viene nada entonces es 0
+                $data['monto_pagado'] = $data['monto_pagado'] ?? 0;
+            }
+
             $invoice = Invoice::create([
                 'client_id' => $data['client_id'],
                 'user_id' => Auth::id(),
@@ -88,6 +100,7 @@ class InvoiceController extends Controller
                 'subtotal' => $data['subtotal'],
                 'impuesto' => $data['impuesto'],
                 'total' => $data['total'],
+                'monto_pagado' => $data['monto_pagado'],
             ]);
 
             //Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
