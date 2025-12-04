@@ -373,8 +373,34 @@
                 );
             },
 
+
             // añadir item del modal
             addItem(service) {
+
+                let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
+
+                const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
+
+                if (existingItemIndex > -1) {
+                    this.invoiceData.items[existingItemIndex].cantidad++;
+                } else {
+                    let precioNeto = parseFloat((service.precio * (1 - rate)).toFixed(2));
+
+                    this.invoiceData.items.push({
+                        service_id: service.id,
+                        codigo: service.codigo,
+                        nombre_servicio: service.nombre_servicio,
+                        cantidad: 1,
+                        precio_unitario_final: precioNeto,
+                        total_linea: precioNeto,
+                    });
+                }
+
+                this.serviceSearch = '';
+                this.calculateTotals();
+            },
+
+            /*addItem(service) {
                 const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
 
                 if (existingItemIndex > -1) {
@@ -394,7 +420,7 @@
 
                 this.serviceSearch = ''; // limpia de busqueda
                 this.calculateTotals();
-            },
+            },*/
 
             // eliminar item
             removeItem(index) {
@@ -404,6 +430,30 @@
 
             // calcula totales
             calculateTotals() {
+                let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
+
+                let totalAcumuladoNeto = 0;
+
+                this.invoiceData.items.forEach(item => {
+                    const cantidad = parseFloat(item.cantidad) || 0;
+                    const precio = parseFloat(item.precio_unitario_final) || 0;
+
+                    const totalLinea = cantidad * precio;
+
+                    item.total_linea = totalLinea;
+                    totalAcumuladoNeto += totalLinea;
+                });
+
+                this.invoiceData.subtotal = parseFloat(totalAcumuladoNeto.toFixed(2));
+
+                this.invoiceData.total = parseFloat((this.invoiceData.subtotal / (1 - rate)).toFixed(2));
+
+                this.invoiceData.impuesto = parseFloat((this.invoiceData.total - this.invoiceData.subtotal).toFixed(2));
+
+                console.log('Subtotal (Tabla):', this.invoiceData.subtotal, 'Total Calc:', this.invoiceData.total);
+            },
+
+            /*calculateTotals() {
                 let subtotal = 0;
                 this.invoiceData.items.forEach(item => {
                     // cantidad y precio en numeros - verificacion
@@ -418,21 +468,6 @@
                 this.invoiceData.subtotal = parseFloat(subtotal.toFixed(2));
                 this.invoiceData.impuesto = parseFloat((subtotal * this.IVA_RATE).toFixed(2));
                 this.invoiceData.total = parseFloat((this.invoiceData.subtotal + this.invoiceData.impuesto).toFixed(2));
-            },
-
-            // infomracion de la vista de cliente actualizar
-            /*updateClientInfo(selectedText) {
-                const selectElement = document.getElementById('client_id');
-                const selectedOption = selectElement.options[selectElement.selectedIndex];
-
-                if (selectedOption.value) {
-                    this.clientInfo.name = selectedText;
-                    this.clientInfo.phone = selectedOption.getAttribute('data-phone');
-                    this.clientInfo.email = selectedOption.getAttribute('data-email');
-                    this.clientInfo.address = selectedOption.getAttribute('data-address');
-                } else {
-                    this.clientInfo = { name: '', phone: '', email: '', address: '' };
-                }
             },*/
 
 updateClientInfoFromObject(clientObj) {
