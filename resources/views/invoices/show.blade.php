@@ -33,6 +33,12 @@
                         {{-- <button onclick="window.print()" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
                             <i class="mr-1 fa fa-print"></i> {{ __('Imprimir') }}
                         </button> --}}
+
+                        {{-- Botón Nuevo: Ticket --}}
+                        <a href="{{ route('invoices.ticket', $invoice->id) }}" target="_blank" class="px-4 py-2 font-bold text-white bg-gray-800 rounded shadow hover:bg-gray-900">
+                            <i class="mr-1 fas fa-receipt"></i> {{ __('Ticket') }}
+                        </a>
+
                         <a href="{{ route('invoices.pdf', $invoice->id) }}" target="_blank" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
                             <i class="mr-1 fa fa-print"></i> {{ __('Imprimir/PDF') }}
                         </a>

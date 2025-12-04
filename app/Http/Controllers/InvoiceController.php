@@ -262,4 +262,16 @@ class InvoiceController extends Controller
         // en caso de quere descargar de forma directa, es decir que se descarga antes de visualizar
         //return $pdf->download($filename);
     }
+
+    // ticket
+    public function ticket(Invoice $invoice)
+    {
+        // relacions
+        $invoice->load('client', 'user', 'details.service');
+
+        $setting = Setting::first();
+
+        // vista especial para el ticket
+        return view('invoices.ticket', compact('invoice', 'setting'));
+    }
 }

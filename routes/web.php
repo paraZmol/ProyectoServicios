@@ -73,7 +73,7 @@ Route::middleware(['auth', 'role:admin|trabajador|usuario'])->group(function () 
 Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
     // ruta a  ajax
     Route::get('/clients/ajax-search', [ClientController::class, 'searchAjax'])->name('clients.ajax.search');
-    
+
     // rutas genericas
     Route::resource('clients', ClientController::class);
     Route::resource('invoices', InvoiceController::class);
@@ -83,6 +83,7 @@ Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
     Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
 
     // pdf
+    Route::get('invoices/{invoice}/ticket', [InvoiceController::class, 'ticket'])->name('invoices.ticket');
     Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');
 });
 
