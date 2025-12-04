@@ -134,7 +134,11 @@
         <tr>
             <td width="50%">
                 <p style="font-weight: bold;">Cliente: {{ $invoice->client->nombre }}</p>
-                <p>DNI: {{ $invoice->client->dni ?? 'Sin DNI' }}</p>
+                {{-- ocultar los dni o ruc etc --}}
+                <p>
+                    <strong>{{ $invoice->client->tipo_documento }}:</strong>
+                    {{ $invoice->client->documento_oculto }}
+                </p>
                 <p>Dirección: {{ $invoice->client->direccion ?? 'Sin dirección' }}</p>
                 <p>Email: {{ $invoice->client->email ?? 'Email no disponible' }}</p>
                 <p>Teléfono: {{ $invoice->client->telefono ?? 'Telefono no disponible' }}</p>

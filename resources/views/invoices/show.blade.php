@@ -68,7 +68,15 @@
                             <div>
                                 <h2 class="mb-2 text-lg font-bold">{{ __('Boleta A:') }}</h2>
                                 <p class="font-semibold">{{ $invoice->client->nombre ?? 'Cliente Eliminado' }}</p>
-                                <p class="text-sm">{{ $invoice->client->dni ?? 'DNI no disponible' }}</p>
+                                {{-- ocultar los dni o ruc etc --}}
+                                <p class="text-sm">
+                                    @if($invoice->client->dni)
+                                        <span class="font-bold">{{ $invoice->client->tipo_documento }}:</span>
+                                        {{ $invoice->client->documento_oculto }}
+                                    @else
+                                        DNI no disponible
+                                    @endif
+                                </p>
                                 <p class="text-sm">{{ $invoice->client->direccion ?? 'Dirección no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->email ?? 'Email no disponible' }}</p>
                                 <p class="text-sm">{{ $invoice->client->telefono ?? 'Teléfono no disponible' }}</p>

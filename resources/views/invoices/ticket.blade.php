@@ -111,7 +111,11 @@
 
     <div class="small-text">
         <strong>Cliente:</strong> {{ Str::limit($invoice->client->nombre, 35) }}<br>
-        <strong>DNI/RUC:</strong> {{ $invoice->client->dni ?? '-' }}<br>
+        @if($invoice->client->dni)
+            <strong>{{ $invoice->client->tipo_documento }}:</strong> {{ $invoice->client->documento_oculto }}<br>
+        @else
+            <strong>Doc:</strong> - <br>
+        @endif
         @if($invoice->client->direccion)
             <strong>Dir:</strong> {{ Str::limit($invoice->client->direccion, 40) }}<br>
         @endif
