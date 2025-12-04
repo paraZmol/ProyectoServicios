@@ -20,6 +20,7 @@ class Invoice extends Model
         'subtotal',
         'impuesto',
         'total',
+        'monto_pagado',
         'client_id',
         'user_id',
     ];

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2);
             $table->decimal('impuesto', 10, 2);
             $table->decimal('total', 10, 2);
+            $table->decimal('monto_pagado', 10, 2)->default(0);
             $table->foreignId('client_id')->constrained('clients');
             $table->foreignId('user_id')->constrained('users');
             $table->softDeletes();
