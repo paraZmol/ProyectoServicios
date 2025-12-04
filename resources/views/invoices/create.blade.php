@@ -166,7 +166,7 @@
                                 <select id="estado" name="estado" x-model="invoiceData.estado" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                     <option value="Pagada">Pagada</option>
                                     <option value="Pendiente">Pendiente</option>
-                                    <option value="Cancelada">Cancelada</option>
+                                    <option value="Anulada">Anulada</option>
                                 </select>
                             </div>
                              <div>

@@ -90,7 +90,7 @@
                                             $class = match ($estado) {
                                                 'Pagada' => 'bg-green-100 text-green-800',
                                                 'Pendiente' => 'bg-yellow-100 text-yellow-800',
-                                                default => 'bg-red-100 text-red-800', // Cancelada, etc.
+                                                default => 'bg-red-100 text-red-800', // ANUALDa
                                             };
                                         @endphp
                                         <span class="inline-flex px-3 py-0.5 text-xs font-semibold rounded-full {{ $class }}">

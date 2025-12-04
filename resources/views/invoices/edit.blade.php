@@ -58,7 +58,7 @@
                                 <select id="estado" name="estado" x-model="invoiceData.estado" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                     <option value="Pagada" @selected(old('estado', $invoice->estado) == 'Pagada')>Pagada</option>
                                     <option value="Pendiente" @selected(old('estado', $invoice->estado) == 'Pendiente')>Pendiente</option>
-                                    <option value="Cancelada" @selected(old('estado', $invoice->estado) == 'Cancelada')>Cancelada</option>
+                                    <option value="Anulada" @selected(old('estado', $invoice->estado) == 'Anulada')>Anulada</option>
                                 </select>
                             </div>
                              <div>
