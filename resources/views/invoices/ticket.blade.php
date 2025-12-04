@@ -163,6 +163,20 @@
         </div>
     </div>
 
+    {{-- slado en caso de haber pendientes --}}
+    @if($invoice->estado == 'Pendiente')
+        <div style="width: 100%; border-top: 1px dashed #000; margin-top: 5px; padding-top: 5px; text-align: right;">
+            <div>
+                <span style="margin-right: 10px;">A Cuenta:</span>
+                <span>{{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->monto_pagado, 2) }}</span>
+            </div>
+            <div style="font-weight: bold;">
+                <span style="margin-right: 10px;">Saldo Pendiente:</span>
+                <span>{{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</span>
+            </div>
+        </div>
+    @endif
+
     <div class="divider"></div>
 
     <div class="text-center small-text" style="margin-top: 5px;">
