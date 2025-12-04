@@ -174,6 +174,14 @@
         <p>Subtotal: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->subtotal, 2) }}</p>
         <p>Impuesto ({{ $setting->iva_porcentaje ?? '18.00' }}%): {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->impuesto, 2) }}</p>
         <h3>TOTAL: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total, 2) }}</h3>
+
+        {{-- seccion de pendietnes --}}
+        @if($invoice->estado == 'Pendiente')
+            <div style="margin-top: 10px; border-top: 1px solid #ddd; padding-top: 5px;">
+                <p>A Cuenta: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->monto_pagado, 2) }}</p>
+                <p style="color: red; font-weight: bold;">Saldo Pendiente: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</p>
+            </div>
+        @endif
     </div>
 </body>
 </html>
