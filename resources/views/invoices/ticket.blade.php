@@ -181,7 +181,8 @@
 
     <div class="text-center small-text" style="margin-top: 5px;">
         <p style="margin-bottom: 5px;">¡GRACIAS POR SU PREFERENCIA!</p>
-        <p>Representación impresa de la<br>Boleta de Venta Electrónica</p>
+        <p style="margin-bottom: 5px;">Conserve este ticket para cualquier reclamo.</p>
+        {{--  <p>Representación impresa de la<br>Boleta de Venta Electrónica</p>--}}
     </div>
 
 </body>
