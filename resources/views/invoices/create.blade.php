@@ -97,7 +97,7 @@
                                     }"
                                     @click.outside="open = false"
                                 >
-                                    <x-input-label for="client_search" :value="__('Cliente (Buscar DNI/Nombre)')" />
+                                    <x-input-label for="client_search" :value="__('Cliente (Buscar DNI/RUC/Nombre)')" />
 
                                     <div class="relative mt-1">
                                         <x-text-input type="text" id="client_search" x-model="search"
@@ -131,7 +131,9 @@
                                                     class="px-4 py-2 text-sm border-b cursor-pointer hover:bg-indigo-50 hover:text-indigo-800 border-gray-50 last:border-0">
                                                     <div class="font-bold text-gray-800" x-text="item.nombre"></div>
                                                     <div class="text-xs text-gray-500">
-                                                        <span x-text="item.dni ? 'DNI: ' + item.dni : 'Sin Doc.'"></span> |
+                                                        {{-- mostrar dni o ruc --}}
+                                                            <span class="font-bold text-blue-600" x-text="item.tipo_documento + ':'"></span>
+                                                            <span x-text="item.dni"></span> |
                                                         <span x-text="item.email"></span>
                                                     </div>
                                                 </li>
