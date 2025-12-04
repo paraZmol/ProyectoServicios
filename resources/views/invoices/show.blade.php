@@ -131,6 +131,20 @@
                                     <span>TOTAL:</span>
                                     <span class="text-indigo-600">{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total, 2) }}</span>
                                 </div>
+
+                                {{-- saldos pendientes --}}
+                                @if($invoice->estado == 'Pendiente')
+                                    <div class="pt-2 mt-2 border-t border-gray-300 border-dashed">
+                                        <div class="flex justify-between text-gray-600">
+                                            <span>A cuenta (Pagado):</span>
+                                            <span>{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->monto_pagado, 2) }}</span>
+                                        </div>
+                                        <div class="flex justify-between text-lg font-bold text-red-600">
+                                            <span>Saldo Pendiente:</span>
+                                            <span>{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</span>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
