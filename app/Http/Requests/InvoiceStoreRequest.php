@@ -23,7 +23,7 @@ class InvoiceStoreRequest extends FormRequest
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
-            'estado' => 'required|in:Pendiente,Pagada,Cancelada',
+            'estado' => 'required|in:Pendiente,Pagada,Anulada',
 
             //calculos
             'subtotal' => 'required|numeric|min:0',

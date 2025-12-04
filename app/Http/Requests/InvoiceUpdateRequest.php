@@ -29,7 +29,7 @@ class InvoiceUpdateRequest extends FormRequest
             'client_id' => 'required|exists:clients,id',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
-            'estado' => 'required|in:Pagada,Pendiente,Cancelada',
+            'estado' => 'required|in:Pagada,Pendiente,Anulada',
 
             // calculos generales
             'subtotal' => 'required|numeric|min:0',

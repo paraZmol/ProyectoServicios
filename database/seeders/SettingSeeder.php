@@ -16,7 +16,7 @@ class SettingSeeder extends Seeder
             'telefono' => '+51 987 654 321',
             'correo_electronico' => 'contacto@servicios.com',
             'simbolo_moneda' => 'S/',
-            'iva_porcentaje' => 13.00,
+            'iva_porcentaje' => 18.00,
             'direccion' => 'Av. Central 123, Lima',
             'region' => 'Lima',
             'provincia' => 'Lima',
