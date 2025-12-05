@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreRequest;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class UserController extends Controller
 {
@@ -128,6 +131,69 @@ class UserController extends Controller
         $user->restore();
 
         return redirect()->route('users.deleted')->with('success', '✅ Usuario "' . $user->name . '" restaurado con éxito. Su cuenta está de nuevo activa.');
+    }
+
+    // eliminacion permante usuario
+    public function forceDelete($id)
+    {
+        //Log::info("🔴 [ForceDelete] Iniciando proceso para Usuario ID: " . $id);
+
+        $user = User::withTrashed()->find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Usuario no encontrado.');
+        }
+
+        if (Auth::id() == $user->id) {
+            return redirect()->back()->with('error', 'No puedes eliminar tu propia cuenta permanentemente.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            //buscar o crear al desvinculado
+            $dummyUser = User::withTrashed()
+                            ->where('email', 'desvinculado@sistema.com')
+                            ->first();
+
+            if (!$dummyUser) {
+                $dummyUser = User::create([
+                    'name'     => 'USUARIO DESVINCULADO',
+                    'email'    => 'desvinculado@sistema.com',
+                    'password' => Hash::make('password_imposible_' . rand(1000,9999)),
+                    'role'     => 'usuario'
+                ]);
+            }
+
+            if ($dummyUser->trashed()) {
+                $dummyUser->restore();
+            }
+
+            // resgianar  alas boletas
+            $affectedInvoices = 0;
+
+            // verificacion de xexistencias
+            if (Schema::hasColumn('invoices', 'user_id')) {
+                $affectedInvoices = DB::table('invoices')
+                    ->where('user_id', $user->id)
+                    ->update(['user_id' => $dummyUser->id]);
+
+                //Log::info("🔴 [ForceDelete] Boletas reasignadas: " . $affectedInvoices);
+            }
+
+            // eliminacion otal
+            $user->forceDelete();
+
+            DB::commit();
+
+            return redirect()->route('users.deleted')
+                ->with('success', "Usuario eliminado permanentemente. Se reasignaron {$affectedInvoices} boletas a 'USUARIO DESVINCULADO'.");
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            //Log::error("🔴 [ForceDelete] ERROR: " . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al eliminar: ' . $e->getMessage());
+        }
     }
 
 }

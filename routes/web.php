@@ -40,6 +40,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
          ->name('users.deleted');
     Route::put('/users/{id}/restore', [UserController::class, 'restore'])
          ->name('users.restore');
+    // eliminados permanete
+    Route::delete('/users/{id}/force-delete', [UserController::class, 'forceDelete'])
+         ->name('users.forceDelete');
     // gestion de usuarios
     Route::resource('users', UserController::class);
 
