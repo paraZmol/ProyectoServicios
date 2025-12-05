@@ -80,6 +80,56 @@ class ClientController extends Controller
         ]);
     }
 
+    // eliminar permanente de forma total
+    public function forceDelete($id)
+    {
+        // busqueda de cliente
+        $client = Client::withTrashed()->findOrFail($id);
+
+        try {
+            // buscar al clientes desvinculadp
+            $dummyClient = Client::withTrashed()
+                            ->where('nombre', 'CLIENTE DESVINCULADO')
+                            ->first();
+
+            // creacion del clioente desvinculaod ficticio
+            if (!$dummyClient) {
+                $dummyClient = Client::create([
+                    'nombre' => 'CLIENTE DESVINCULADO',
+                    'dni'    => '00000000', //
+                    'email'  => 'desvinculado@sistema.com',
+                    'telefono' => '000000000'
+                ]);
+            }
+
+            // no eliminar el cliente destino
+            if ($dummyClient->trashed()) {
+                $dummyClient->restore();
+            }
+
+            // reasignar boletas al cliente ficticio
+            if (method_exists($client, 'invoices')) {
+                // vincular el ficticio con la boleta
+                $client->invoices()->withTrashed()->update(['client_id' => $dummyClient->id]);
+            }
+
+            // reeasignar servicios
+            if (method_exists($client, 'services')) {
+                // acntualizar al cliente desvinculad
+                $client->services()->withTrashed()->update(['client_id' => $dummyClient->id]);
+            }
+
+            // eliminacion total del cliente original
+            $client->forceDelete();
+
+            return redirect()->route('clients.deleted')
+                ->with('success', 'Cliente eliminado permanentemente. Sus registros históricos han sido transferidos a "CLIENTE DESVINCULADO".');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['msg' => 'Error al procesar la eliminación: ' . $e->getMessage()]);
+        }
+    }
+
     // restaurar un cliente
     public function restore($id)
     {

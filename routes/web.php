@@ -49,6 +49,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
          ->name('clients.deleted');
     Route::put('/clients/{id}/restore', [ClientController::class, 'restore'])
          ->name('clients.restore');
+    // clientes eliminados permanente
+    Route::delete('/clients/{id}/force-delete', [ClientController::class, 'forceDelete'])
+         ->name('clients.forceDelete');
 
     // servicios eliminados
     Route::get('/services/deleted', [ServiceController::class, 'deleted'])
@@ -82,9 +85,9 @@ Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
     Route::get('configuracion', [SettingController::class, 'edit'])->name('settings.edit');
     Route::put('configuracion', [SettingController::class, 'update'])->name('settings.update');
 
-    // pdf
-    Route::get('invoices/{invoice}/ticket', [InvoiceController::class, 'ticket'])->name('invoices.ticket');
-    Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');
+    // imprimibles
+    Route::get('invoices/{invoice}/ticket', [InvoiceController::class, 'ticket'])->name('invoices.ticket'); //tiket
+    Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf'); // pdf
 });
 
 
