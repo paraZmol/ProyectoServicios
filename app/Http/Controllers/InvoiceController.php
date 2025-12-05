@@ -297,4 +297,34 @@ class InvoiceController extends Controller
         // vista especial para el ticket
         return view('invoices.ticket', compact('invoice', 'setting'));
     }
+
+    // eliminacion permanente
+    public function forceDelete($id)
+    {
+        // encontrar boleta
+        $invoice = Invoice::withTrashed()->find($id);
+
+        if (!$invoice) {
+            return redirect()->back()->with('error', 'Boleta no encontrada.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // eliminar los detalles de la boleta
+            $invoice->details()->withTrashed()->forceDelete();
+
+            // eliminar la boleta
+            $invoice->forceDelete();
+
+            DB::commit();
+
+            return redirect()->route('invoices.deleted')
+                ->with('success', 'Boleta eliminada permanentemente. No queda rastro.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error al eliminar: ' . $e->getMessage());
+        }
+    }
 }

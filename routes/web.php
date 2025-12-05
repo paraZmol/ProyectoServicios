@@ -70,6 +70,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
          ->name('invoices.deleted');
     Route::put('/invoices/{id}/restore', [InvoiceController::class, 'restore'])
          ->name('invoices.restore');
+    // boletas eliminadas permanentes
+    Route::delete('/invoices/{id}/force-delete', [InvoiceController::class, 'forceDelete'])
+         ->name('invoices.forceDelete');
 });
 
 // admin trabajador y usuario
