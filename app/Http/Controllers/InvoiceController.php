@@ -292,7 +292,7 @@ class InvoiceController extends Controller
         // relacions
         $invoice->load('client', 'user', 'details.service');
 
-        $setting = Setting::first();
+        $setting = Setting::latest()->first();
 
         // vista especial para el ticket
         return view('invoices.ticket', compact('invoice', 'setting'));

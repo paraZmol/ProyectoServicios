@@ -83,7 +83,7 @@
 
         <div class="header-info small-text">
             <div class="font-bold uppercase" style="font-size: 12px;">
-                {{ $setting->razon_social ?? 'PROYECTO SERVICIOS S.A.' }}
+                {{ $setting->nombre_empresa ?? 'PROYECTO SERVICIOS S.A.' }}
             </div>
             @if(isset($setting->ruc)) RUC: {{ $setting->ruc }} <br> @endif
             {{ Str::limit($setting->direccion ?? 'Dirección Principal', 35) }} <br>
