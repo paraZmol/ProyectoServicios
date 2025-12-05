@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
+                    <!-- Aquí irían los enlaces de escritorio si los agregas después -->
                 </div>
             </div>
 
@@ -78,80 +78,108 @@
             </div>
         </div>
     </div>
-    {{-- responsive --}}
+
+    {{-- responsive menu --}}
     <div :class="{'block': open, 'hidden': ! open}" class="hidden border-t border-sky-900 sm:hidden bg-sky-800">
 
+        {{-- estilos para el menu --}}
+        @php
+            // base
+            $base = "border-l-4 transition duration-150 ease-in-out block w-full pl-3 pr-4 py-2 text-left text-base font-medium";
+
+            // principal
+            $activo   = "border-sky-500 text-black bg-white font-bold";
+            $inactivo = "border-transparent text-white hover:bg-sky-700 hover:border-gray-300 hover:text-white";
+
+            // papeleres
+            $papeleraBase     = "pl-8 " . $base;
+            $papeleraActivo   = "border-sky-500 text-black bg-white font-bold";
+            $papeleraInactivo = "border-transparent text-sky-100 hover:bg-sky-700 hover:text-white hover:border-white";
+        @endphp
+
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+            <!-- nombre de empresa -->
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
+                class="{{ $base }} {{ request()->routeIs('dashboard') ? $activo : $inactivo }}">
                 {{ $companyName }}
             </x-responsive-nav-link>
         </div>
-        {{-- inicio menu agregado --}}
 
+        {{-- inicio menu agregado --}}
         <div class="pt-2 pb-3 space-y-1">
 
             <!-- menu de inicio -->
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"
+                class="{{ $base }} {{ request()->routeIs('dashboard') ? $activo : $inactivo }}">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
 
-            <!-- menu de servio-->
-            <x-responsive-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+            <!-- menu de servicios -->
+            <x-responsive-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')"
+                class="{{ $base }} {{ request()->routeIs('services.*') ? $activo : $inactivo }}">
                 {{ __('Servicios') }}
             </x-responsive-nav-link>
 
-            <!-- menu de boletas -->
+            <!-- menu de clientes y boletas -->
             @if (Auth::user()->role !== 'usuario')
-                <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')"
+                    class="{{ $base }} {{ request()->routeIs('clients.*') ? $activo : $inactivo }}">
                     {{ __('Clientes') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                <x-responsive-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')"
+                    class="{{ $base }} {{ request()->routeIs('invoices.*') ? $activo : $inactivo }}">
                     {{ __('Boletas') }}
                 </x-responsive-nav-link>
             @endif
 
-            <!-- visualizavcion del admin -->
+            <!-- visualizacion del admin -->
             @if (Auth::check() && Auth::user()->role === 'admin')
-                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')"
+                    class="{{ $base }} {{ request()->routeIs('users.*') ? $activo : $inactivo }}">
                     {{ __('Usuarios') }}
                 </x-responsive-nav-link>
             @endif
 
             <!-- configuracion -->
             @if (Auth::user()->role !== 'usuario')
-                <x-responsive-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                <x-responsive-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')"
+                    class="{{ $base }} {{ request()->routeIs('settings.*') ? $activo : $inactivo }}">
                     {{ __('Configuración') }}
                 </x-responsive-nav-link>
             @endif
 
-            <!-- papelreas -->
+            <!-- papeleras -->
             @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="pt-2 mt-4 border-t border-sky-600/50">
                     <div class="px-4 py-2 text-xs font-bold tracking-widest uppercase text-sky-300">
                         <i class="mr-1 fas fa-trash-restore"></i> {{ __('Papeleras') }}
                     </div>
 
-                    <x-responsive-nav-link :href="route('services.deleted')" :active="request()->routeIs('services.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    <x-responsive-nav-link :href="route('services.deleted')" :active="request()->routeIs('services.deleted')"
+                        class="{{ $papeleraBase }} {{ request()->routeIs('services.deleted') ? $papeleraActivo : $papeleraInactivo }}">
                         {{ __('Servicios') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    <x-responsive-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')"
+                        class="{{ $papeleraBase }} {{ request()->routeIs('clients.deleted') ? $papeleraActivo : $papeleraInactivo }}">
                         {{ __('Clientes') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('invoices.deleted')" :active="request()->routeIs('invoices.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    <x-responsive-nav-link :href="route('invoices.deleted')" :active="request()->routeIs('invoices.deleted')"
+                        class="{{ $papeleraBase }} {{ request()->routeIs('invoices.deleted') ? $papeleraActivo : $papeleraInactivo }}">
                         {{ __('Boletas') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('users.deleted')" :active="request()->routeIs('users.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    <x-responsive-nav-link :href="route('users.deleted')" :active="request()->routeIs('users.deleted')"
+                        class="{{ $papeleraBase }} {{ request()->routeIs('users.deleted') ? $papeleraActivo : $papeleraInactivo }}">
                         {{ __('Usuarios') }}
                     </x-responsive-nav-link>
                 </div>
             @endif
         </div>
 
-        <!-- opiniones de perfil -->
+        <!-- opciones de perfil -->
         <div class="pt-4 pb-1 border-t shadow-inner border-sky-900">
             <div class="px-4">
                 <div class="text-base font-medium text-white">{{ Auth::user()->name }}</div>
