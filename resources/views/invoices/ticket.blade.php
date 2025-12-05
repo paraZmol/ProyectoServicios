@@ -86,7 +86,8 @@
                 {{ $setting->nombre_empresa ?? 'PROYECTO SERVICIOS S.A.' }}
             </div>
             @if(isset($setting->ruc)) RUC: {{ $setting->ruc }} <br> @endif
-            {{ Str::limit($setting->direccion ?? 'Dirección Principal', 35) }} <br>
+            Dir: {{ Str::limit($setting->direccion ?? 'Dirección Principal', 35) }} <br>
+            Email: {{ Str::limit($setting->correo_electronico ?? $setting->email, 35) }}<br>
             Telf: {{ $setting->telefono ?? '-' }}
         </div>
     </div>
@@ -115,6 +116,9 @@
             <strong>{{ $invoice->client->tipo_documento }}:</strong> {{ $invoice->client->documento_oculto }}<br>
         @else
             <strong>Doc:</strong> - <br>
+        @endif
+        @if($invoice->client->direccion)
+            <strong>Email:</strong> {{ Str::limit($invoice->client->email, 40) }}<br>
         @endif
         @if($invoice->client->direccion)
             <strong>Dir:</strong> {{ Str::limit($invoice->client->direccion, 40) }}<br>
