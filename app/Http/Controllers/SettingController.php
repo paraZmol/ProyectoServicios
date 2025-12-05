@@ -33,7 +33,8 @@ class SettingController extends Controller
             'simbolo_moneda' => 'required|string|max:10',
             'direccion' => 'nullable|string|max:255',
             'ciudad' => 'nullable|string|max:255',
-            'region_provincia' => 'nullable|string|max:255',
+            'region' => 'nullable|string|max:255',
+            'provincia' => 'nullable|string|max:255',
             'codigo_postal' => 'nullable|string|max:20',
             // ralga para el logo con un maximo de 4mb
             'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
