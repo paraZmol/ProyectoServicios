@@ -73,10 +73,10 @@
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">{{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</td>
 
                                     {{-- Cliente (Alineado a la izquierda) --}}
-                                    <td class="px-6 py-4 text-sm text-left text-gray-800 whitespace-nowrap">{{ $invoice->client->nombre ?? 'N/A' }}</td>
+                                    <td class="px-6 py-4 text-sm text-left text-gray-800 ">{{ $invoice->client->nombre ?? 'N/A' }}</td>
 
                                     {{-- Vendedor (Alineado a la izquierda) --}}
-                                    <td class="px-6 py-4 text-sm text-left text-gray-600 whitespace-nowrap">{{ $invoice->user->name ?? 'N/A' }}</td>
+                                    <td class="px-6 py-4 text-sm text-left text-gray-600 ">{{ $invoice->user->name ?? 'N/A' }}</td>
 
                                     {{-- Total (Alineado a la derecha, color verde de énfasis) --}}
                                     <td class="px-6 py-4 text-sm font-extrabold text-right text-green-700 whitespace-nowrap">
@@ -149,7 +149,7 @@
     </div>
 
     {{-- ========================================================= --}}
-    {{-- 🗑️ Modal de Confirmación Estilizado para Boletas
+    {{-- Modal de Confirmación Estilizado para Boletas
     {{-- ========================================================= --}}
 
     <!-- Modal Overlay (fondo oscuro) -->
@@ -191,7 +191,7 @@
 
 
     {{-- ========================================================= --}}
-    {{-- 🧠 Script para Controlar el Modal de Boletas
+    {{-- Script para Controlar el Modal de Boletas
     {{-- ========================================================= --}}
 
     <script>

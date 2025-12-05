@@ -78,36 +78,105 @@
             </div>
         </div>
     </div>
-
+    {{-- responsive --}}
     <div :class="{'block': open, 'hidden': ! open}" class="hidden border-t border-sky-900 sm:hidden bg-sky-800">
+
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
                 {{ $companyName }}
             </x-responsive-nav-link>
         </div>
+        {{-- inicio menu agregado --}}
 
-        <div class="pt-4 pb-1 border-t border-sky-900">
-            <div class="px-4">
-                <div class="text-base font-medium text-white">{{ Auth::user()->name }}</div>
-                <div class="text-sm font-medium text-sky-200">{{ Auth::user()->email }}</div>
-            </div>
+        <div class="pt-2 pb-3 space-y-1">
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')" class="text-white hover:bg-sky-700">
-                    {{ __('Profile') }}
+        <!-- menu de inicio -->
+        <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+            {{ __('Inicio') }}
+        </x-responsive-nav-link>
+
+        <!-- menu de servio-->
+        <x-responsive-nav-link :href="route('services.index')" :active="request()->routeIs('services.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+            {{ __('Servicios') }}
+        </x-responsive-nav-link>
+
+        <!-- menu de boletas -->
+        @if (Auth::user()->role !== 'usuario')
+            <x-responsive-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                {{ __('Clientes') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                {{ __('Boletas') }}
+            </x-responsive-nav-link>
+        @endif
+
+        <!-- visualizavcion del admin -->
+        @if (Auth::check() && Auth::user()->role === 'admin')
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                {{ __('Usuarios') }}
+            </x-responsive-nav-link>
+        @endif
+
+        <!-- configuracion -->
+        @if (Auth::user()->role !== 'usuario')
+            <x-responsive-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="text-white border-l-4 celeste-nav-link hover:bg-sky-700 hover:border-white">
+                {{ __('Configuración') }}
+            </x-responsive-nav-link>
+        @endif
+
+        <!-- papelreas -->
+        @if (Auth::check() && Auth::user()->role === 'admin')
+            <div class="pt-2 mt-4 border-t border-sky-600/50">
+                <div class="px-4 py-2 text-xs font-bold tracking-widest uppercase text-sky-300">
+                    <i class="mr-1 fas fa-trash-restore"></i> {{ __('Papeleras') }}
+                </div>
+
+                <x-responsive-nav-link :href="route('services.deleted')" :active="request()->routeIs('services.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    {{ __('Servicios') }}
                 </x-responsive-nav-link>
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                <x-responsive-nav-link :href="route('clients.deleted')" :active="request()->routeIs('clients.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    {{ __('Clientes') }}
+                </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();"
-                                class="text-red-300 hover:bg-red-700">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
+                <x-responsive-nav-link :href="route('invoices.deleted')" :active="request()->routeIs('invoices.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    {{ __('Boletas') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('users.deleted')" :active="request()->routeIs('users.deleted')" class="pl-8 border-l-4 border-transparent text-sky-100 hover:bg-sky-700 hover:border-white hover:text-white">
+                    {{ __('Usuarios') }}
+                </x-responsive-nav-link>
             </div>
+        @endif
+    </div>
+
+    <!-- opiniones de perfil -->
+    <div class="pt-4 pb-1 border-t shadow-inner border-sky-900">
+        <div class="px-4">
+            <div class="text-base font-medium text-white">{{ Auth::user()->name }}</div>
+            <div class="text-sm font-medium text-sky-200">{{ Auth::user()->email }}</div>
         </div>
+
+        <div class="mt-3 space-y-1">
+            <x-responsive-nav-link :href="route('profile.edit')" class="text-white hover:bg-sky-700 hover:text-white">
+                {{ __('Perfil') }}
+            </x-responsive-nav-link>
+
+            <!-- autenticacion -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-responsive-nav-link :href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();"
+                        class="text-red-300 transition-colors hover:bg-red-800 hover:text-white">
+                    {{ __('Cerrar Sesión') }}
+                </x-responsive-nav-link>
+            </form>
+        </div>
+    </div>
+
+        {{-- fin menu agregado --}}
     </div>
 </nav>
