@@ -32,13 +32,13 @@ class Invoice extends Model
     // m facturas - 1 cliente
     public function client(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class)->withTrashed();
     }
 
     // m facturas - 1 usuario
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     // 1 facturas - m detalles
