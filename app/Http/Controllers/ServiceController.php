@@ -127,4 +127,52 @@ class ServiceController extends Controller
 
         return redirect()->route('services.deleted')->with('success', '✅ Servicio "' . $service->nombre_servicio . '" restaurado con éxito.');
     }
+
+    // eliminar permanente de forma total
+    public function forceDelete($id)
+    {
+        // busqueda de servicio
+        $service = Service::withTrashed()->findOrFail($id);
+
+        try {
+            // buscar servicio desvinculado
+            $dummyService = Service::withTrashed()
+                            ->where('nombre_servicio', 'SERVICIO DESVINCULADO')
+                            ->first();
+
+            // creacion de servicio ficticio si no existe
+            if (!$dummyService) {
+                $dummyService = Service::create([
+                    'codigo'          => 'SVC-000', // codigo especial
+                    'nombre_servicio' => 'SERVICIO DESVINCULADO',
+                    'precio'          => 0.00
+                ]);
+            }
+
+            // asegurar que no este eliminado
+            if ($dummyService->trashed()) {
+                $dummyService->restore();
+            }
+
+            // reasignar detalles de boletas
+            if (method_exists($service, 'invoiceDetails')) {
+                // actualizar al servicio desvinculado
+                $service->invoiceDetails()->withTrashed()->update(['service_id' => $dummyService->id]);
+            }
+
+            // tambien chequear si se llama items
+            if (method_exists($service, 'items')) {
+                $service->items()->withTrashed()->update(['service_id' => $dummyService->id]);
+            }
+
+            // eliminacion total del servicio original
+            $service->forceDelete();
+
+            return redirect()->route('services.deleted')
+                ->with('success', 'Servicio eliminado permanentemente. Historial transferido a "SERVICIO DESVINCULADO".');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['msg' => 'Error al procesar la eliminación: ' . $e->getMessage()]);
+        }
+    }
 }

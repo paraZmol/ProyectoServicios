@@ -80,6 +80,42 @@ class ClientController extends Controller
         ]);
     }
 
+    // restaurar un cliente
+    public function restore($id)
+    {
+        // encontrar al cliente eliminado por id
+        $client = Client::onlyTrashed()->findOrFail($id);
+
+        // restaurar
+        $client->restore();
+
+        return redirect()->route('clients.deleted')->with('success', '✅ Cliente "' . $client->nombre . '" restaurado con éxito. Ahora está activo en el listado principal.');
+    }
+
+    // busqueda para la boleta
+    public function searchAjax(Request $request)
+    {
+        $query = $request->get('q');
+
+        //en caso de no haber busqueda
+        if (empty($query)) {
+            return response()->json([]);
+        }
+
+        // busqueda con like
+        $clients = Client::query()
+            ->where('estado', 'activo') // solo activos
+            ->where(function ($q) use ($query) {
+                $q->where('nombre', 'like', "%{$query}%")
+                ->orWhere('dni', 'like', "%{$query}%")
+                ->orWhere('email', 'like', "%{$query}%");
+            })
+            ->limit(15) // limite de resultados
+            ->get(['id', 'nombre', 'dni', 'email', 'direccion', 'telefono']);
+
+        return response()->json($clients);
+    }
+
     // eliminar permanente de forma total
     public function forceDelete($id)
     {
@@ -128,41 +164,5 @@ class ClientController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['msg' => 'Error al procesar la eliminación: ' . $e->getMessage()]);
         }
-    }
-
-    // restaurar un cliente
-    public function restore($id)
-    {
-        // encontrar al cliente eliminado por id
-        $client = Client::onlyTrashed()->findOrFail($id);
-
-        // restaurar
-        $client->restore();
-
-        return redirect()->route('clients.deleted')->with('success', '✅ Cliente "' . $client->nombre . '" restaurado con éxito. Ahora está activo en el listado principal.');
-    }
-
-    // busqueda para la boleta
-    public function searchAjax(Request $request)
-    {
-        $query = $request->get('q');
-
-        //en caso de no haber busqueda
-        if (empty($query)) {
-            return response()->json([]);
-        }
-
-        // busqueda con like
-        $clients = Client::query()
-            ->where('estado', 'activo') // solo activos
-            ->where(function ($q) use ($query) {
-                $q->where('nombre', 'like', "%{$query}%")
-                ->orWhere('dni', 'like', "%{$query}%")
-                ->orWhere('email', 'like', "%{$query}%");
-            })
-            ->limit(15) // limite de resultados
-            ->get(['id', 'nombre', 'dni', 'email', 'direccion', 'telefono']);
-
-        return response()->json($clients);
     }
 }

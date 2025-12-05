@@ -58,6 +58,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
          ->name('services.deleted');
     Route::put('/services/{id}/restore', [ServiceController::class, 'restore'])
          ->name('services.restore');
+    // servicios eliminados permanentes
+    Route::delete('/services/{id}/force-delete', [ServiceController::class, 'forceDelete'])
+         ->name('services.forceDelete');
 
     // boletas eliminadas
     Route::get('/invoices/deleted', [InvoiceController::class, 'deleted'])
