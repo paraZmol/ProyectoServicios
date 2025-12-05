@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="w-full px-4 py-12">
+        <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="p-8 overflow-hidden bg-white shadow-2xl sm:rounded-xl">
 
                 {{-- Mensaje de éxito (Estilo moderno) --}}
