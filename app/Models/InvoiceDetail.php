@@ -29,6 +29,6 @@ class InvoiceDetail extends Model
     // m detalles - 1 servicio
     public function service(): BelongsTo
     {
-        return $this->belongsTo(Service::class)->withDefault();
+        return $this->belongsTo(Service::class)->withTrashed()->withDefault();
     }
 }
