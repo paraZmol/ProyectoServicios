@@ -59,7 +59,7 @@
 
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="">
         @csrf
 
         <h1 class="card-title">{{ __('Iniciar Sesión') }}</h1>
@@ -91,7 +91,7 @@
 
             {{-- recirdad funcion --}}
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500" name="remember">
+                <input id="remember_me" type="checkbox" class="text-[#253891] border-gray-300 rounded shadow-sm focus:ring-indigo-500" name="remember">
                 <span class="text-sm text-gray-600 ms-2">{{ __('Recordarme') }}</span>
             </label>
 
@@ -104,8 +104,8 @@
         </div>
 
         <div class="flex items-center justify-end mt-6">
-            <x-primary-button class="ms-3 login-button">
-                {{ __('ACCEDER') }}
+            <x-primary-button class="ms-3 bg-[#434CA5] w-full flex justify-center py-4">
+                {{ __('INGRESAR') }}
             </x-primary-button>
         </div>
     </form>

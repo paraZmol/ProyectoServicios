@@ -67,10 +67,10 @@
                         <table class="min-w-full divide-y divide-indigo-200">
                             <thead class="bg-indigo-50">
                                 <tr>
-                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-left text-indigo-600 uppercase">
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-left text-[#253891] uppercase">
                                         {{ __('Servicio') }}
                                     </th>
-                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-center text-indigo-600 uppercase">
+                                    <th scope="col" class="px-3 py-3 text-xs font-semibold tracking-wider text-center text-[#253891] uppercase">
                                         {{ __('N° de Ventas') }}
                                     </th>
                                 </tr>
@@ -81,7 +81,7 @@
                                         <td class="px-3 py-3 text-sm text-left text-gray-700 whitespace-nowrap">
                                             {{ $servicio->nombre_servicio }}
                                         </td>
-                                        <td class="px-3 py-3 text-lg font-extrabold text-center text-indigo-600 whitespace-nowrap">
+                                        <td class="px-3 py-3 text-lg font-extrabold text-center text-[#253891] whitespace-nowrap">
                                             {{ number_format($servicio->total_vendido) }}
                                         </td>
                                     </tr>

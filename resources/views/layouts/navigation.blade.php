@@ -17,14 +17,14 @@
     }
 </style>
 
-<nav x-data="{ open: false }" class="border-b shadow-xl bg-sky-700 border-sky-800">
+<nav x-data="{ open: false }" class="border-b shadow-xl bg-[#272c5e]">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
-                        <img src="{{ $logoUrl }}" alt="{{ $companyName }}" class="block w-auto h-9" style="max-height: 4rem; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));"/>
-                        <span class="hidden text-xl font-extrabold tracking-wider text-white sm:inline">{{ $companyName }}</span>
+                        <img src="{{ $logoUrl }}" alt="{{ $companyName }}" class="block w-auto h-14 bg-white rounded-full"/>
+                        <span class="hidden text-xl font-extrabold tracking-wider text-gray-100 sm:inline">{{ $companyName }}</span>
                     </a>
                 </div>
 
@@ -36,7 +36,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center px-3 py-2 text-sm font-semibold leading-4 text-white transition duration-200 ease-in-out border rounded-lg shadow-sm bg-sky-800 border-white/30 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
+                        <button class="flex items-center px-3 py-2 text-sm font-semibold leading-4 text-white transition duration-200 ease-in-out border rounded-lg shadow-sm bg-[#1f2245] border-white/30 hover:bg-white hover:text-[#1f2245] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-700">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -49,7 +49,7 @@
 
                     <x-slot name="content">
                         <div class="bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
-                            <x-dropdown-link :href="route('profile.edit')" class="text-gray-700 transition duration-150 ease-in-out hover:bg-sky-50 hover:text-sky-600">
+                            <x-dropdown-link :href="route('profile.edit')" class="text-gray-700 transition duration-150 ease-in-out hover:underline">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -59,7 +59,7 @@
                                 <x-dropdown-link :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();"
-                                        class="text-red-600 transition duration-150 ease-in-out hover:bg-red-50">
+                                        class="text-red-600 transition duration-150 ease-in-out hover:bg-red-50 hover:underline">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>

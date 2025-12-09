@@ -20,13 +20,13 @@
                         <div class="flex items-center gap-4 pt-6 mt-8 border-t border-gray-100">
 
                             {{-- Botón Principal: Actualizar --}}
-                            <x-primary-button class="px-6 py-3 text-base font-bold transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700">
+                            <x-primary-button class="px-6 py-3 text-base font-bold transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-md hover:bg-[#2C326E]">
                                 <i class="mr-2 fas fa-save"></i> {{ __('Actualizar Cliente') }}
                             </x-primary-button>
 
                             {{-- Botón Secundario: Cancelar (Estilo Azul/Índigo) --}}
                             <a href="{{ route('clients.index') }}"
-                               class="px-4 py-3 text-sm font-medium text-indigo-600 transition duration-150 ease-in-out border border-indigo-400 rounded-lg hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-800">
+                               class="px-4 py-3 text-sm font-medium text-[#253891] transition duration-150 ease-in-out border border-indigo-400 rounded-lg hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-800">
                                 <i class="mr-2 fas fa-times-circle"></i> {{ __('Cancelar') }}
                             </a>
                         </div>

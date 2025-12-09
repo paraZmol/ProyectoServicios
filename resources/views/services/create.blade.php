@@ -25,7 +25,7 @@
 
                             {{-- Botón Secundario: Cancelar --}}
                             <a href="{{ route('services.index') }}"
-                               class="px-4 py-3 text-sm font-medium text-indigo-600 transition duration-150 ease-in-out border border-indigo-400 rounded-lg hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-800">
+                               class="px-4 py-3 text-sm font-medium text-[#253891] transition duration-150 ease-in-out border border-indigo-400 rounded-lg hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-800">
                                 <i class="mr-2 fas fa-times-circle"></i> {{ __('Cancelar') }}
                             </a>
                         </div>

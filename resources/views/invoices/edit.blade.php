@@ -65,7 +65,7 @@
                             <div x-show="invoiceData.estado === 'Pendiente'" x-transition style="display: none;">
                                 <x-input-label for="monto_pagado" :value="__('Monto a Cuenta (Adelanto)')" />
                                 <x-text-input id="monto_pagado" name="monto_pagado" type="number" step="0.01"
-                                    class="block w-full mt-1 border-blue-300 focus:border-blue-500 focus:ring-blue-500"
+                                    class="block w-full mt-1 border-blue-300 focus:border-[#2C326E] focus:ring-[#2C326E]"
                                     x-model="invoiceData.monto_pagado" />
                             </div>
 
@@ -167,7 +167,7 @@
 
                         {{-- botones finales --}}
                         <div class="flex justify-end mt-8 space-x-4">
-                            <x-primary-button type="submit" x-bind:disabled="invoiceData.items.length === 0" class="bg-indigo-600 hover:bg-indigo-700">
+                            <x-primary-button type="submit" x-bind:disabled="invoiceData.items.length === 0" class="bg-[#253891] hover:bg-[#2C326E]">
                                 {{ __('Actualizar Boleta') }}
                             </x-primary-button>
                         </div>

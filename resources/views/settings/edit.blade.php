@@ -33,7 +33,7 @@
 
                         {{-- COLUMNA IZQUIERDA: General y Fiscal --}}
                         <div class="space-y-6">
-                            <h3 class="pb-3 mb-6 text-2xl font-bold text-indigo-700 border-b border-indigo-200">
+                            <h3 class="pb-3 mb-6 text-2xl font-bold text-[#2C326E] border-b border-indigo-200">
                                 <i class="mr-2 fas fa-building"></i> {{ __('Información General y Fiscal') }}
                             </h3>
 
@@ -98,7 +98,7 @@
                                     </div>
                                 @endif
                                 <input type="file" id="logo_file" name="logo_file"
-                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-[#1E3A8A] hover:file:bg-blue-100"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('logo_file')" />
                             </div>
 
@@ -113,7 +113,7 @@
                                     </div>
                                 @endif
                                 <input type="file" id="favicon_file" name="favicon_file"
-                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-[#1E3A8A] hover:file:bg-blue-100"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('favicon_file')" />
                             </div>
                         </div>
@@ -199,7 +199,7 @@
                     </div>
 
                     <div class="flex justify-end pt-8 mt-8 border-t border-gray-100">
-                        <x-primary-button type="submit" class="px-8 py-3 text-base font-bold transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700">
+                        <x-primary-button type="submit" class="px-8 py-3 text-base font-bold transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-md hover:bg-[#2C326E]">
                             <i class="mr-2 fas fa-sync-alt"></i> {{ __('Actualizar datos') }}
                         </x-primary-button>
                     </div>

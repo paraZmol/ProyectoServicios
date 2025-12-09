@@ -47,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
             $logoUrl = $defaultLogoUrl;
         }
 
+        // Aquí añadimos el dd() para ver el valor de la URL
+        // dd($logoUrl);
+
         View::share('logoUrl', $logoUrl);
 
         // icono por defecto y agregar nuevos iconos

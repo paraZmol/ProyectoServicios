@@ -34,11 +34,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-blue-100/70">
                             <tr>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Boleta N°</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Cliente</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-right text-blue-700 uppercase">Total</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Boleta N°</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Cliente</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-right text-[#1E3A8A] uppercase">Total</th>
                                 <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-red-700 uppercase">Eliminado el</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Acciones</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
@@ -65,7 +65,7 @@
                                             @csrf
                                             @method('PUT')
                                             <button type="submit"
-                                                class="flex items-center p-2 text-sm font-medium text-green-700 transition duration-150 ease-in-out bg-green-100 rounded-full shadow-sm hover:bg-green-200"
+                                                class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#0BA976] rounded-full shadow-sm hover:bg-green-600"
                                                 title="Restaurar Boleta">
                                                 <i class="mr-1 fas fa-undo"></i> Restaurar
                                             </button>
@@ -74,7 +74,7 @@
                                         {{-- eliminar permanentemente (boton modal) --}}
                                         <button type="button"
                                             onclick="openDeleteModal('{{ route('invoices.forceDelete', $invoice->id) }}')"
-                                            class="flex items-center p-2 text-sm font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 rounded-full shadow-sm hover:bg-red-200"
+                                            class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]"
                                             title="Eliminar permanentemente">
                                             <i class="mr-1 fas fa-trash-alt"></i> Eliminar
                                         </button>
@@ -144,7 +144,7 @@
                             Sí, Eliminar Definitivamente
                         </button>
                     </form>
-                    <button type="button" onclick="closeDeleteModal()" class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    <button type="button" onclick="closeDeleteModal()" class="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2C326E] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                         Cancelar
                     </button>
                 </div>

@@ -6,7 +6,7 @@
         {{ $client->exists ? __('Editar Cliente') : __('Crear Nuevo Cliente') }}
     </h2>
     <p class="mt-2 text-base text-gray-500">
-        <i class="mr-1 text-blue-500 fas fa-user"></i> {{ __('Complete la información del cliente, incluyendo datos de identificación y contacto.') }}
+        <i class="mr-1 text-[#2C326E] fas fa-user"></i> {{ __('Complete la información del cliente, incluyendo datos de identificación y contacto.') }}
     </p>
 </header>
 

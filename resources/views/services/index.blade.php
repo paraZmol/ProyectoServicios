@@ -29,7 +29,7 @@
                                 name="search"
                                 placeholder="Código o nombre del servicio"
                                 value="{{ $search }}"
-                                class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                                class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#2C326E] focus:border-[#2C326E]" />
 
                             {{-- Botón de Cancelación (visible solo si hay un valor de búsqueda) --}}
                             @if ($search)
@@ -49,7 +49,7 @@
                     {{-- Botón Nuevo Servicio --}}
                     @if (Auth::user()->role !=='usuario')
                         <a href="{{ route('services.create') }}"
-                           class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 whitespace-nowrap">
+                           class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-lg hover:bg-[#18245b] whitespace-nowrap">
                             <i class="mr-2 fas fa-plus-circle"></i>{{ __('Nuevo Servicio') }}
                         </a>
                     @endif
@@ -64,13 +64,13 @@
                         <thead class="bg-blue-100/70">
                             <tr>
                                 @if (Auth::user()->role !=='usuario')
-                                    <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Código</th>
+                                    <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Código</th>
                                 @endif
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Servicio</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Precio</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Descripción</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Servicio</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Precio</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Descripción</th>
                                 @if (Auth::user()->role !=='usuario')
-                                    <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Acciones</th>
+                                    <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Acciones</th>
                                 @endif
                             </tr>
                         </thead>
@@ -81,7 +81,7 @@
                                         <td class="px-6 py-4 text-sm font-semibold text-gray-800 whitespace-nowrap">{{ $service->codigo }}</td>
                                     @endif
                                     <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $service->nombre_servicio }}</td>
-                                    <td class="px-6 py-4 text-sm font-bold text-green-600 whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm font-bold text-[#059669] whitespace-nowrap">
                                         {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($service->precio, 2) }}
                                     </td>
                                     <td class="max-w-xs px-6 py-4 text-sm text-gray-500">{{ $service->descripcion }}</td>
@@ -90,7 +90,7 @@
 
                                             {{-- Botón Editar --}}
                                             <a href="{{ route('services.edit', $service) }}"
-                                                class="flex items-center p-2 text-sm font-medium text-yellow-700 transition duration-150 ease-in-out bg-yellow-100 rounded-full shadow-sm hover:bg-yellow-200">
+                                                class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#f19d17] rounded-lg shadow-sm hover:bg-[#eeab0d]">
                                                 <i class="mr-1 fas fa-edit"></i> Editar
                                             </a>
 
@@ -104,7 +104,7 @@
                                                 <button
                                                     type="button" {{-- Importante: type="button" para activar JS --}}
                                                     onclick="showDeleteModal('{{ $service->nombre_servicio }}', 'delete-form-{{ $service->id }}')"
-                                                    class="flex items-center p-2 text-sm font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 rounded-full shadow-sm hover:bg-red-200">
+                                                    class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]">
                                                     <i class="mr-1 fas fa-trash"></i> Eliminar
                                                 </button>
                                             </form>

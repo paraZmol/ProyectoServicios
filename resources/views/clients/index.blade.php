@@ -48,7 +48,7 @@
 
                     {{-- Botón Nuevo Cliente --}}
                     <a href="{{ route('clients.create') }}"
-                       class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 whitespace-nowrap">
+                       class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-lg hover:bg-[#18245b] whitespace-nowrap">
                         <i class="mr-2 fas fa-plus-circle"></i>{{ __('Nuevo Cliente') }}
                     </a>
                 </div>
@@ -60,11 +60,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-blue-100/70">
                             <tr>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Nombre / DNI</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Contacto</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Dirección</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Acciones</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Nombre / DNI</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Contacto</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Dirección</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Estado</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
@@ -115,8 +115,8 @@
                                     <td class="px-6 py-4 text-sm text-center">
                                         @php
                                             $estado = strtolower($client->estado ?? 'inactivo');
-                                            $colorClass = $estado === 'activo' ? 'bg-green-100 text-green-800' :
-                                                          ($estado === 'inactivo' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-600');
+                                            $colorClass = $estado === 'activo' ? 'bg-[#0BA976] text-white' :
+                                                          ($estado === 'inactivo' ? 'bg-[#E02D2D] text-white' : 'bg-gray-100 text-gray-600');
                                         @endphp
                                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium {{ $colorClass }}">
                                             {{ ucfirst($estado) }}
@@ -127,7 +127,7 @@
                                     <td class="flex justify-center px-6 py-4 space-x-3 text-sm font-medium whitespace-nowrap">
                                         {{-- Botón Editar --}}
                                         <a href="{{ route('clients.edit', $client) }}"
-                                            class="flex items-center p-2 text-sm font-medium text-yellow-700 transition duration-150 ease-in-out bg-yellow-100 rounded-full shadow-sm hover:bg-yellow-200">
+                                            class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#f19d17] rounded-lg shadow-sm hover:bg-[#eeab0d]">
                                             <i class="mr-1 fas fa-edit"></i> Editar
                                         </a>
 
@@ -141,7 +141,7 @@
                                             <button
                                                 type="button"
                                                 onclick="showDeleteClientModal('{{ $client->nombre }}', 'delete-client-form-{{ $client->id }}')"
-                                                class="flex items-center p-2 text-sm font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 rounded-full shadow-sm hover:bg-red-200">
+                                                class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]">
                                                 <i class="mr-1 fas fa-trash"></i> Eliminar
                                             </button>
                                         </form>

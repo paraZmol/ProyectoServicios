@@ -26,7 +26,7 @@
                                 name="search"
                                 placeholder="Buscar por N° de boleta, Cliente o Vendedor"
                                 value="{{ $search }}"
-                                class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                                class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#2C326E] focus:border-[#2C326E]" />
 
                             {{-- Botón de Cancelación (visible solo si hay un valor de búsqueda) --}}
                             @if ($search)
@@ -44,7 +44,7 @@
                     </form>
 
                     <a href="{{ route('invoices.create') }}"
-                       class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-indigo-600 rounded-lg shadow-lg hover:bg-indigo-700 whitespace-nowrap">
+                       class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-lg hover:bg-[#18245b] whitespace-nowrap">
                         <i class="mr-2 fas fa-plus-circle"></i> {{ __('Nueva Boleta') }}
                     </a>
                 </div>
@@ -54,13 +54,13 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-blue-100/70">
                             <tr>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Boleta N°</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Fecha</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Cliente</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-blue-700 uppercase">Vendedor</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-right text-blue-700 uppercase">Total</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Estado</th>
-                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-blue-700 uppercase">Acciones</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Boleta N°</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Fecha</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Cliente</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-left text-[#1E3A8A] uppercase">Vendedor</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-right text-[#1E3A8A] uppercase">Total</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Estado</th>
+                                <th class="px-6 py-3 text-xs font-semibold tracking-wider text-center text-[#1E3A8A] uppercase">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
@@ -88,9 +88,9 @@
                                         @php
                                             $estado = $invoice->estado ?? 'Pendiente';
                                             $class = match ($estado) {
-                                                'Pagada' => 'bg-green-100 text-green-800',
-                                                'Pendiente' => 'bg-yellow-100 text-yellow-800',
-                                                default => 'bg-red-100 text-red-800', // ANUALDa
+                                                'Pagada' => 'bg-[#0BA976] text-white',
+                                                'Pendiente' => 'bg-yellow-500 text-white',
+                                                default => 'bg-[#E02D2D] text-white', // ANULADA
                                             };
                                         @endphp
                                         <span class="inline-flex px-3 py-0.5 text-xs font-semibold rounded-full {{ $class }}">
@@ -102,13 +102,13 @@
                                     <td class="flex justify-center px-6 py-4 space-x-3 text-sm font-medium whitespace-nowrap">
                                         {{-- Ver Boleta (Botón Primario) --}}
                                         <a href="{{ route('invoices.show', $invoice->id) }}"
-                                           class="flex items-center p-2 text-sm font-medium text-blue-700 transition duration-150 ease-in-out bg-blue-100 rounded-full shadow-sm hover:bg-blue-200">
+                                           class="flex items-center p-2 text-sm font-medium text-[#1E3A8A] transition duration-150 ease-in-out bg-blue-100 rounded-full shadow-sm hover:bg-blue-200">
                                             <i class="mr-1 fas fa-eye"></i>Ver
                                         </a>
 
                                         {{-- Editar --}}
                                         <a href="{{ route('invoices.edit', $invoice->id) }}"
-                                           class="flex items-center p-2 text-sm font-medium text-yellow-700 transition duration-150 ease-in-out bg-yellow-100 rounded-full shadow-sm hover:bg-yellow-200">
+                                           class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#f19d17] rounded-lg shadow-sm hover:bg-[#eeab0d]">
                                             <i class="mr-1 fas fa-edit"></i>Editar
                                         </a>
 
@@ -122,7 +122,7 @@
                                             <button
                                                 type="button"
                                                 onclick="showDeleteInvoiceModal('Boleta #{{ $invoice->id }}', 'delete-invoice-form-{{ $invoice->id }}')"
-                                                class="flex items-center p-2 text-sm font-medium text-red-700 transition duration-150 ease-in-out bg-red-100 rounded-full shadow-sm hover:bg-red-200">
+                                                class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]">
                                                 <i class="mr-1 fas fa-trash"></i>Eliminar
                                             </button>
                                         </form>

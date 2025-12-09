@@ -27,7 +27,7 @@
 
                     {{-- boton de accion --}}
                     <div class="flex justify-end mb-6 space-x-3">
-                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="px-4 py-2 font-bold text-white bg-indigo-600 rounded shadow hover:bg-indigo-700">
+                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="px-4 py-2 font-bold text-white bg-[#253891] rounded shadow hover:bg-[#2C326E]">
                             <i class="mr-1 fa fa-edit"></i> {{ __('Editar Boleta') }}
                         </a>
                         {{-- <button onclick="window.print()" class="px-4 py-2 font-bold text-white bg-gray-400 rounded shadow hover:bg-gray-500">
@@ -83,7 +83,7 @@
                             </div>
                             <div class="text-left">
                                 <h2 class="mb-2 text-lg font-bold">{{ __('Detalles de Boleta') }}</h2>
-                                <p><strong>Nº Boleta:</strong> <span class="text-xl font-extrabold text-indigo-600">#{{ $invoice->id }}</span></p>
+                                <p><strong>Nº Boleta:</strong> <span class="text-xl font-extrabold text-[#253891]">#{{ $invoice->id }}</span></p>
                                 <p><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
                                 <p><strong>Vendedor:</strong> {{ $invoice->user->name ?? 'N/A' }}</p>
                                 <p><strong>Estado:</strong>
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="flex justify-between pt-2 text-xl font-extrabold border-t">
                                     <span>TOTAL:</span>
-                                    <span class="text-indigo-600">{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total, 2) }}</span>
+                                    <span class="text-[#253891]">{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total, 2) }}</span>
                                 </div>
 
                                 {{-- saldos pendientes --}}

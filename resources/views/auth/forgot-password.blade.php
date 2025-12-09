@@ -21,5 +21,12 @@
                 {{ __('Email Password Reset Link') }}
             </x-primary-button>
         </div>
+        <div class="mt-4 text-center flex justify-end">
+    <a href="{{ route('login') }}" class="hover:underline text-md forgot-password-link">
+        Iniciar sesión
+    </a>
+</div>
     </form>
 </x-guest-layout>
+
+
