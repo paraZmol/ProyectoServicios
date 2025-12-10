@@ -113,19 +113,21 @@
                                         </a>
 
                                         {{-- Eliminar (Activa el Modal) --}}
-                                        <form id="delete-invoice-form-{{ $invoice->id }}"
-                                              action="{{ route('invoices.destroy', $invoice->id) }}"
-                                              method="POST"
-                                              onsubmit="return false;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                type="button"
-                                                onclick="showDeleteInvoiceModal('Boleta #{{ $invoice->id }}', 'delete-invoice-form-{{ $invoice->id }}')"
-                                                class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]">
-                                                <i class="mr-1 fas fa-trash"></i>Eliminar
-                                            </button>
-                                        </form>
+                                        @if (Auth::check() && Auth::user()->role === 'admin')
+                                            <form id="delete-invoice-form-{{ $invoice->id }}"
+                                                action="{{ route('invoices.destroy', $invoice->id) }}"
+                                                method="POST"
+                                                onsubmit="return false;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    type="button"
+                                                    onclick="showDeleteInvoiceModal('Boleta #{{ $invoice->id }}', 'delete-invoice-form-{{ $invoice->id }}')"
+                                                    class="flex items-center p-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-[#EC4040] rounded-lg shadow-sm hover:bg-[#DD2828]">
+                                                    <i class="mr-1 fas fa-trash"></i>Eliminar
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty
