@@ -269,31 +269,9 @@
                 );
             },
 
-            /*addItem(service) {
-                const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
-
-                if (existingItemIndex > -1) {
-                    this.invoiceData.items[existingItemIndex].cantidad++;
-                } else {
-                    this.invoiceData.items.push({
-                        service_id: service.id,
-                        codigo: service.codigo,
-                        nombre_servicio: service.nombre_servicio,
-                        cantidad: 1,
-                        precio_unitario_final: parseFloat(service.precio),
-                        total_linea: parseFloat(service.precio),
-                    });
-                }
-
-                this.serviceSearch = '';
-                this.calculateTotals();
-            },*/
             addItem(service) {
-                let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
 
-                const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
-
-                if (existingItemIndex > -1) {
+                /*if (existingItemIndex > -1) {
                     this.invoiceData.items[existingItemIndex].cantidad++;
                 } else {
                     let precioNeto = parseFloat((service.precio * (1 - rate)).toFixed(2));
@@ -305,6 +283,24 @@
                         cantidad: 1,
                         precio_unitario_final: precioNeto,
                         total_linea: precioNeto,
+                    });
+                }*/
+                // busqueda
+                const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
+
+                if (existingItemIndex > -1) {
+                    this.invoiceData.items[existingItemIndex].cantidad++;
+                } else {
+                    // cambio con el precio total
+                    let precioFull = parseFloat(service.precio);
+
+                    this.invoiceData.items.push({
+                        service_id: service.id,
+                        codigo: service.codigo,
+                        nombre_servicio: service.nombre_servicio,
+                        cantidad: 1,
+                        precio_unitario_final: precioFull,
+                        total_linea: precioFull,
                     });
                 }
 
@@ -318,21 +314,6 @@
             },
 
             /*calculateTotals() {
-                let subtotal = 0;
-                this.invoiceData.items.forEach(item => {
-                    const cantidad = parseFloat(item.cantidad) || 0;
-                    const precio = parseFloat(item.precio_unitario_final) || 0;
-
-                    const totalLinea = cantidad * precio;
-                    item.total_linea = totalLinea;
-                    subtotal += totalLinea;
-                });
-
-                this.invoiceData.subtotal = parseFloat(subtotal.toFixed(2));
-                this.invoiceData.impuesto = parseFloat((subtotal * this.IVA_RATE).toFixed(2));
-                this.invoiceData.total = parseFloat((this.invoiceData.subtotal + this.invoiceData.impuesto).toFixed(2));
-            },*/
-            calculateTotals() {
                 let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
 
                 let totalAcumuladoNeto = 0;
@@ -355,6 +336,32 @@
                 }
 
                 this.invoiceData.impuesto = parseFloat((this.invoiceData.total - this.invoiceData.subtotal).toFixed(2));
+            },*/
+
+            calculateTotals() {
+                let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
+
+                let totalAcumulado = 0;
+
+                // suma de totales en linea
+                this.invoiceData.items.forEach(item => {
+                    const cantidad = parseFloat(item.cantidad) || 0;
+                    const precio = parseFloat(item.precio_unitario_final) || 0;
+
+                    const totalLinea = cantidad * precio;
+
+                    item.total_linea = totalLinea;
+                    totalAcumulado += totalLinea;
+                });
+
+                // acumulado de totales
+                this.invoiceData.total = parseFloat(totalAcumulado.toFixed(2));
+
+                // impuesot
+                this.invoiceData.impuesto = parseFloat((this.invoiceData.total * rate).toFixed(2));
+
+                // total menos impiest
+                this.invoiceData.subtotal = parseFloat((this.invoiceData.total - this.invoiceData.impuesto).toFixed(2));
             },
 
             updateClientInfo(selectedText) {
