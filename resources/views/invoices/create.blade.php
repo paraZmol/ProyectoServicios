@@ -386,7 +386,7 @@
 
 
             // añadir item del modal
-            addItem(service) {
+            /*addItem(service) {
 
                 let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
 
@@ -409,29 +409,33 @@
 
                 this.serviceSearch = '';
                 this.calculateTotals();
-            },
+            },*/
 
-            /*addItem(service) {
+            addItem(service) {
+
+                // busqueda
                 const existingItemIndex = this.invoiceData.items.findIndex(item => item.service_id === service.id);
 
                 if (existingItemIndex > -1) {
-                    // si es que ya existe incrementemos el modal
                     this.invoiceData.items[existingItemIndex].cantidad++;
                 } else {
-                    // de no existir creamos unoi nuevo
+                    // cambio nuevo calculo
+                    let precioFull = parseFloat(service.precio);
+
                     this.invoiceData.items.push({
                         service_id: service.id,
                         codigo: service.codigo,
                         nombre_servicio: service.nombre_servicio,
                         cantidad: 1,
-                        precio_unitario_final: parseFloat(service.precio), // precio modiicable
-                        total_linea: parseFloat(service.precio),
+                        // precio de la bd
+                        precio_unitario_final: precioFull,
+                        total_linea: precioFull,
                     });
                 }
 
-                this.serviceSearch = ''; // limpia de busqueda
+                this.serviceSearch = '';
                 this.calculateTotals();
-            },*/
+            },
 
             // eliminar item
             removeItem(index) {
@@ -440,7 +444,7 @@
             },
 
             // calcula totales
-            calculateTotals() {
+            /*calculateTotals() {
                 let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
 
                 let totalAcumuladoNeto = 0;
@@ -462,50 +466,60 @@
                 this.invoiceData.impuesto = parseFloat((this.invoiceData.total - this.invoiceData.subtotal).toFixed(2));
 
                 console.log('Subtotal (Tabla):', this.invoiceData.subtotal, 'Total Calc:', this.invoiceData.total);
-            },
+            },*/
+            calculateTotals() {
+                let rate = (typeof this.IVA_RATE !== 'undefined' && this.IVA_RATE !== null) ? this.IVA_RATE : 0.18;
 
-            /*calculateTotals() {
-                let subtotal = 0;
+                let totalAcumulado = 0;
+
+                // suma totale onlin
                 this.invoiceData.items.forEach(item => {
-                    // cantidad y precio en numeros - verificacion
                     const cantidad = parseFloat(item.cantidad) || 0;
                     const precio = parseFloat(item.precio_unitario_final) || 0;
 
                     const totalLinea = cantidad * precio;
+
                     item.total_linea = totalLinea;
-                    subtotal += totalLinea;
+                    totalAcumulado += totalLinea;
                 });
 
-                this.invoiceData.subtotal = parseFloat(subtotal.toFixed(2));
-                this.invoiceData.impuesto = parseFloat((subtotal * this.IVA_RATE).toFixed(2));
-                this.invoiceData.total = parseFloat((this.invoiceData.subtotal + this.invoiceData.impuesto).toFixed(2));
-            },*/
+                // total igual afinal
+                this.invoiceData.total = parseFloat(totalAcumulado.toFixed(2));
 
-updateClientInfoFromObject(clientObj) {
-    if (clientObj) {
-        this.clientInfo.name = clientObj.nombre || '';
-        this.clientInfo.phone = clientObj.telefono || 'N/A';
-        this.clientInfo.email = clientObj.email || 'N/A';
-        this.clientInfo.address = clientObj.direccion || 'N/A';
-    } else {
-        // Limpiar información si no hay cliente seleccionado
-        this.clientInfo = { name: '', phone: '', email: '', address: '' };
-    }
-},
+                // calculo impuesto
+                this.invoiceData.impuesto = parseFloat((this.invoiceData.total * rate).toFixed(2));
 
-            // formato de moneda
-            formatCurrency(value) {
-                const setting = @json($setting); // obtener el seting
-                const symbol = setting ? setting.simbolo_moneda : '$';
-                return symbol + ' ' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                // calculo sun total
+                this.invoiceData.subtotal = parseFloat((this.invoiceData.total - this.invoiceData.impuesto).toFixed(2));
+
+                console.log('Total:', this.invoiceData.total, 'Impuesto:', this.invoiceData.impuesto, 'Subtotal:', this.invoiceData.subtotal);
             },
 
-            // envio de formulario
-            submitForm(event) {
-                this.calculateTotals();
-                //alert('DEBUG: Enviando datos validados al servidor.');
-                event.currentTarget.submit();
-            }
-        }
-    }
+            updateClientInfoFromObject(clientObj) {
+                if (clientObj) {
+                    this.clientInfo.name = clientObj.nombre || '';
+                    this.clientInfo.phone = clientObj.telefono || 'N/A';
+                    this.clientInfo.email = clientObj.email || 'N/A';
+                    this.clientInfo.address = clientObj.direccion || 'N/A';
+                } else {
+                    // Limpiar información si no hay cliente seleccionado
+                    this.clientInfo = { name: '', phone: '', email: '', address: '' };
+                }
+            },
+
+                        // formato de moneda
+                        formatCurrency(value) {
+                            const setting = @json($setting); // obtener el seting
+                            const symbol = setting ? setting.simbolo_moneda : '$';
+                            return symbol + ' ' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        },
+
+                        // envio de formulario
+                        submitForm(event) {
+                            this.calculateTotals();
+                            //alert('DEBUG: Enviando datos validados al servidor.');
+                            event.currentTarget.submit();
+                        }
+                    }
+                }
 </script>
