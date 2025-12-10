@@ -169,7 +169,7 @@ class InvoiceController extends Controller
         $clients = Client::where('estado', 'activo')->get(['id', 'nombre', 'telefono', 'email', 'direccion']);
         $services = Service::all(['id', 'codigo', 'nombre_servicio', 'precio']);
 
-        $iva_rate = $setting ? $setting->iva_porcentaje / 100 : 0.13;
+        $iva_rate = $setting ? $setting->iva_porcentaje / 100 : 0.18;
 
         // Cargar detalles para pre-cargar el formulario Alpine
         $invoice->load('details');

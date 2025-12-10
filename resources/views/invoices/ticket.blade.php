@@ -76,8 +76,16 @@
 
     <div class="header-container">
         @if (isset($setting->logo_path) && $setting->logo_path)
+        {{-- ruta al logo --}}
+            @php
+                // asset
+                $logoPath = asset('storage/' . $setting->logo_path);
+            @endphp
             <div class="header-logo">
-                <img src="{{ Storage::url($setting->logo_path) }}" alt="Logo">
+                <img 
+                    src="{{ $logoPath }}" 
+                    alt="{{ $setting->nombre_empresa ?? 'Logo de la Empresa' }}"
+                >
             </div>
         @endif
 

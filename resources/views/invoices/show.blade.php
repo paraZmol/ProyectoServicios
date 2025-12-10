@@ -56,7 +56,7 @@
                             </div>
                             <div>
                                 @if ($setting && $setting->logo_path)
-                                    <img src="{{ Storage::url($setting->logo_path) }}" alt="Logo" class="object-contain w-auto h-16">
+                                    <img src="{{ asset('storage/' . $setting->logo_path) }}" alt="Logo" class="object-contain w-auto h-16">
                                 @else
                                     <p class="text-xl font-bold text-gray-500">LOGO</p>
                                 @endif
