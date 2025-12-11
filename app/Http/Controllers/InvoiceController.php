@@ -92,6 +92,7 @@ class InvoiceController extends Controller
             }
 
             $invoice = Invoice::create([
+                'correlativo' => $request->input('correlativo'),
                 'client_id' => $data['client_id'],
                 'user_id' => Auth::id(),
                 'fecha' => $data['fecha'],
@@ -196,6 +197,7 @@ class InvoiceController extends Controller
 
             // actualizar header
             $invoice->update([
+                'correlativo' => $request->input('correlativo'),
                 'client_id' => $data['client_id'],
                 'fecha' => $data['fecha'],
                 'metodo_pago' => $data['metodo_pago'],

@@ -111,6 +111,7 @@ class InvoiceSeeder extends Seeder
 
             // Crear la Boleta Principal (Invoice)
             $invoice = Invoice::create([
+                'correlativo' => $i,
                 'fecha' => $fecha,
                 'estado' => $estado,
                 'metodo_pago' => $metodoPago,

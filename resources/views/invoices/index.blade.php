@@ -67,7 +67,9 @@
                             @forelse ($invoices as $invoice)
                                 <tr class="transition duration-100 ease-in-out hover:bg-gray-50">
                                     {{-- Boleta N° (Alineado a la derecha para consistencia numérica) --}}
-                                    <td class="px-6 py-4 text-sm font-semibold text-right text-gray-900 whitespace-nowrap">#{{ $invoice->id }}</td>
+                                    <td class="px-6 py-4 text-sm font-semibold text-right text-gray-900 whitespace-nowrap">
+                                        #{{ str_pad($invoice->correlativo ?? $invoice->id, 6, '0', STR_PAD_LEFT) }}
+                                    </td>
 
                                     {{-- Fecha --}}
                                     <td class="px-6 py-4 text-sm text-center text-gray-500 whitespace-nowrap">{{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</td>

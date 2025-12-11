@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->integer('correlativo')->nullable();
             $table->date('fecha');
             $table->string('estado')->default('Pagada');
             $table->string('metodo_pago')->nullable();

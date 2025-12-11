@@ -21,6 +21,7 @@ class InvoiceStoreRequest extends FormRequest
         return [
             //validacion de campos
             'client_id' => 'required|exists:clients,id',
+            'correlativo' => 'required|integer',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pendiente,Pagada,Anulada',

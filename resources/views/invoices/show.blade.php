@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Boleta #') }}{{ $invoice->id }}
+            {{ __('Boleta N° ') }}{{ str_pad($invoice->correlativo ?? $invoice->id, 6, '0', STR_PAD_LEFT) }}
         </h2>
     </x-slot>
 
@@ -83,7 +83,11 @@
                             </div>
                             <div class="text-left">
                                 <h2 class="mb-2 text-lg font-bold">{{ __('Detalles de Boleta') }}</h2>
-                                <p><strong>Nº Boleta:</strong> <span class="text-xl font-extrabold text-[#253891]">#{{ $invoice->id }}</span></p>
+                                <p><strong>Nº Boleta:</strong>
+                                    <span class="text-xl font-extrabold text-[#253891]">
+                                        #{{ str_pad($invoice->correlativo ?? $invoice->id, 6, '0', STR_PAD_LEFT) }}
+                                    </span>
+                                </p>
                                 <p><strong>Fecha:</strong> {{ \Carbon\Carbon::parse($invoice->fecha)->format('d/m/Y') }}</p>
                                 <p><strong>Vendedor:</strong> {{ $invoice->user->name ?? 'N/A' }}</p>
                                 <p><strong>Estado:</strong>

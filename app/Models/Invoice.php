@@ -14,6 +14,7 @@ class Invoice extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'correlativo',
         'fecha',
         'estado',
         'metodo_pago',

@@ -7,6 +7,18 @@
         </h2>
     </x-slot>
 
+    {{-- === CAMBIO INICIO: Lógica PHP para sugerir el número === --}}
+    @php
+        // Buscamos la última boleta para sugerir el siguiente número
+        $lastInvoice = \App\Models\Invoice::latest('id')->first();
+        $suggestedNumber = 1;
+        if ($lastInvoice) {
+            // Si existe 'correlativo' en la BD usamos ese, sino el ID
+            $suggestedNumber = ($lastInvoice->correlativo ?? $lastInvoice->id) + 1;
+        }
+    @endphp
+    {{-- === CAMBIO FIN === --}}
+
     <div class="py-6">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -159,6 +171,22 @@
 
                         {{-- detalles de la factura --}}
                         <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+
+                            {{-- === CAMBIO INICIO: Nuevo campo Correlativo Sugerido === --}}
+                            <div>
+                                <x-input-label for="correlativo" :value="__('N° Boleta')" />
+                                <x-text-input
+                                    id="correlativo"
+                                    name="correlativo"
+                                    type="number"
+                                    class="block w-full mt-1 font-bold text-gray-700 border-yellow-300 bg-yellow-50 focus:border-yellow-500 focus:ring-yellow-500"
+                                    x-model="invoiceData.correlativo"
+                                    required
+                                />
+                                <p class="mt-1 text-xs text-gray-500">Sugerido: {{ $suggestedNumber }} (Editable)</p>
+                            </div>
+                            {{-- === CAMBIO FIN === --}}
+
                             <div>
                                 <x-input-label for="fecha" :value="__('Fecha')" />
                                 <x-text-input id="fecha" name="fecha" type="date" class="block w-full mt-1" :value="old('fecha', date('Y-m-d'))" required x-model="invoiceData.fecha" />
@@ -277,24 +305,13 @@
                         </div>
 
                         {{-- botones finales --}}
-                        {{--<div class="flex justify-end mt-8 space-x-4">
-                            <x-primary-button
-                                type="submit"
-                                x-bind:disabled="invoiceData.items.length === 0"
-                                @click="invoiceData.estado = 'Pagada'"
-                            >
-                                {{ __('Guardar y Pagar') }}
-                            </x-primary-button>
-                            <x-primary-button
-                                type="submit"
-                                x-bind:disabled="invoiceData.items.length === 0"
-                                class="bg-orange-500 hover:bg-orange-600"
-                                @click="invoiceData.estado = 'Pendiente'"
-                            >
-                                {{ __('Guardar como Pendiente') }}
-                            </x-primary-button>
-                        </div>--}}
-                        <div class="flex justify-end mt-8">
+                        <div class="flex justify-end mt-8 space-x-4">
+                            {{-- boton cacelar --}}
+                            <a href="{{ route('invoices.index') }}" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-gray-700 uppercase transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25">
+                                {{ __('Cancelar') }}
+                            </a>
+
+                            {{-- boton guardar --}}
                             <x-primary-button
                                 type="submit"
                                 x-bind:disabled="invoiceData.items.length === 0"
@@ -346,6 +363,10 @@
         const allServices = @json($services);
         const IVA_RATE = @json($iva_rate);
 
+        // === CAMBIO INICIO: Capturamos variable PHP ===
+        const suggestedCorrelativo = @json($suggestedNumber);
+        // === CAMBIO FIN ===
+
         return {
             IVA_RATE: IVA_RATE,
             serviceSearch: '',
@@ -354,6 +375,11 @@
             invoiceData: {
                 // header de la factura
                 client_id: '',
+
+                // === CAMBIO INICIO: Inicializamos correlativo ===
+                correlativo: suggestedCorrelativo,
+                // === CAMBIO FIN ===
+
                 fecha: '{{ date('Y-m-d') }}',
                 estado: 'Pagada',
                 metodo_pago: 'Efectivo',

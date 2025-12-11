@@ -27,6 +27,7 @@ class InvoiceUpdateRequest extends FormRequest
         Log::info('log: datos del formuulario de actulizacion enviados para validacion', $this->all());
         return [
             'client_id' => 'required|exists:clients,id',
+            'correlativo' => 'required|integer',
             'fecha' => 'required|date',
             'metodo_pago' => 'required|string|max:50',
             'estado' => 'required|in:Pagada,Pendiente,Anulada',

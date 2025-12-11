@@ -49,6 +49,21 @@
 
                         {{-- detalle de la factura --}}
                         <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+
+                            {{-- === CAMBIO INICIO: Campo Correlativo Editable === --}}
+                            <div>
+                                <x-input-label for="correlativo" :value="__('N° Boleta')" />
+                                <x-text-input
+                                    id="correlativo"
+                                    name="correlativo"
+                                    type="number"
+                                    class="block w-full mt-1 font-bold text-gray-700 border-yellow-300 bg-yellow-50 focus:border-yellow-500 focus:ring-yellow-500"
+                                    x-model="invoiceData.correlativo"
+                                    required
+                                />
+                            </div>
+                            {{-- === CAMBIO FIN === --}}
+
                             <div>
                                 <x-input-label for="fecha" :value="__('Fecha')" />
                                 <x-text-input id="fecha" name="fecha" type="date" class="block w-full mt-1" :value="old('fecha', $invoice->fecha)" required x-model="invoiceData.fecha" />
@@ -167,6 +182,12 @@
 
                         {{-- botones finales --}}
                         <div class="flex justify-end mt-8 space-x-4">
+                            {{--cancelar --}}
+                            <a href="{{ route('invoices.index') }}" class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-gray-700 uppercase transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25">
+                                {{ __('Cancelar') }}
+                            </a>
+
+                            {{-- acntualizar --}}
                             <x-primary-button type="submit" x-bind:disabled="invoiceData.items.length === 0" class="bg-[#253891] hover:bg-[#2C326E]">
                                 {{ __('Actualizar Boleta') }}
                             </x-primary-button>
@@ -236,6 +257,12 @@
 
             invoiceData: {
                 client_id: initialInvoice.client_id,
+
+                // === CAMBIO INICIO: Inicializamos correlativo con valor existente ===
+                // Usamos el correlativo de la BD, o el ID si no tiene.
+                correlativo: initialInvoice.correlativo || initialInvoice.id,
+                // === CAMBIO FIN ===
+
                 fecha: initialInvoice.fecha,
                 estado: initialInvoice.estado,
                 metodo_pago: initialInvoice.metodo_pago,
@@ -354,6 +381,7 @@
             },
 
             formatCurrency(value) {
+                const setting = @json($setting); // obtener el seting
                 const symbol = setting ? setting.simbolo_moneda : '$';
                 return symbol + ' ' + (value ? value.toFixed(2) : (0).toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             },
