@@ -66,13 +66,10 @@
                                     {{ __('Usuarios') }}
                                 </x-nav-link>
 
-                            @endif
-
-                            @if (Auth::user()->role !=='usuario')
-
                                 <x-nav-link :href="route('settings.edit')" :active="request()->routeIs('settings.*')" class="py-4 text-white celeste-nav-link">
                                     {{ __('Configuración') }}
                                 </x-nav-link>
+
                             @endif
 
                             {{-- papelera de reciclaje cliente --}}
