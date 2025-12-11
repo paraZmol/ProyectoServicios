@@ -135,7 +135,7 @@ class InvoiceController extends Controller
             //Log::info("=== STORE COMPLETADO SIN ERRORES ===");
 
             return redirect()->route('invoices.show', $invoice->id)
-                ->with('success', 'Boleta creada exitosamente con el número #' . $invoice->id);
+                ->with('success', 'Boleta creada exitosamente con el número #' . $invoice->correlativo);
 
         } catch (\Exception $e) {
 
@@ -227,7 +227,7 @@ class InvoiceController extends Controller
 
             DB::commit();
 
-            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Boleta #' . $invoice->id . ' actualizada exitosamente.');
+            return redirect()->route('invoices.show', $invoice->id)->with('success', 'Boleta #' . $invoice->correlativo . ' actualizada exitosamente.');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -242,7 +242,7 @@ class InvoiceController extends Controller
 
         return redirect()
             ->route('invoices.index')
-            ->with('success', 'Boleta #' . $invoice->id . ' eliminada exitosamente.');
+            ->with('success', 'Boleta #' . $invoice->correlativo . ' eliminada exitosamente.');
     }
 
     // ver lo eliminados
@@ -266,7 +266,7 @@ class InvoiceController extends Controller
         // restaurar
         $invoice->restore();
 
-        return redirect()->route('invoices.deleted')->with('success', '✅ Boleta N°' . $invoice->id . ' restaurada con éxito.');
+        return redirect()->route('invoices.deleted')->with('success', '✅ Boleta N°' . $invoice->correlativo . ' restaurada con éxito.');
     }
 
     // pdf

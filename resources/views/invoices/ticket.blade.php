@@ -5,35 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket #{{ $invoice->id }}</title>
     <style>
-        /* Configuración General */
         body {
             font-family: 'Courier New', Courier, monospace;
             font-size: 11px;
             margin: 0 auto;
-            /* margen interno */
             padding: 4mm;
             background-color: #fff;
             color: #000;
-            /* sncho maximo */
             max-width: 80mm;
             box-sizing: border-box;
         }
 
         @media print {
             @page {
-                size: 80mm auto; /*ancho del papel fisico*/
-                /* Dejamos el margen de la hoja en 0 y controlamos con padding en el body */
+                size: 80mm auto;
                 margin: 0mm;
             }
             body {
                 width: 100%;
                 margin: 0;
-                /* Este padding es el "margen" físico en el papel */
                 padding: 4mm;
             }
         }
 
-        /* Utilidades */
         .text-center { text-align: center; }
         .text-right { text-align: right; }
         .text-left { text-align: left; }
@@ -46,28 +40,25 @@
             margin: 6px 0;
         }
 
-        /* NUEVO: Header Flex para Logo al costado */
         .header-container {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
         .header-logo {
-            flex: 0 0 25%; /* El logo ocupa el 25% del ancho */
+            flex: 0 0 25%;
             margin-right: 8px;
         }
         .header-logo img {
             width: 100%;
             height: auto;
-            /* Filtro opcional para que el logo se vea mejor en blanco y negro - debo investigar este filtro */
             filter: grayscale(100%) contrast(120%);
         }
         .header-info {
-            flex: 1; /* El texto ocupa el resto del espacio */
+            flex: 1;
             text-align: left;
         }
 
-        /* Tablas */
         table { width: 100%; border-collapse: collapse; }
         td, th { vertical-align: top; padding: 2px 0; }
     </style>
@@ -82,8 +73,8 @@
                 $logoPath = asset('storage/' . $setting->logo_path);
             @endphp
             <div class="header-logo">
-                <img 
-                    src="{{ $logoPath }}" 
+                <img
+                    src="{{ $logoPath }}"
                     alt="{{ $setting->nombre_empresa ?? 'Logo de la Empresa' }}"
                 >
             </div>
@@ -135,26 +126,49 @@
 
     <div class="divider"></div>
 
-    <table class="small-text">
+    {{-- cambio de tabla --}}
+    <table class="small-text" style="table-layout: fixed; width: 100%;">
         <thead>
             <tr>
-                <th class="text-left">DESCRIPCION</th>
-                <th class="text-right" style="width: 20px;">CANT</th>
-                <th class="text-right" style="width: 45px;">TOTAL</th>
+                {{-- nombre de servicio --}}
+                <th class="text-left" style="width: auto;">DESCRIPCION</th>
+
+                {{-- canttida --}}
+                <th class="text-right" style="width: 40px; padding-right: 20px;">CANT</th>
+                {{-- === CAMBIO FIN === --}}
+
+                {{-- total linea --}}
+                <th class="text-right" style="width: 55px;">TOTAL</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($invoice->details as $item)
             <tr>
-                <td colspan="3" class="font-bold text-left" style="padding-top: 4px;">
-                    {{ $item->nombre_servicio }}
+                {{-- cambio a 2 lineas y puntos --}}
+                <td class="font-bold text-left" style="padding-top: 4px;">
+                    <div style="
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: normal;
+                        line-height: 1.2;
+                    ">
+                        {{ $item->nombre_servicio }}
+                    </div>
                 </td>
+                {{-- vacio a completar--}}
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td class="text-left" style="color: #444; padding-left: 5px;">
                     (P.U: {{ number_format($item->precio_unitario_final, 2) }})
                 </td>
-                <td class="text-right">{{ $item->cantidad }}</td>
+
+                <td class="text-right" style="padding-right: 20px;">{{ $item->cantidad }}</td>
+
                 <td class="text-right">{{ number_format($item->total_linea, 2) }}</td>
             </tr>
             @endforeach
@@ -198,7 +212,6 @@
     <div class="text-center small-text" style="margin-top: 5px;">
         <p style="margin-bottom: 5px;">¡GRACIAS POR SU PREFERENCIA!</p>
         <p style="margin-bottom: 5px;">Conserve este ticket para cualquier reclamo.</p>
-        {{--  <p>Representación impresa de la<br>Boleta de Venta Electrónica</p>--}}
     </div>
 
 </body>
