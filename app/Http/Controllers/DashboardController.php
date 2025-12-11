@@ -26,7 +26,7 @@ class DashboardController extends Controller
             ->selectRaw('SUM(cantidad) as total_vendido')
             ->groupBy('nombre_servicio')
             ->orderByDesc('total_vendido')
-            ->take(3)
+            ->take(5)
             ->get();
 
         return view('dashboard', compact('setting', 'ultimasVentas', 'serviciosMasVendidos'));
