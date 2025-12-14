@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Setting;
 use App\Http\Middleware\CheckRole;
 
@@ -23,46 +24,50 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // check role
+        // Registrar middleware de roles
         Route::aliasMiddleware('role', CheckRole::class);
 
-        // nomnbre de empresa
+        // obtener configuracion
         $setting = Setting::first();
+
+        // configurar nombre de empresa
         $companyNameString = $setting ? $setting->nombre_empresa : 'PROYECTO SERVICIOS S.A.';
 
-        // para compartir el nombre de la empresa con otros archivos
+        // compartir con todas las vistas
         View::share('companyName', $companyNameString);
 
-        // para poner el nombre de la empresa en la configuracion de laravel
+        // actrualizar la configuracion de laravel
         config(['app.name' => $companyNameString]);
 
-        // logo por defecto y agregar nuevo logos
+        // confuguracion de logo de empresa
         $defaultLogoUrl = asset('img/logo_default.png');
-        $setting = Setting::first();
         $logoPath = $setting ? $setting->logo_path : null;
 
-        if ($logoPath && file_exists(storage_path('app/public/' . $logoPath))) {
-            $logoUrl = asset('storage/' . $logoPath);
+        // cambio a storage disk
+        if ($logoPath && Storage::disk('public')->exists($logoPath)) {
+            // storage link
+            $logoUrl = Storage::url($logoPath);
         } else {
             $logoUrl = $defaultLogoUrl;
         }
 
-        // Aquí añadimos el dd() para ver el valor de la URL
-        // dd($logoUrl);
-
         View::share('logoUrl', $logoUrl);
 
-        // icono por defecto y agregar nuevos iconos
+        // icono por defecto
         $defaultFaviconUrl = asset('img/icon_default.png');
-        $setting = Setting::first();
         $faviconPath = $setting ? $setting->favicon_path : null;
 
-        if ($faviconPath && file_exists(storage_path('app/public/' . $faviconPath))) {
-            $faviconUrl = asset('storage/' . $faviconPath);
+        // disk
+        if ($faviconPath && Storage::disk('public')->exists($faviconPath)) {
+            // url
+            $faviconUrl = Storage::url($faviconPath);
         } else {
             $faviconUrl = $defaultFaviconUrl;
         }
 
         View::share('faviconUrl', $faviconUrl);
+
+        // compartir ocmpleto
+        View::share('setting', $setting);
     }
 }
