@@ -106,6 +106,14 @@ class InvoiceController extends Controller
 
             //Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
 
+            $client = $invoice->client; // obtener cliente de la realcion
+            if ($client) {
+                //  si estaba inactivo se activa
+                if ($client && $client->estado === 'inactivo') {
+                    $client->update(['estado' => 'activo']);
+                }
+            }
+
             // detalles
 
             //Log::info("Procesando detalle de items...");
