@@ -104,7 +104,7 @@ class ClientController extends Controller
 
         // busqueda con like
         $clients = Client::query()
-            ->where('estado', 'activo') // solo activos
+            //->where('estado', 'activo') // solo activos
             ->where(function ($q) use ($query) {
                 $q->where('nombre', 'like', "%{$query}%")
                 ->orWhere('dni', 'like', "%{$query}%")
