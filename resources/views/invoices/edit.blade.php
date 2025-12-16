@@ -22,7 +22,7 @@
 
                         <div class="grid grid-cols-1 gap-6 pb-6 mb-6 border-b md:grid-cols-3">
                             {{-- seleccion del cliente --}}
-                            <div class="col-span-1">
+                            {{--<div class="col-span-1">
                                 <x-input-label for="client_id" :value="__('Cliente')" />
                                 <select id="client_id" name="client_id" x-model.number="invoiceData.client_id"
                                     @change="updateClientInfo($el.options[$el.selectedIndex].text)"
@@ -37,7 +37,118 @@
                                     @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('client_id')" />
-                            </div>
+                            </div> --}}
+
+                            {{-- INICIO DEL CAMBIO: Buscador AJAX en Editar --}}
+<div class="relative col-span-1 md:col-span-3 lg:col-span-1"
+    x-data="{
+        search: '{{ addslashes($invoice->client->nombre) }}',
+        open: false,
+        items: [],
+        isLoading: false,
+
+        async fetchClients() {
+            if (this.search.length < 2) {
+                this.items = [];
+                return;
+            }
+            this.isLoading = true;
+            this.open = true;
+
+            try {
+                let response = await fetch(`{{ route('clients.ajax.search') }}?q=${encodeURIComponent(this.search)}`);
+                this.items = await response.json();
+            } catch (e) {
+                this.items = [];
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        selectClientFromDropdown(client) {
+            this.invoiceData.client_id = client.id;
+
+            this.search = client.nombre;
+
+            this.open = false;
+
+            this.updateClientInfoFromObject(client);
+        },
+
+        resetSearch() {
+            this.search = '';
+            this.invoiceData.client_id = '';
+            this.updateClientInfoFromObject(null);
+            this.items = [];
+        }
+    }"
+    @click.outside="open = false"
+>
+    <x-input-label for="client_search" :value="__('Cliente (Buscar DNI/Nombre)')" />
+
+    <div class="relative mt-1">
+        {{-- input visual para buscar --}}
+        <x-text-input type="text" id="client_search" x-model="search"
+            @input.debounce.500ms="fetchClients()"
+            @focus="open = true"
+            placeholder="Buscar cliente..."
+            class="w-full pl-10"
+            autocomplete="off"
+        />
+
+        {{-- Icono de carga/lupa --}}
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <i class="text-gray-400 fa" :class="isLoading ? 'fa-spinner fa-spin' : 'fa-search'"></i>
+        </div>
+
+        {{-- Botón X para limpiar --}}
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+            x-show="search.length > 0 && !isLoading"
+            @click="resetSearch()">
+            <i class="text-gray-400 hover:text-red-500 fa fa-times"></i>
+        </div>
+    </div>
+
+    {{-- Input OCULTO real que se envía al backend --}}
+    <input type="hidden" name="client_id" x-model="invoiceData.client_id" required>
+    <x-input-error class="mt-2" :messages="$errors->get('client_id')" />
+
+    {{-- Lista desplegable de resultados --}}
+    <div x-show="open && items.length > 0 && search.length > 1"
+        class="absolute z-50 w-full mt-1 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg max-h-60"
+        style="display: none;">
+        <ul>
+            <template x-for="item in items" :key="item.id">
+                <li @click="selectClientFromDropdown(item)"
+                    class="px-4 py-2 text-sm border-b cursor-pointer hover:bg-indigo-50 hover:text-indigo-800 border-gray-50 last:border-0">
+
+                    {{-- Nombre --}}
+                    <div class="font-bold text-gray-800">
+                        <span x-text="item.nombre"></span>
+                        {{-- Indicador visual si está inactivo o eliminado --}}
+                        {{-- <span x-show="item.deleted_at" class="text-xs text-red-500">(Eliminado)</span>
+                        <span x-show="!item.deleted_at && item.estado !== 'activo'" class="text-xs text-orange-500">(Inactivo)</span>--}}
+                    </div>
+
+                    {{-- DNI / Email --}}
+                    <div class="text-xs text-gray-500">
+                        <span class="font-bold text-blue-600" x-text="(item.tipo_documento || 'DOC') + ':'"></span>
+                        <span x-text="item.dni"></span> |
+                        <span x-text="item.email"></span>
+                    </div>
+                </li>
+            </template>
+        </ul>
+    </div>
+
+    <div x-show="open && items.length === 0 && search.length > 2 && !isLoading"
+        class="absolute z-50 w-full p-2 mt-1 text-sm text-center text-red-500 bg-white border rounded-md shadow-lg">
+        No se encontraron clientes.
+    </div>
+</div>
+{{-- FIN DEL CAMBIO --}}
+
+
 
                             {{-- info del cliente seleccionado --}}
                             <div class="col-span-2 space-y-2 text-sm pt-7">
@@ -276,11 +387,30 @@
                 total: parseFloat(initialInvoice.total),
             },
 
+            updateClientInfoFromObject(clientObj) {
+                if (clientObj) {
+                    this.clientInfo.name = clientObj.nombre || '';
+                    this.clientInfo.phone = clientObj.telefono || 'N/A';
+                    this.clientInfo.email = clientObj.email || 'N/A';
+                    this.clientInfo.address = clientObj.direccion || 'N/A';
+                } else {
+                    this.clientInfo = { name: '', phone: '', email: '', address: '' };
+                }
+            },
+
             init() {
                 // sincronizar con la info del cliente
-                const selectElement = document.getElementById('client_id');
+                /*const selectElement = document.getElementById('client_id');
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
                 this.updateClientInfo(selectedOption ? selectedOption.text : '');
+
+                this.calculateTotals();*/
+
+                const currentClient = @json($invoice->client);
+
+                if(currentClient) {
+                    this.updateClientInfoFromObject(currentClient);
+                }
 
                 this.calculateTotals();
             },
