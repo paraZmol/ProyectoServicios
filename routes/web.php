@@ -35,7 +35,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
 
     // boeltas espesificas
-    Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy'); // Destroy manual si no está en resource
+    //Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy'); // Destroy manual si no está en resource
     Route::get('/invoices/deleted', [InvoiceController::class, 'deleted'])->name('invoices.deleted');
     Route::put('/invoices/{id}/restore', [InvoiceController::class, 'restore'])->name('invoices.restore');
     Route::delete('/invoices/{id}/force-delete', [InvoiceController::class, 'forceDelete'])->name('invoices.forceDelete');
@@ -66,7 +66,8 @@ Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
     Route::resource('clients', ClientController::class);
 
     //boletas
-    Route::resource('invoices', InvoiceController::class)->except(['destroy']);
+    //Route::resource('invoices', InvoiceController::class)->except(['destroy']);
+    Route::resource('invoices', InvoiceController::class);
     Route::get('invoices/{invoice}/ticket', [InvoiceController::class, 'ticket'])->name('invoices.ticket');
     Route::get('invoices/{invoice}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');
 });
