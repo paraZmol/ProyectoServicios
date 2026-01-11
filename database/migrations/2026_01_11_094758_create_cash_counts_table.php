@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('cash_counts', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_cierre');
-            $table->decimal('monto_total', 10, 2);
-            $table->integer('cantidad_ventas')->default(0);
             $table->time('hora_cierre')->nullable();
             $table->foreignId('user_id')->constrained('users');
+            // finanzas
+            $table->decimal('total_recaudado', 10, 2);
+            $table->decimal('total_por_cobrar', 10, 2)->default(0);
+            // conteos
+            $table->integer('cantidad_efectuadas')->default(0);
+            $table->integer('cantidad_pendientes')->default(0);
+            $table->integer('cantidad_anuladas')->default(0);
             $table->timestamps();
         });
     }

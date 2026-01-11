@@ -11,10 +11,17 @@ class CashCount extends Model
 
     protected $fillable = [
         'fecha_cierre',
-        'monto_total',
-        'cantidad_ventas',
         'hora_cierre',
         'user_id',
+
+        // financiero
+        'total_recaudado',
+        'total_por_cobrar',
+
+        // conteo
+        'cantidad_efectuadas',
+        'cantidad_pendientes',
+        'cantidad_anuladas',
     ];
 
     // 1 cierre - 1 usuario
