@@ -341,30 +341,42 @@ class InvoiceController extends Controller
     // cierre de caja - reporte diario
     public function dailyReport(Request $request)
     {
-        // captura de fecha
+        // fecha
         $fecha = $request->get('fecha') ?? \Carbon\Carbon::now()->toDateString();
-
-        // configuracion de moneda
         $setting = Setting::first();
 
-        // consulta de boletas
-        $invoices = Invoice::with('client', 'user', 'details')
+        // usuario actual
+        $user = Auth::user();
+
+        // consulta por usuario
+        $invoices = Invoice::with('client', 'details')
+            ->where('user_id', $user->id) // filtro
             ->whereDate('fecha', $fecha)
-            ->orderBy('id', 'asc')
+            ->orderBy('created_at', 'desc') // ordenar por hora
             ->get();
 
-        // calculo de resumenes
+        // dinero ingresaod
+        $ingreso_pagadas    = $invoices->where('estado', 'Pagada')->sum('total');
+        $ingreso_pendientes = $invoices->where('estado', 'Pendiente')->sum('monto_pagado');
+        $total_recaudado    = $ingreso_pagadas + $ingreso_pendientes;
+
+        // faltante o pendiente
+        $por_cobrar = $invoices->where('estado', 'Pendiente')->sum(function($invoice) {
+            return $invoice->total - $invoice->monto_pagado;
+        });
+
         $resumen = [
-            'total_dia' => $invoices->where('estado', '!=', 'Anulada')->sum('total'),
-            'efectivo'  => $invoices->where('estado', '!=', 'Anulada')->where('metodo_pago', 'Efectivo')->sum('total'),
-            'tarjeta'   => $invoices->where('estado', '!=', 'Anulada')->where('metodo_pago', 'Tarjeta')->sum('total'),
-            'otros'     => $invoices->where('estado', '!=', 'Anulada')->whereNotIn('metodo_pago', ['Efectivo', 'Tarjeta'])->sum('total'),
-            'anuladas'  => $invoices->where('estado', 'Anulada')->count(),
-            'cantidad_ventas' => $invoices->where('estado', '!=', 'Anulada')->count(),
+            'total_dia'           => $total_recaudado, // suma de todo lo cobrado
+            'por_cobrar'          => $por_cobrar,      // seuda pendiente
+            'cantidad_efectuadas' => $invoices->where('estado', 'Pagada')->count(),
+            'cantidad_pendientes' => $invoices->where('estado', 'Pendiente')->count(),
+            'cantidad_anuladas'   => $invoices->where('estado', 'Anulada')->count(),
         ];
 
-        $pdf = Pdf::loadView('invoices.daily_report_pdf', compact('invoices', 'setting', 'fecha', 'resumen'));
+        // cargar
+        $pdf = Pdf::loadView('invoices.daily_report_pdf', compact('invoices', 'setting', 'fecha', 'resumen', 'user'));
         $pdf->setPaper('a4', 'portrait');
-        return $pdf->stream('cierre_caja_' . $fecha . '.pdf');
+
+        return $pdf->stream('cierre_caja_' . $user->name . '_' . $fecha . '.pdf');
     }
 }
