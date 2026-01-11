@@ -23,7 +23,7 @@
             <div class="flex">
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
-                        <img src="{{ $logoUrl }}" alt="{{ $companyName }}" class="block w-auto h-14 bg-white rounded-full"/>
+                        <img src="{{ $logoUrl }}" alt="{{ $companyName }}" class="block w-auto bg-white rounded-full h-14"/>
                         <span class="hidden text-xl font-extrabold tracking-wider text-gray-100 sm:inline">{{ $companyName }}</span>
                     </a>
                 </div>
@@ -138,6 +138,12 @@
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')"
                     class="{{ $base }} {{ request()->routeIs('users.*') ? $activo : $inactivo }}">
                     {{ __('Usuarios') }}
+                </x-responsive-nav-link>
+
+                {{-- reportes historiocs --}}
+                <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')"
+                    class="{{ $base }} {{ request()->routeIs('reports.*') ? $activo : $inactivo }}">
+                    {{ __('Reportes Históricos') }}
                 </x-responsive-nav-link>
             @endif
 

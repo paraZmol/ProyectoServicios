@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -28,6 +29,9 @@ Route::middleware('auth')->group(function(){
 
 // admin y papelera
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    //ruta de reporte historioco
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
     // usuarios espesificos
     Route::get('/users/deleted', [UserController::class, 'deleted'])->name('users.deleted');
     Route::put('/users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
