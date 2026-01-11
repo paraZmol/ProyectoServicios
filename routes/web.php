@@ -65,6 +65,9 @@ Route::middleware(['auth', 'role:admin|trabajador'])->group(function () {
     Route::get('/clients/ajax-search', [ClientController::class, 'searchAjax'])->name('clients.ajax.search');
     Route::resource('clients', ClientController::class);
 
+    //reporte de cierre de caja
+    Route::get('invoices/daily-report', [InvoiceController::class, 'dailyReport'])->name('invoices.dailyReport');
+
     //boletas
     //Route::resource('invoices', InvoiceController::class)->except(['destroy']);
     Route::resource('invoices', InvoiceController::class);
