@@ -189,10 +189,10 @@
                 </td>
 
                 {{-- campo faltante por cobrar --}}
-                <td class="summary-item">
+                {{--<td class="summary-item">
                     <span class="s-label">Faltante (Por Cobrar)</span>
                     <span class="s-value s-warning">{{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($resumen['por_cobrar'], 2) }}</span>
-                </td>
+                </td>--}}
 
                 <td class="summary-item">
                     <span class="s-label">Efectuadas</span>
