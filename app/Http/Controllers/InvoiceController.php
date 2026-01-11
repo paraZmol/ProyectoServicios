@@ -337,4 +337,33 @@ class InvoiceController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar: ' . $e->getMessage());
         }
     }
+
+    // cierre de caja - reporte diario
+    public function dailyReport(Request $request)
+    {
+        // captura de fecha
+        $fecha = $request->get('fecha') ?? \Carbon\Carbon::now()->toDateString();
+
+        // configuracion de moneda
+        $setting = Setting::first();
+
+        // consulta de boletas
+        $invoices = Invoice::with('client', 'user', 'details')
+            ->whereDate('fecha', $fecha)
+            ->orderBy('id', 'asc')
+            ->get();
+
+        // calculo de resumenes
+        $resumen = [
+            'total_dia' => $invoices->where('estado', '!=', 'Anulada')->sum('total'),
+            'efectivo'  => $invoices->where('estado', '!=', 'Anulada')->where('metodo_pago', 'Efectivo')->sum('total'),
+            'tarjeta'   => $invoices->where('estado', '!=', 'Anulada')->where('metodo_pago', 'Tarjeta')->sum('total'),
+            'otros'     => $invoices->where('estado', '!=', 'Anulada')->whereNotIn('metodo_pago', ['Efectivo', 'Tarjeta'])->sum('total'),
+            'anuladas'  => $invoices->where('estado', 'Anulada')->count(),
+            'cantidad_ventas' => $invoices->where('estado', '!=', 'Anulada')->count(),
+        ];
+
+        $pdf = Pdf::loadView('invoices.daily_report_pdf', compact('invoices', 'setting', 'fecha', 'resumen'));
+        return $pdf->stream('cierre_caja_' . $fecha . '.pdf');
+    }
 }
