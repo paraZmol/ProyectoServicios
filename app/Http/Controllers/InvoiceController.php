@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\CashCount;
 
 
 class InvoiceController extends Controller
@@ -355,7 +356,7 @@ class InvoiceController extends Controller
             ->orderBy('created_at', 'desc') // ordenar por hora
             ->get();
 
-        // dinero ingresaod
+        // dinero ingresado
         $ingreso_pagadas    = $invoices->where('estado', 'Pagada')->sum('total');
         $ingreso_pendientes = $invoices->where('estado', 'Pendiente')->sum('monto_pagado');
         $total_recaudado    = $ingreso_pagadas + $ingreso_pendientes;
@@ -365,12 +366,34 @@ class InvoiceController extends Controller
             return $invoice->total - $invoice->monto_pagado;
         });
 
+        // contadores
+        $cant_efectuadas = $invoices->where('estado', 'Pagada')->count();
+        $cant_pendientes = $invoices->where('estado', 'Pendiente')->count();
+        $cant_anuladas   = $invoices->where('estado', 'Anulada')->count();
+
+        // para guardar en la bd
+        CashCount::updateOrCreate(
+            [
+                'fecha_cierre' => $fecha,
+                'user_id'      => $user->id, // 1 cierre por usuario por día
+            ],
+            [
+                'hora_cierre'         => now(),
+                'total_recaudado'     => $total_recaudado,
+                'total_por_cobrar'    => $por_cobrar,
+                'cantidad_efectuadas' => $cant_efectuadas,
+                'cantidad_pendientes' => $cant_pendientes,
+                'cantidad_anuladas'   => $cant_anuladas,
+            ]
+        );
+        // -------------------------------------------------
+
         $resumen = [
-            'total_dia'           => $total_recaudado, // suma de todo lo cobrado
-            'por_cobrar'          => $por_cobrar,      // seuda pendiente
-            'cantidad_efectuadas' => $invoices->where('estado', 'Pagada')->count(),
-            'cantidad_pendientes' => $invoices->where('estado', 'Pendiente')->count(),
-            'cantidad_anuladas'   => $invoices->where('estado', 'Anulada')->count(),
+            'total_dia'           => $total_recaudado,
+            'por_cobrar'          => $por_cobrar,
+            'cantidad_efectuadas' => $cant_efectuadas,
+            'cantidad_pendientes' => $cant_pendientes,
+            'cantidad_anuladas'   => $cant_anuladas,
         ];
 
         // cargar
