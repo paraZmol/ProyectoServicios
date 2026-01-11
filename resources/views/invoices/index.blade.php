@@ -43,10 +43,20 @@
                         </x-primary-button>
                     </form>
 
-                    <a href="{{ route('invoices.create') }}"
-                       class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-lg hover:bg-[#18245b] whitespace-nowrap">
-                        <i class="mr-2 fas fa-plus-circle"></i> {{ __('Nueva Boleta') }}
-                    </a>
+                    {{-- cierre de caja y nueva boleta --}}
+                    <div class="flex space-x-3">
+                        <a href="{{ route('invoices.dailyReport') }}"
+                           class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-red-600 rounded-lg shadow-lg hover:bg-red-700 whitespace-nowrap"
+                           target="_blank">
+                            <i class="mr-2 fas fa-file-pdf"></i> Cierre Caja
+                        </a>
+
+                        <a href="{{ route('invoices.create') }}"
+                            class="flex items-center px-5 py-2 font-bold text-white transition duration-150 ease-in-out bg-[#253891] rounded-lg shadow-lg hover:bg-[#18245b] whitespace-nowrap">
+                            <i class="mr-2 fas fa-plus-circle"></i> {{ __('Nueva Boleta') }}
+                        </a>
+                    </div>
+
                 </div>
 
                 {{-- Tabla de Boletas --}}

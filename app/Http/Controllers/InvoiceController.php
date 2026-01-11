@@ -364,6 +364,7 @@ class InvoiceController extends Controller
         ];
 
         $pdf = Pdf::loadView('invoices.daily_report_pdf', compact('invoices', 'setting', 'fecha', 'resumen'));
+        $pdf->setPaper('a4', 'portrait');
         return $pdf->stream('cierre_caja_' . $fecha . '.pdf');
     }
 }
