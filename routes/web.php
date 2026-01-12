@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function(){
 Route::middleware(['auth', 'role:admin'])->group(function () {
     //ruta de reporte historioco
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    // para descargar reporte
+    Route::get('/reports/pdf', [ReportController::class, 'downloadPdf'])->name('reports.pdf');
 
     // usuarios espesificos
     Route::get('/users/deleted', [UserController::class, 'deleted'])->name('users.deleted');
