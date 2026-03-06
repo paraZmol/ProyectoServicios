@@ -22,6 +22,7 @@ class Invoice extends Model
         'impuesto',
         'total',
         'monto_pagado',
+        'descripcion_pendiente',
         'client_id',
         'user_id',
     ];
