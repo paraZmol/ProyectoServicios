@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         // obtener configuracion
         $setting = Setting::first();
+        //$setting = null;
 
         // configurar nombre de empresa
         $companyNameString = $setting ? $setting->nombre_empresa : 'PROYECTO SERVICIOS S.A.';
