@@ -103,6 +103,7 @@ class InvoiceController extends Controller
                 'impuesto' => $data['impuesto'],
                 'total' => $data['total'],
                 'monto_pagado' => $data['monto_pagado'],
+                'descripcion_pendiente' => $request->input('descripcion_pendiente'),
             ]);
 
             //Log::info("Cabecera creada correctamente", ['invoice_id' => $invoice->id]);
@@ -215,6 +216,7 @@ class InvoiceController extends Controller
                 'impuesto' => $data['impuesto'],
                 'total' => $data['total'],
                 'monto_pagado' => $data['monto_pagado'],
+                'descripcion_pendiente' => $request->input('descripcion_pendiente'),
             ]);
 
             //eliminar items existentes
