@@ -152,8 +152,8 @@
                     <table class="inner-header-table">
                         <tr>
                             <td class="logo-cell">
-                                @if($setting && $setting->logo_path)
-                                    <img src="{{ public_path('storage/' . $setting->logo_path) }}" class="logo">
+                                @if(!empty($pdfLogoBase64))
+                                    <img src="{{ $pdfLogoBase64 }}" class="logo">
                                 @endif
                             </td>
                             <td>

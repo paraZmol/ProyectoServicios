@@ -95,9 +95,9 @@
                                 <div class="inline-block p-2 mt-2 mb-4 border border-gray-200 rounded-lg bg-gray-50">
                                     <img
                                         id="logo-preview"
-                                        src="{{ $setting->logo_path ? Storage::url($setting->logo_path) : asset('img/logo_default.png') }}"
-                                        alt="Logo de la Empresa"
-                                        class="block w-40 h-auto rounded shadow-md"
+                                        src="{{ $logoUrl }}"
+                                        alt="Logo actual"
+                                        class="object-contain w-32 h-32 ml-4 border rounded shadow"
                                     >
                                 </div>
 

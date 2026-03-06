@@ -55,11 +55,7 @@
                                 <p class="text-sm text-gray-600">{{ $setting->telefono ?? 'Teléfono No Definido' }} | {{ $setting->correo_electronico ?? 'Email No Definido' }}</p>
                             </div>
                             <div>
-                                @if ($setting && $setting->logo_path)
-                                    <img src="{{ asset('storage/' . $setting->logo_path) }}" alt="Logo" class="object-contain w-auto h-16">
-                                @else
-                                    <p class="text-xl font-bold text-gray-500">LOGO</p>
-                                @endif
+                                <img src="{{ $logoUrl }}" alt="Logo" class="object-contain w-auto h-16">
                             </div>
                         </div>
 

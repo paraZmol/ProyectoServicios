@@ -159,8 +159,8 @@
                 <table class="company-info-table">
                     <tr>
                         <td class="logo-cell">
-                            @if($setting && $setting->logo_path)
-                                <img src="{{ public_path('storage/' . $setting->logo_path) }}" class="company-logo" alt="logo">
+                            @if(!empty($pdfLogoBase64))
+                                <img src="{{ $pdfLogoBase64 }}" class="company-logo" alt="logo">
                             @endif
                         </td>
                         <td class="text-cell">

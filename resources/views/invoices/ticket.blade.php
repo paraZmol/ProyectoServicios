@@ -66,19 +66,12 @@
 <body onload="window.print()">
 
     <div class="header-container">
-        @if (isset($setting->logo_path) && $setting->logo_path)
-        {{-- ruta al logo --}}
-            @php
-                // asset
-                $logoPath = asset('storage/' . $setting->logo_path);
-            @endphp
-            <div class="header-logo">
-                <img
-                    src="{{ $logoPath }}"
-                    alt="{{ $setting->nombre_empresa ?? 'Logo de la Empresa' }}"
-                >
-            </div>
-        @endif
+        <div class="header-logo">
+            <img
+                src="{{ $logoUrl }}"
+                alt="{{ $setting->nombre_empresa ?? 'Logo de la Empresa' }}"
+            >
+        </div>
 
         <div class="header-info small-text">
             <div class="font-bold uppercase" style="font-size: 12px;">
