@@ -156,6 +156,14 @@
                                             <span>{{ $setting->simbolo_moneda ?? '$' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</span>
                                         </div>
                                     </div>
+                                    
+                                    {{-- descripcion de anticipo mostrada solo si existe y esta pendiente --}}
+                                    @if(!empty($invoice->descripcion_pendiente))
+                                        <div class="pt-3 mt-3 text-sm text-left text-gray-700 border-t border-gray-200">
+                                            <span class="block font-bold">Descripción del Anticipo:</span>
+                                            <p class="mt-1 italic whitespace-pre-line">{{ $invoice->descripcion_pendiente }}</p>
+                                        </div>
+                                    @endif
                                 @endif
                             </div>
                         </div>
