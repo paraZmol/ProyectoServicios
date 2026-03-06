@@ -184,6 +184,9 @@
             <div style="margin-top: 10px; border-top: 1px solid #ddd; padding-top: 5px;">
                 <p>A Cuenta: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->monto_pagado, 2) }}</p>
                 <p style="color: red; font-weight: bold;">Saldo Pendiente: {{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</p>
+                @if(!empty($invoice->descripcion_pendiente))
+                    <p style="margin-top: 5px; font-size: 11px; text-align: left; font-style: italic;"><strong>Nota del Adelanto:</strong> {{ $invoice->descripcion_pendiente }}</p>
+                @endif
             </div>
         @endif
     </div>

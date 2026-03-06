@@ -204,6 +204,11 @@
                 <span style="margin-right: 10px;">Saldo Pendiente:</span>
                 <span>{{ $setting->simbolo_moneda ?? 'S/' }} {{ number_format($invoice->total - $invoice->monto_pagado, 2) }}</span>
             </div>
+            @if(!empty($invoice->descripcion_pendiente))
+                <div style="margin-top: 4px; text-align: left; font-style: italic;">
+                    <strong>Nota:</strong> {{ $invoice->descripcion_pendiente }}
+                </div>
+            @endif
         </div>
     @endif
 
