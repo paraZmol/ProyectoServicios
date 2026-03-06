@@ -210,6 +210,14 @@
                                     x-model="invoiceData.monto_pagado" />
                             </div>
 
+                            <div x-show="invoiceData.estado === 'Pendiente'" x-transition style="display: none;" class="col-span-1 md:col-span-2">
+                                <x-input-label for="descripcion_pendiente" :value="__('Descripción del Anticipo')" />
+                                <textarea id="descripcion_pendiente" name="descripcion_pendiente"
+                                    class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                    rows="2" placeholder="Ej: Adelanto del 50% por servicio..."
+                                    x-model="invoiceData.descripcion_pendiente"></textarea>
+                            </div>
+
                             <div>
                                 <x-input-label for="metodo_pago" :value="__('Método de Pago')" />
                                 <select id="metodo_pago" name="metodo_pago" x-model="invoiceData.metodo_pago" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
@@ -386,6 +394,7 @@
 
                 // para el estado de Pendiente
                 monto_pagado: 0,
+                descripcion_pendiente: '', // Campo nuevo para la descripción del adelanto
 
                 // items y canculos
                 items: @json(old('items', [])),
