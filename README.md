@@ -1,25 +1,131 @@
-📝 ProyectoServicios: Sistema de Gestión y Emisión de Boletas de ServicioEste proyecto es una aplicación web construida con el framework Laravel (PHP) para la gestión interna de clientes, servicios y la emisión de comprobantes de venta (Boletas). El sistema fue desarrollado desde cero para reemplazar un sistema de facturación tradicional por uno optimizado para la venta de servicios y la gestión de roles.✨ Características PrincipalesGestión de Servicios (NO Productos): Módulo optimizado para registrar servicios con código y precio base, sin necesidad de manejar inventario o stock.Emisión de Boletas Dinámicas: Creación de boletas con cálculo automático de impuestos (IVA/IGV) utilizando Alpine.js para la lógica de frontend. Permite la modificación del precio unitario en el momento de la venta.Seguridad y Roles: Control de acceso básico para la gestión de usuarios (Administrador / Vendedor).Configuración Global: Módulo para establecer el nombre de la empresa, tasa de IVA, símbolo monetario y dirección para la impresión de boletas.Arquitectura Sólida: Uso de Form Requests y Transacciones de Base de Datos para asegurar la integridad de los datos en cada boleta.⚙️ Instalación y ConfiguraciónSigue estos pasos para levantar el proyecto en tu entorno local.1. Clonar el RepositorioAsegúrate de estar en el directorio donde quieres alojar tu proyecto.git clone [https://github.com/paraZmol/ProyectoServicios.git](https://github.com/paraZmol/ProyectoServicios.git)
-cd ProyectoServicios/servis
+<div align="center">
+  <img src="public/img/logo_default.png" alt="Logo del Proyecto" width="150"/>
+  <h1>ProyectoServicios</h1>
+  <p><em>Sistema Profesional de Gestión y Emisión de Boletas de Servicios</em></p>
 
-2. Configurar el EntornoInstala las dependencias de Composer (Backend) y Node (Frontend/CSS).# 1. Instalar dependencias de PHP
-composer install
+  [![PHP Version](https://img.shields.io/badge/PHP-8.2+-777BB4?logo=php&logoColor=white)](https://www.php.net/)
+  [![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.1-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Alpine.js](https://img.shields.io/badge/Alpine.js-3.4-8BC0D0?logo=alpine.js&logoColor=white)](https://alpinejs.dev/)
+</div>
 
-# 2. Copiar el archivo de entorno y generar la clave de aplicación
+---
+
+## 📖 Descripción del Proyecto
+
+**ProyectoServicios** es una plataforma web moderna e integral, diseñada específicamente para la administración de clientes, catálogo de servicios y la **emisión de comprobantes de pago (Boletas de Venta)**.
+
+A diferencia de los sistemas de facturación tradicionales enfocados en comercio minorista (retail) y control de stock, este sistema está **optimizado exclusivamente para el rubro de servicios**, permitiendo una facturación ágil, precios dinámicos y generación instantánea de reportes y tickets térmicos.
+
+## ✨ Características Principales
+
+- **Gestión Ágil de Servicios:** Catálogo con precios base modificables al vuelo durante la venta. Sin módulos innecesarios de inventario.
+- **Motor de Comprobantes Multi-formato:** Generación y exportación de boletas en **Web, Ticket Térmico y PDF A4** impulsados por [DomPDF](https://github.com/dompdf/dompdf).
+- **Configuración Global Dinámica:** Personalización completa de la instacia (Nombre de la empresa, divisas, logos, favicon y tasas de impuestos) sin tocar código.
+- **Cierres de Caja Inmediatos:** Reportes diarios e históricos precisos exportables en formato PDF para el control de la recaudación.
+- **Seguridad y Control de Acceso:** Sistema de roles integrados (`Administrador` y `Vendedor/Trabajador`) para delimitar responsabilidades comerciales.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+El sistema ha sido construido sobre una arquitectura robusta, empleando las mejores prácticas del desarrollo web actual:
+
+### Backend
+- **Framework:** Laravel 12.x
+- **Lenguaje:** PHP `>= 8.2`
+- **Base de Datos:** MySQL / MariaDB (Relacional)
+- **Generación PDF:** Barryvdh Laravel DomPDF `^3.1`
+
+### Frontend
+- **Estilizado:** Tailwind CSS `^3.1` mediante compilación con Vite.
+- **Interactividad Reactiva:** Alpine.js `^3.4` para la gestión del estado del lado del cliente (cálculos matemáticos de boletas en tiempo real sin recargar).
+- **Iconografía:** FontAwesome Free `^7.1.0`
+- **Bundler:** Vite `^7.0`
+
+---
+
+## 🏛️ Metodología y Arquitectura
+
+### 1. Integridad Transaccional (ACID)
+La emisión de boletas (Modelo `Invoice`) implementa **Transacciones Estrictas de Base de Datos** (`DB::beginTransaction()` y `DB::rollBack()`). El sistema garantiza que bajo ninguna circunstancia de error (caída de red, error de cálculo) se guarde una boleta incompleta. O se guarda toda la cabecera con sus detalles, o no se guarda nada.
+
+### 2. Modelo de Precios Históricos
+Para resolver el problema común de los cambios de tarifa en los servicios, el sistema adopta el patrón de **Instantáneas de Facturación**. El campo `precio_unitario_final` en los detalles de la boleta se congela al momento de la venta, garantizando que el historial contable se mantenga intacto aunque los servicios originales sufran ajustes de precio en el futuro.
+
+### 3. Rutas y Recursos Consolidados (DRY)
+Todo el sistema de variables globales para las vistas (como el Logo, Favicon e Información del sistema) está inyectado directamente desde el **`AppServiceProvider`** y renderizado eficientemente a base64 cuando se requiere máxima resiliencia en exportaciones locales de PDFs.
+
+### 4. Seguridad en Capas
+Toda la entrada de usuarios pasa por el middleware de seguridad CSRF y validación estricta usando clases **Form Requests** especializadas antes de llegar a cualquier Controlador. El acceso general está defendido por el ecosistema de autenticación de **Laravel Breeze**.
+
+---
+
+## ⚙️ Guía de Instalación y Despliegue
+
+### Prerrequisitos
+- PHP >= 8.2
+- Composer
+- Node.js & npm (>= v18)
+- Servidor de base de datos MySQL o MariaDB
+
+### Pasos de Instalación
+
+**1. Clonar el Repositorio**
+```bash
+git clone https://github.com/paraZmol/ProyectoServicios.git
+cd ProyectoServicios
+```
+
+**2. Instalar Dependencias del Backend**
+```bash
+composer install --optimize-autoloader --no-dev
+```
+
+**3. Instalar Dependencias del Frontend**
+```bash
+npm install
+npm run build
+```
+
+**4. Configuración del Entorno**
+Duplica el archivo de configuración de ejemplo y genera la clave de cifrado maestra de la aplicación:
+```bash
 cp .env.example .env
 php artisan key:generate
+```
+*Abre el archivo `.env` y configura tus credenciales de base de datos (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`).*
 
-# 3. Instalar dependencias de JavaScript/Node
-npm install
-
-# 4. Compilar los estilos CSS y JavaScript
-npm run dev
-
-3. Configuración de la Base de DatosAsegúrate de que tu archivo .env apunte a una base de datos MySQL (o similar) y luego ejecuta las migraciones y el seed de datos.# Crear la base de datos (si no existe) y configurar DB_DATABASE en .env
-# Esto limpiará la base de datos, creará todas las tablas y añadirá datos iniciales.
+**5. Migraciones y Semillas de Datos (Seed)**
+Este paso creará las tablas necesarias en la base de datos y generará el usuario administrador por defecto:
+```bash
+# ADVERTENCIA: Este comando borrará los datos existentes si la base ya tuviera tablas.
 php artisan migrate:fresh --seed
+```
 
-4. Enlace Simbólico (Storage)Necesario para que el logo de la empresa (módulo de Configuración) se pueda mostrar correctamente.php artisan storage:link
+**6. Configuración del Almacenamiento (Importante)**
+Crucial para el correcto despliegue local de los logos y ajustes subidos por los administradores de la plataforma.
+```bash
+php artisan storage:link
+```
 
-5. Iniciar el Servidorphp artisan serve
+**7. Iniciar el Servidor de Pruebas Locally**
+```bash
+php artisan serve
+```
 
-El sistema estará accesible en http://127.0.0.1:8000 o http://localhost:8000.🔒 Credenciales de AccesoEl comando migrate:fresh --seed crea un usuario administrador por defecto:|| Rol | Email | Contraseña || Administrador | admin@demo.com | password |📐 Arquitectura de la Base de DatosLa aplicación utiliza un modelo relacional estricto centrado en la integridad de las ventas (Boletas).| Entidad | Propósito | Relaciones Clave || users | Vendedores y Administradores. Contiene el campo role. | 1:N con invoices || clients | Clientes del servicio. | 1:N con invoices || services | Catálogo de servicios ofrecidos. | 1:N con invoice_details || settings | Configuración global (IVA, Moneda, Nombre de la Empresa). Es un Singleton. | Ninguna || invoices | Cabecera de la Boleta (Fecha, Cliente, Totales). | 1:N con invoice_details || invoice_details | Ítems de la Boleta. Guarda el precio final y el nombre del servicio para la integridad histórica. | N:1 con invoices, N:1 con services |📝 Puntos Clave para el Mantenimiento1. Nomenclatura del CódigoInternamente, los modelos y las tablas (invoices, services) usan el plural en inglés, pero en la interfaz de usuario (vistas) se utiliza la nomenclatura comercial "Boletas" y "Servicios".2. Gestión de RolesEl sistema maneja dos roles primarios que se encuentran en el campo role de la tabla users:admin: (Rol principal, mapeado desde la vista si se requiere).vendedor: (Rol operativo, mapeado desde la vista como Trabajador).El validador (UserStoreRequest.php) convierte el rol 'Trabajador' de la vista al rol 'vendedor' para la base de datos.3. Lógica de Boletas (Transacciones)La creación de una boleta está envuelta en una transacción de base de datos (DB::beginTransaction() en InvoiceController@store). Si falla la creación de un solo detalle (invoice_details), toda la boleta se revierte (DB::rollBack), garantizando que no haya registros incompletos o erróneos.4. Manejo de Precios UnitariosLa tabla invoice_details guarda el campo precio_unitario_final. Este es el precio que se muestra en la boleta, asegurando que si el precio base del servicio cambia mañana, la boleta histórica mantiene el precio cobrado originalmente.
+---
+
+## 🔒 Credenciales por Defecto
+
+Después de ejecutar la instalación y hacer el *seed*, el sistema generará una cuenta Super Administrador de acceso inmediato:
+
+| Rol | Correo Electrónico | Contraseña |
+|-----|-------------------|------------|
+| Multi-Admin | `admin@demo.com` | `password` |
+
+*(Se recomienda encarecidamente cambiar esta contraseña inmediatamente después del primer inicio de sesión comercial)*
+
+---
+
+*Desarrollado con altos estándares de calidad y pensado para el escalamiento a futuro.*
