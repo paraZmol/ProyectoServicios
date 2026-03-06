@@ -42,17 +42,34 @@ class AppServiceProvider extends ServiceProvider
 
         // confuguracion de logo de empresa
         $defaultLogoUrl = asset('img/logo_default.png');
+        // Ruta base absoluta para la imagen por defecto (útil para PDF base64)
+        $defaultLogoAbsolutePath = public_path('img/logo_default.png');
+        
         $logoPath = $setting ? $setting->logo_path : null;
+
+        // variables para la vista web y para el PDF base64
+        $logoUrl = $defaultLogoUrl;
+        $logoAbsolutePath = $defaultLogoAbsolutePath;
 
         // cambio a storage disk
         if ($logoPath && Storage::disk('public')->exists($logoPath)) {
-            // storage link
+            // para vistas web normales
             $logoUrl = Storage::url($logoPath);
-        } else {
-            $logoUrl = $defaultLogoUrl;
+            // para el generador PDF que falla con rutas de Windows
+            $logoAbsolutePath = Storage::disk('public')->path($logoPath);
         }
 
+        // Compartir URL normal para webs
         View::share('logoUrl', $logoUrl);
+
+        // Convertir la imagen final (subida o defecto) a Base64 para inyectar directo al HTML del PDF
+        $pdfLogoBase64 = '';
+        if (file_exists($logoAbsolutePath)) {
+            $type = pathinfo($logoAbsolutePath, PATHINFO_EXTENSION);
+            $data = file_get_contents($logoAbsolutePath);
+            $pdfLogoBase64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        }
+        View::share('pdfLogoBase64', $pdfLogoBase64);
 
         // icono por defecto
         $defaultFaviconUrl = asset('img/icon_default.png');

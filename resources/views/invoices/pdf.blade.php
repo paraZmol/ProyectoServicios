@@ -94,13 +94,9 @@
         <table class="header-table">
             <tr>
                 <td width="25%">
-                    @if (isset($setting->logo_path) && $setting->logo_path)
-                        {{-- Generar la ruta absoluta requerida por Dompdf --}}
-                        @php
-                            $logoPath = 'file://' . \Illuminate\Support\Facades\Storage::disk('public')->path($setting->logo_path);
-                        @endphp
+                    @if (!empty($pdfLogoBase64))
                         <img
-                            src="{{ $logoPath }}"
+                            src="{{ $pdfLogoBase64 }}"
                             alt="{{ $setting->nombre_empresa ?? 'Logo de la Empresa' }}"
                             class="logo"
                         >
