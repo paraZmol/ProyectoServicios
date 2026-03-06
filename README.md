@@ -14,7 +14,7 @@
 
 ## 📖 Descripción del Proyecto
 
-**ProyectoServicios** es una plataforma web bastante moderna y completa, pensada especialmente para que administres la información de tus clientes, tengas tu catálogo de servicios ordenado y unifiques toda la **emisión de comprobantes de pago**. El sistema genera sus facturas exclusivamente como **Boletas de Venta - formato A4 corporativo -** y **Tickets Térmicos de 80mm** que están listos para entregar al cliente en tu mostrador o punto de venta.
+**ProyectoServicios** es una plataforma web bastante moderna y completa, pensada especialmente para que administres la información de tus clientes, tengas tu catálogo de servicios ordenado y unifiques toda la **emisión de comprobantes de pago**. El sistema genera sus facturas exclusivamente como **Boletas de Venta - formato A4 corporativo** y **Tickets Térmicos de 80mm** que están listos para entregar al cliente en tu mostrador o punto de venta.
 
 A diferencia de los sistemas de facturación de toda la vida que están pensados solo para tiendas o bodegas - donde te obligan a llevar un control estricto de unidades y stock -, esta plataforma fue **creada exclusivamente para los negocios que ofrecen servicios**. Su forma de trabajar permite que tus vendedores o cajeros puedan cambiar el precio de un servicio al instante justo al momento de cobrar, registrar adelantos de dinero o hacer cobros inmediatos. Todo esto desde una pantalla muy fácil de usar y que además se adapta perfectamente a tu celular o tablet.
 
@@ -22,7 +22,7 @@ A diferencia de los sistemas de facturación de toda la vida que están pensados
 
 ## ✨ Características y Funcionalidades Clave
 
-### 1. Panel Cero Pérdida - Papeleras de Reciclaje -
+### 1. Panel Cero Pérdida - Papeleras de Reciclaje
 En un negocio con mucho movimiento, los errores humanos o borrar cosas sin querer van a pasar sí o sí. Para evitar dolores de cabeza, el sistema tiene una "Papelera" mágica para todo lo importante: Clientes, Servicios, Boletas y Usuarios. Si alguien hace clic en "Eliminar", el elemento desaparece de la vista del trabajador pero se esconde de forma segura. Solo un Administrador puede entrar al menú de Papeleras escondidas, revisar qué pasó y devolver la información a donde estaba, o borrarla para siempre de existir confirmación.
 
 ### 2. Diseño 100% Adaptable para Celulares
@@ -47,7 +47,7 @@ Hay una pantalla única para que subas tu logo corporativo o cambies el porcenta
 
 ## 📋 Requisitos del Sistema
 
-### Lo que hace el sistema por ti - Funcionalidades -
+### Lo que hace el sistema por ti - Funcionalidades
 - **Caja Rápida:** Tu cajero puede armar la boleta, cambiarle los precios al vuelo y ver cómo se suma el total automáticamente sin que la pantalla cargue o parpadee.
 - **Botón de Pánico Administrativo:** Si borran boletas, el jefe del negocio tiene un menú escondido tipo papelera de reciclaje para salvar la situación.
 - **Control de Adelantos:** Puedes crear boletas pendientes y asentar por escrito qué trato hiciste con el cliente y cuánto te dio de anticipo.
@@ -60,11 +60,11 @@ Hay una pantalla única para que subas tu logo corporativo o cambies el porcenta
 
 ---
 
-## 🎭 Casos de Uso Diarios - Ejemplos de Trabajo -
+## 🎭 Casos de Uso Diarios - Ejemplos de Trabajo
 
 ### Ejemplo 1: Cobrando con un Descuento Rápido
 1. Un cliente de siempre viene por su Mantenimiento de Servidor.
-2. Tu trabajador abre la boleta y busca al cliente - sin tener que volver a registrarlo -.
+2. Tu trabajador abre la boleta y busca al cliente - sin tener que volver a registrarlo.
 3. El mantenimiento cuesta $ 200, pero conversando acuerdan dejarlo a $ 180. El trabajador le cambia el precio ahí mismo y la cobra como Pagada.
 4.  El sistema guarda la venta a $ 180 pero mantiene tu catálogo oficial intacto a $ 200. Sale la boleta A4 en PDF lista para imprimir.
 
@@ -107,7 +107,7 @@ El negocio funciona con tres perfiles que vienen listos para usarse:
 
 ## 🔄 Últimas Mejoras 
 
-### **v1.6.0 - Actual -**
+### **v1.6.0 - Actual**
 - **Novedad Principal:** Añadidas las Papeleras de Reciclaje. Ahora puedes recuperar absolutamente todo sin entrar en pánico si alguien se equivoca borrando cosas.
 - **Adelantos Completos:** Se mejoró muchísimo la opción de "A Cuenta". Ahora el sistema maneja recibos de Saldo por Cobrar con avisos y notas especiales en los PDFs.
 - **Súper Celular:** Ahora la vista en tu móvil se ve mejor que nunca. Transformamos todas esas tablas apretadas en tarjetas apiladas para que trabajes cómodo en la calle.
@@ -124,8 +124,8 @@ El negocio funciona con tres perfiles que vienen listos para usarse:
 ## ⚙️ Guía de Instalación Rápida para Producción
 
 ### Requisitos Mínimos
-- Servidor web - Apache, Nginx o Litespeed -
-- PHP 8.2 en adelante - Con la extensión GD encendida sí o sí para que tus logos funcionen -
+- Servidor web - Apache, Nginx o Litespeed
+- PHP 8.2 en adelante - Con la extensión GD encendida sí o sí para que tus logos funcionen
 - Base de datos MySQL 8.0 en adelante.
 - Tener instalado Node.js y Composer.
 
